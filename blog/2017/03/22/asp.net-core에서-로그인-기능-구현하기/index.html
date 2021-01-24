@@ -25,14 +25,14 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blog/2017/03/22/asp.net-core%EC%97%90%EC%84%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/" />
 <meta property="article:published_time" content="2017-03-22T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-01-24T19:50:38+09:00" /><meta property="og:site_name" content="한국어 버전 타이틀" />
+<meta property="article:modified_time" content="2017-03-22T00:00:00+00:00" /><meta property="og:site_name" content="한국어 버전 타이틀" />
 <meta itemprop="name" content="Asp.net Core에서 로그인 기능 구현하기">
 <meta itemprop="description" content="로그인 기능 구현하기 본 튜토리얼은 인도아자씨네튜토리얼 깔끔한아자씨네가 뷰컴포넌트 정리한거 의 튜토리얼을 참고하였음을 알려드립니다.
  필요한 패키지 설치.  {% highlight csharp %}
  EntityFrameworkCore를 사용할 예정이므로 함께 연결할 데이터베이스 서버 패키지도 설치해 놓으면 된다. {% highlight csharp %} &lt;PackageReference Include=&quot;Microsoft.EntityFrameworkCore.SqlServer&quot; Version=&quot;1.1.1&quot; /&gt; 이외에도 mysql, sqlite등을 연결 할 수 있다.
 회원정보를 다룰 DbContext, User, Role 클래스를 생성한다.  로컬 sql 서버에 회원 정보를 저장할 것이므로, 접근할 때 필요한 db context 를 생성해야한다.">
 <meta itemprop="datePublished" content="2017-03-22T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-01-24T19:50:38+09:00" />
+<meta itemprop="dateModified" content="2017-03-22T00:00:00+00:00" />
 <meta itemprop="wordCount" content="671">
 
 
@@ -170,10 +170,10 @@
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/blog/~2018/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">2018 이전 글</a>
+    <a  href="/blog/until2018/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">2018 이전 글</a>
   </li>
   <ul>
-    <li class="collapse show" id="blog2018">
+    <li class="collapse show" id="bloguntil2018">
       
       
       
@@ -726,6 +726,22 @@
         
           
           
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-blog20191107reflect-ec96b4eb96bbeab28c-ec93b0eca780-2" href="/blog/2019/11/07/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-2/">reflect 어떻게 쓰지 - 2</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-blog20191106reflect-ec96b4eb96bbeab28c-ec93b0eca780-1" href="/blog/2019/11/06/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-1/">reflect 어떻게 쓰지 - 1</a>
+        
+      
+      
+      
+        
+          
+          
           <a class="td-sidebar-link td-sidebar-link__page " id="m-blog20191019ec96b8eb8b88eab080-ec82aceca480-eba7a5-eba6bdec8aa4ed8bb1-ec8389eab994" href="/blog/2019/10/19/%EC%96%B8%EB%8B%88%EA%B0%80-%EC%82%AC%EC%A4%80-%EB%A7%A5-%EB%A6%BD%EC%8A%A4%ED%8B%B1-%EC%83%89%EA%B9%94/">언니가 사준 맥 립스틱 색깔</a>
         
       
@@ -866,22 +882,6 @@
         
       
       
-      
-        
-          
-          
-          <a class="td-sidebar-link td-sidebar-link__page " id="m-blog10101reflect-ec96b4eb96bbeab28c-ec93b0eca780-1" href="/blog/1/01/01/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-1/">reflect 어떻게 쓰지 - 1</a>
-        
-      
-      
-      
-        
-          
-          
-          <a class="td-sidebar-link td-sidebar-link__page " id="m-blog10101reflect-ec96b4eb96bbeab28c-ec93b0eca780-2" href="/blog/1/01/01/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-2/">reflect 어떻게 쓰지 - 2</a>
-        
-      
-      
     </li>
   </ul>
 </ul>
@@ -920,8 +920,8 @@
     
     
 
-    <a href="https://github.com/matilda38/matilda38.github.io/edit/master/content/ko/blog/~2018/2017-03-22-asp.net-authentification.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 페이지 편집</a>
-    <a href="https://github.com/matilda38/matilda38.github.io/new/master/content/ko/blog/~2018/2017-03-22-asp.net-authentification.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
+    <a href="https://github.com/matilda38/matilda38.github.io/edit/master/content/ko/blog/Until2018/2017-03-22-asp.net-authentification.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 페이지 편집</a>
+    <a href="https://github.com/matilda38/matilda38.github.io/new/master/content/ko/blog/Until2018/2017-03-22-asp.net-authentification.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
     <a href="https://github.com/matilda38/matilda38.github.io/issues/new?title=Asp.net%20Core%ec%97%90%ec%84%9c%20%eb%a1%9c%ea%b7%b8%ec%9d%b8%20%ea%b8%b0%eb%8a%a5%20%ea%b5%ac%ed%98%84%ed%95%98%ea%b8%b0" target="_blank"><i class="fab fa-github fa-fw"></i> 문서에 이슈 생성</a>
     
       
@@ -930,7 +930,7 @@
 
   
   
-    <a id="print" href="/blog/~2018/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+    <a id="print" href="/blog/until2018/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
   
   </div>
 

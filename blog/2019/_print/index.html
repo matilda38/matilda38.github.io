@@ -284,6 +284,26 @@ This the multi-page printable view of this section.
     
 	
 
+    <li><a href="#pg-8bdfe4098c42101747264a2bec233bd7">reflect 어떻게 쓰지 - 2</a></li>
+
+
+
+    
+  
+    
+    
+	
+
+    <li><a href="#pg-d53c72cb81c4e15423fcac286eacb365">reflect 어떻게 쓰지 - 1</a></li>
+
+
+
+    
+  
+    
+    
+	
+
     <li><a href="#pg-4cb1018c33a47db3bc3d07ddce484bf4">언니가 사준 맥 립스틱 색깔</a></li>
 
 
@@ -455,26 +475,6 @@ This the multi-page printable view of this section.
 	
 
     <li><a href="#pg-d79c3fedd310c9fb9b42d7c0da7c295e">Kubernetes Deployment(삽질)</a></li>
-
-
-
-    
-  
-    
-    
-	
-
-    <li><a href="#pg-d53c72cb81c4e15423fcac286eacb365">reflect 어떻게 쓰지 - 1</a></li>
-
-
-
-    
-  
-    
-    
-	
-
-    <li><a href="#pg-8bdfe4098c42101747264a2bec233bd7">reflect 어떻게 쓰지 - 2</a></li>
 
 
 
@@ -1807,6 +1807,203 @@ wrapper ? ReactDOM.render(<App />, wrapper) : null;
   
 
 <div class="td-content" style="page-break-before: always">
+    <h1 id="pg-8bdfe4098c42101747264a2bec233bd7">reflect 어떻게 쓰지 - 2</h1>
+	
+	<div class="td-byline mb-4">
+		
+        
+		<time datetime="2019-11-07" class="text-muted">2019.11.07</time>
+        
+	</div>
+	<p>Reflect를 사용해서 좀 더 복잡한 로직을 수행하는 예제이다.
+예를 들어 API 서버의 들어오는 Request와 나가는 Response 를 모두 서버에 로그로 남겨두는 경우,
+해당 Request와 Response 의 특정 필드는 개인정보에 해당하므로 비식별화한 후 저장하도록 하게 하고싶다고 한다.
+그리고 이때 Request 와 Response는 모두 JSON 으로 주고 받는다.</p>
+<ul>
+<li>앱로그</li>
+<li>트랜잭션로그</li>
+</ul>
+<p>재사용 가능한 middleware/transaction.go</p>
+<p>개선사항</p>
+<ol>
+<li>data 가 포인터이든, 값이든 대응 할 수 있도록 type 검사를 수행하고, map[string]string을 대신에 기존 data의 타입을 복사해서 새로운 변수를 만든다. reflect.New를 이용하여 파라미터로 넘어온 특정 타입의 변수를 만들수 있다. 단, 포인터로 만들어지므로 주의해서 쓰도록 한다.</li>
+</ol>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Ptr</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">buffdata</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">New</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Elem</span><span style="color:#000;font-weight:bold">()).</span><span style="color:#000">Interface</span><span style="color:#000;font-weight:bold">()</span>
+<span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">buffdata</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">New</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">)).</span><span style="color:#000">Interface</span><span style="color:#000;font-weight:bold">()</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>buffdata 라는 data와 같은 타입의 변수를 만들었으니 해당 변수에 copy한다. copier라는 라이브러리를 사용하였고 struct에서 struct로 복사할 수 있게 해주는 라이브러리이다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">copier</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Copy</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">buffdata</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">data</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Error</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;Fail to copy data for response log&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><ol start="2">
+<li>로그를 남기는 것은 async로 처리하여, 속도를 높힌다
+ShouldBindJson는 Request를 특정 struct로 binding 하기 위해 사용하는 것인데, 이를 Wrapping하여 Request 로그를 남기는 로직을 추가한 것이므로, 뒤에 로직같은 경우엔 비동기로 처리하는 것이 좋다.</li>
+</ol>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">wg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Add</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#204a87;font-weight:bold">go</span> <span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(){</span>
+	<span style="color:#204a87;font-weight:bold">defer</span> <span style="color:#000">wg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Done</span><span style="color:#000;font-weight:bold">()</span>
+	<span style="color:#000">deidentify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ValueOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">buffdata</span><span style="color:#000;font-weight:bold">))</span>
+	
+	<span style="color:#000">headers</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">json</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Marshal</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Request</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Header</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000">body</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">json</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Marshal</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">buffdata</span><span style="color:#000;font-weight:bold">)</span>
+	
+	<span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Transaction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TransactionLog</span><span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">Type</span><span style="color:#000;font-weight:bold">:</span>    <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">LogTypeRequest</span><span style="color:#000;font-weight:bold">,</span>
+		<span style="color:#000">URL</span><span style="color:#000;font-weight:bold">:</span>     <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Request</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">URL</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">(),</span>
+		<span style="color:#000">Method</span><span style="color:#000;font-weight:bold">:</span>  <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Request</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Method</span><span style="color:#000;font-weight:bold">,</span>
+		<span style="color:#000">Headers</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">headers</span><span style="color:#000;font-weight:bold">,</span>
+		<span style="color:#000">Body</span><span style="color:#000;font-weight:bold">:</span>    <span style="color:#000">body</span><span style="color:#000;font-weight:bold">})</span>
+<span style="color:#000;font-weight:bold">}()</span>
+<span style="color:#000">wg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Wait</span><span style="color:#000;font-weight:bold">()</span>
+</code></pre></div><ol start="3">
+<li>비식별화 로직 한 함수에 정리하여 비식별화 로직과 request/response 처리 로직 분리</li>
+</ol>
+<p>=&gt; 이전 비식별화 + request 처리 혼재 / 비식별화 + response 처리 혼재</p>
+<ul>
+<li>
+<p>Parameter가 포인터이면 안되는 함수
+=&gt; 해당 value 종류가 reflect.Ptr / reflect.Interface 이면 Elem() 처리</p>
+</li>
+<li>
+<p>Nested Struct JSON을 처리할때 DeepFields, DeepTag를 이용해서 Field와 Tag를 각각 모두 뽑아내어 처리하기
+=&gt; 비식별화 함수 로직 자체를 깔끔하게 해서 한 함수 내에서 처리</p>
+</li>
+</ul>
+<p><em>Old</em></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">DeepFields</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">iface</span> <span style="color:#204a87;font-weight:bold">interface</span><span style="color:#000;font-weight:bold">{})</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">fields</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87">make</span><span style="color:#000;font-weight:bold">([]</span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000">ifaceValue</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ValueOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">iface</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000">ifaceType</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">iface</span><span style="color:#000;font-weight:bold">)</span>
+
+	<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">i</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">i</span> <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#000">ifaceType</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">NumField</span><span style="color:#000;font-weight:bold">();</span> <span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">++</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">v</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">ifaceValue</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Field</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">)</span>
+		<span style="color:#204a87;font-weight:bold">switch</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Struct</span><span style="color:#000;font-weight:bold">:</span>
+			<span style="color:#000">fields</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87">append</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">fields</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">DeepFields</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Interface</span><span style="color:#000;font-weight:bold">())</span><span style="color:#ce5c00;font-weight:bold">...</span><span style="color:#000;font-weight:bold">)</span>
+		<span style="color:#204a87;font-weight:bold">default</span><span style="color:#000;font-weight:bold">:</span>
+			<span style="color:#000">fields</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87">append</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">fields</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">)</span>
+		<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">fields</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p><em>NEW</em></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">deidentify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Ptr</span> <span style="color:#ce5c00;font-weight:bold">||</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Interface</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">v</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Elem</span><span style="color:#000;font-weight:bold">()</span>
+	<span style="color:#000;font-weight:bold">}</span>
+
+	<span style="color:#204a87;font-weight:bold">switch</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Slice</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Array</span><span style="color:#000;font-weight:bold">:</span>
+		<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">idx</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">idx</span> <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Len</span><span style="color:#000;font-weight:bold">();</span> <span style="color:#000">idx</span><span style="color:#ce5c00;font-weight:bold">++</span> <span style="color:#000;font-weight:bold">{</span>
+			<span style="color:#000">deidentify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Index</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">))</span>
+		<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Struct</span><span style="color:#000;font-weight:bold">:</span>
+		<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">idx</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">idx</span> <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Type</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">NumField</span><span style="color:#000;font-weight:bold">();</span> <span style="color:#000">idx</span><span style="color:#ce5c00;font-weight:bold">++</span> <span style="color:#000;font-weight:bold">{</span>
+			<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Type</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">Field</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Tag</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;deidentify&#34;</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#4e9a06">&#34;true&#34;</span> <span style="color:#000;font-weight:bold">{</span>
+				<span style="color:#000">mask</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Field</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">))</span>
+			<span style="color:#000;font-weight:bold">}</span>
+			<span style="color:#000">deidentify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Field</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">))</span>
+		<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">mask</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">switch</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">:</span>
+		<span style="color:#000">values</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87">rune</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">())</span>
+
+		<span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">result</span> <span style="color:#204a87;font-weight:bold">string</span>
+		
+		<span style="color:#000">masked</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87">make</span><span style="color:#000;font-weight:bold">([]</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87">len</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">values</span><span style="color:#000;font-weight:bold">))</span>
+		<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">idx</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">masked</span> <span style="color:#000;font-weight:bold">{</span>
+			<span style="color:#000">masked</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;*&#34;</span>
+		<span style="color:#000;font-weight:bold">}</span>
+
+		<span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SetString</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">strings</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Join</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">masked</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">))</span>
+	<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><blockquote>
+<p>Rune을 쓰는 이유!</p>
+</blockquote>
+
+</div>
+
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+  
+
+<div class="td-content" style="page-break-before: always">
+    <h1 id="pg-d53c72cb81c4e15423fcac286eacb365">reflect 어떻게 쓰지 - 1</h1>
+	
+	<div class="td-byline mb-4">
+		
+        
+		<time datetime="2019-11-06" class="text-muted">2019.11.06</time>
+        
+	</div>
+	<p>Reflect을 가장 먼저 접하게 된것은 작년이었는데 그때 당시엔 그냥 대충 써보다가 어려워서 기존에 사용했었던 코드들에서도 다 reflect를 빼버렸었다. 당장 급했는데 자꾸 뭐시기 뭐시기 나오네 이러고 별로 이해하려는 노력 없이 사용했었기 때문이었던 것같다.</p>
+<p>그러다 다시 go를 쓰게 되서 코딩을 하다가 또 reflect를 사용해야하는 경우를 발견했는데,</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">sampleJSON</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">Num</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#4e9a06">`json:&#34;NUM&#34; joyful:&#34;true&#34;`</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>뭐 이런식으로 되어있다고 할때, json struct field의 tag를 받아오고 싶을 때 어떻게 할지를 찾아보다가 reflect를 사용하게 되면 쉽게 가능하다는 걸 알게 되었다.</p>
+<p>일단 잠시 reflect 맛을 보기 위해 예제를 수행해보자</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// 예를 들어 sj라는 이름의 sample Json struct가 있다고 하자
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">sj</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">sampleJSON</span><span style="color:#000;font-weight:bold">{</span><span style="color:#4e9a06">&#34;01000000000&#34;</span><span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ValueOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">sj</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Type</span><span style="color:#000;font-weight:bold">())</span>
+<span style="color:#8f5902;font-style:italic">// 1. reflect.ValueOf(interface) 해당 인터페이스의 reflect.Value값이 나온다
+</span><span style="color:#8f5902;font-style:italic">// 2. 거기서 Type()을 호출하면 해당 변수의 타입이 나온다. 여기선 sampleJSON
+</span><span style="color:#8f5902;font-style:italic">// 3. 해당 타입의 Kind()를 조회해보면 구조체이므로 reflect.Struct이다
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ValueOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">sj</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Type</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Struct</span><span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;say hello to struct&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>즉 reflect는 특정 interface 값의 Value를 조회할 수 있도록한다. 이 Value를 가지고 여러가지를 해볼 수 있는데 이는 추후에 하도록 하고, 일단 이 Value에 Type()을 조회하면 해당 변수의 값이 아닌 sampleJson 구조체 타입 자체의 정보를 다룰수 있다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ValueOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">sj</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Type</span><span style="color:#000;font-weight:bold">()</span>
+<span style="color:#8f5902;font-style:italic">// main.sampleJSON
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">sj</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#8f5902;font-style:italic">// main.sampleJSON
+</span></code></pre></div><p>또한 위 두 줄은 같은 역할을 수행하므로 밑에 TypeOf를 사용해도 무방하다.</p>
+<p>이제 Json tag를 본격적으로 찾아보려면,</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">structTag</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">sj</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Field</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Tag</span>
+<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">structTag</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#8f5902;font-style:italic">// json:&#34;NUM&#34; joyful:&#34;true&#34;
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">structTag</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;joyful&#34;</span><span style="color:#000;font-weight:bold">))</span>
+<span style="color:#8f5902;font-style:italic">// true
+</span></code></pre></div><p>위와 같이 하면 되는데, tag는 reflect.StructField 에 저장되있는 속성이므로 TypeOf으로 타입을 조회한 후, Field(특정 필드를 선택)로 StructField 를 받아오면된다. 또한 특정 태그만 받아오고 싶을시 Get을 통해 특정태그만 받아올 수도 있다.</p>
+<p>주의할 점은 위에서 설명한건 reflect.ValueOf 또는 TypeOf의 파라미터로 들어온 interface타입이 값일때를 말한다는 것이다. 만약 포인터값일때는</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">sj</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Elem</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">Field</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Tag</span>
+</code></pre></div><p>이런식으로 Elem()을 추가해주도록한다. 따라서 요기능을 넣는 함수들에는 해당 값이 값인지 포인터인지 판단하는 로직이 들어가야한다.</p>
+
+</div>
+
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+  
+
+<div class="td-content" style="page-break-before: always">
     <h1 id="pg-4cb1018c33a47db3bc3d07ddce484bf4">언니가 사준 맥 립스틱 색깔</h1>
 	
 	<div class="td-byline mb-4">
@@ -2881,199 +3078,6 @@ kubectl set image deployments/exercise exercise=docker.io/{username}/exercise
 </code></pre><p>이런식으로 두 번 치는걸로 이미지를 강제 업데이트 시켜 rolling update를 유도할 수 있다. 단 이 방법은 tag 가 latest일때만 작동한다. develop같이 branch 이름으로 하는 경우에는 또 동작하지않는다.</p>
 <p>이를 다 테스트 해보기 위해 로컬에 kubernetes를 설치하고 하나하나 해봤는데, 다행히 Mac에는 Docker for Mac을 이용하면 쉽게 설치할 수 있었다.</p>
 <p><a href="https://eksworkshop.com/logging/">https://eksworkshop.com/logging/</a></p>
-
-</div>
-
-
-
-
-
-    
-	
-  
-    
-    
-	
-    
-
-
-  
-
-<div class="td-content" style="page-break-before: always">
-    <h1 id="pg-d53c72cb81c4e15423fcac286eacb365">reflect 어떻게 쓰지 - 1</h1>
-	
-	<div class="td-byline mb-4">
-		
-        
-	</div>
-	<p>Reflect을 가장 먼저 접하게 된것은 작년이었는데 그때 당시엔 그냥 대충 써보다가 어려워서 기존에 사용했었던 코드들에서도 다 reflect를 빼버렸었다. 당장 급했는데 자꾸 뭐시기 뭐시기 나오네 이러고 별로 이해하려는 노력 없이 사용했었기 때문이었던 것같다.</p>
-<p>그러다 다시 go를 쓰게 되서 코딩을 하다가 또 reflect를 사용해야하는 경우를 발견했는데,</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">sampleJSON</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#000">Num</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#4e9a06">`json:&#34;NUM&#34; joyful:&#34;true&#34;`</span>
-<span style="color:#000;font-weight:bold">}</span>
-</code></pre></div><p>뭐 이런식으로 되어있다고 할때, json struct field의 tag를 받아오고 싶을 때 어떻게 할지를 찾아보다가 reflect를 사용하게 되면 쉽게 가능하다는 걸 알게 되었다.</p>
-<p>일단 잠시 reflect 맛을 보기 위해 예제를 수행해보자</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// 예를 들어 sj라는 이름의 sample Json struct가 있다고 하자
-</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">sj</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">sampleJSON</span><span style="color:#000;font-weight:bold">{</span><span style="color:#4e9a06">&#34;01000000000&#34;</span><span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ValueOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">sj</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Type</span><span style="color:#000;font-weight:bold">())</span>
-<span style="color:#8f5902;font-style:italic">// 1. reflect.ValueOf(interface) 해당 인터페이스의 reflect.Value값이 나온다
-</span><span style="color:#8f5902;font-style:italic">// 2. 거기서 Type()을 호출하면 해당 변수의 타입이 나온다. 여기선 sampleJSON
-</span><span style="color:#8f5902;font-style:italic">// 3. 해당 타입의 Kind()를 조회해보면 구조체이므로 reflect.Struct이다
-</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ValueOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">sj</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Type</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Struct</span><span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;say hello to struct&#34;</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#000;font-weight:bold">}</span>
-</code></pre></div><p>즉 reflect는 특정 interface 값의 Value를 조회할 수 있도록한다. 이 Value를 가지고 여러가지를 해볼 수 있는데 이는 추후에 하도록 하고, 일단 이 Value에 Type()을 조회하면 해당 변수의 값이 아닌 sampleJson 구조체 타입 자체의 정보를 다룰수 있다.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ValueOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">sj</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Type</span><span style="color:#000;font-weight:bold">()</span>
-<span style="color:#8f5902;font-style:italic">// main.sampleJSON
-</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">sj</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#8f5902;font-style:italic">// main.sampleJSON
-</span></code></pre></div><p>또한 위 두 줄은 같은 역할을 수행하므로 밑에 TypeOf를 사용해도 무방하다.</p>
-<p>이제 Json tag를 본격적으로 찾아보려면,</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">structTag</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">sj</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Field</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Tag</span>
-<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">structTag</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#8f5902;font-style:italic">// json:&#34;NUM&#34; joyful:&#34;true&#34;
-</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">structTag</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;joyful&#34;</span><span style="color:#000;font-weight:bold">))</span>
-<span style="color:#8f5902;font-style:italic">// true
-</span></code></pre></div><p>위와 같이 하면 되는데, tag는 reflect.StructField 에 저장되있는 속성이므로 TypeOf으로 타입을 조회한 후, Field(특정 필드를 선택)로 StructField 를 받아오면된다. 또한 특정 태그만 받아오고 싶을시 Get을 통해 특정태그만 받아올 수도 있다.</p>
-<p>주의할 점은 위에서 설명한건 reflect.ValueOf 또는 TypeOf의 파라미터로 들어온 interface타입이 값일때를 말한다는 것이다. 만약 포인터값일때는</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">sj</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Elem</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">Field</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Tag</span>
-</code></pre></div><p>이런식으로 Elem()을 추가해주도록한다. 따라서 요기능을 넣는 함수들에는 해당 값이 값인지 포인터인지 판단하는 로직이 들어가야한다.</p>
-
-</div>
-
-
-
-
-
-    
-	
-  
-    
-    
-	
-    
-
-
-  
-
-<div class="td-content" style="page-break-before: always">
-    <h1 id="pg-8bdfe4098c42101747264a2bec233bd7">reflect 어떻게 쓰지 - 2</h1>
-	
-	<div class="td-byline mb-4">
-		
-        
-	</div>
-	<p>Reflect를 사용해서 좀 더 복잡한 로직을 수행하는 예제이다.
-예를 들어 API 서버의 들어오는 Request와 나가는 Response 를 모두 서버에 로그로 남겨두는 경우,
-해당 Request와 Response 의 특정 필드는 개인정보에 해당하므로 비식별화한 후 저장하도록 하게 하고싶다고 한다.
-그리고 이때 Request 와 Response는 모두 JSON 으로 주고 받는다.</p>
-<ul>
-<li>앱로그</li>
-<li>트랜잭션로그</li>
-</ul>
-<p>재사용 가능한 middleware/transaction.go</p>
-<p>개선사항</p>
-<ol>
-<li>data 가 포인터이든, 값이든 대응 할 수 있도록 type 검사를 수행하고, map[string]string을 대신에 기존 data의 타입을 복사해서 새로운 변수를 만든다. reflect.New를 이용하여 파라미터로 넘어온 특정 타입의 변수를 만들수 있다. 단, 포인터로 만들어지므로 주의해서 쓰도록 한다.</li>
-</ol>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Ptr</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#000">buffdata</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">New</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Elem</span><span style="color:#000;font-weight:bold">()).</span><span style="color:#000">Interface</span><span style="color:#000;font-weight:bold">()</span>
-<span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#000">buffdata</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">New</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">)).</span><span style="color:#000">Interface</span><span style="color:#000;font-weight:bold">()</span>
-<span style="color:#000;font-weight:bold">}</span>
-</code></pre></div><p>buffdata 라는 data와 같은 타입의 변수를 만들었으니 해당 변수에 copy한다. copier라는 라이브러리를 사용하였고 struct에서 struct로 복사할 수 있게 해주는 라이브러리이다.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">copier</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Copy</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">buffdata</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">data</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Error</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;Fail to copy data for response log&#34;</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#000;font-weight:bold">}</span>
-</code></pre></div><ol start="2">
-<li>로그를 남기는 것은 async로 처리하여, 속도를 높힌다
-ShouldBindJson는 Request를 특정 struct로 binding 하기 위해 사용하는 것인데, 이를 Wrapping하여 Request 로그를 남기는 로직을 추가한 것이므로, 뒤에 로직같은 경우엔 비동기로 처리하는 것이 좋다.</li>
-</ol>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">wg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Add</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#204a87;font-weight:bold">go</span> <span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(){</span>
-	<span style="color:#204a87;font-weight:bold">defer</span> <span style="color:#000">wg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Done</span><span style="color:#000;font-weight:bold">()</span>
-	<span style="color:#000">deidentify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ValueOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">buffdata</span><span style="color:#000;font-weight:bold">))</span>
-	
-	<span style="color:#000">headers</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">json</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Marshal</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Request</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Header</span><span style="color:#000;font-weight:bold">)</span>
-	<span style="color:#000">body</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">json</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Marshal</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">buffdata</span><span style="color:#000;font-weight:bold">)</span>
-	
-	<span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Transaction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TransactionLog</span><span style="color:#000;font-weight:bold">{</span>
-		<span style="color:#000">Type</span><span style="color:#000;font-weight:bold">:</span>    <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">LogTypeRequest</span><span style="color:#000;font-weight:bold">,</span>
-		<span style="color:#000">URL</span><span style="color:#000;font-weight:bold">:</span>     <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Request</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">URL</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">(),</span>
-		<span style="color:#000">Method</span><span style="color:#000;font-weight:bold">:</span>  <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Request</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Method</span><span style="color:#000;font-weight:bold">,</span>
-		<span style="color:#000">Headers</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">headers</span><span style="color:#000;font-weight:bold">,</span>
-		<span style="color:#000">Body</span><span style="color:#000;font-weight:bold">:</span>    <span style="color:#000">body</span><span style="color:#000;font-weight:bold">})</span>
-<span style="color:#000;font-weight:bold">}()</span>
-<span style="color:#000">wg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Wait</span><span style="color:#000;font-weight:bold">()</span>
-</code></pre></div><ol start="3">
-<li>비식별화 로직 한 함수에 정리하여 비식별화 로직과 request/response 처리 로직 분리</li>
-</ol>
-<p>=&gt; 이전 비식별화 + request 처리 혼재 / 비식별화 + response 처리 혼재</p>
-<ul>
-<li>
-<p>Parameter가 포인터이면 안되는 함수
-=&gt; 해당 value 종류가 reflect.Ptr / reflect.Interface 이면 Elem() 처리</p>
-</li>
-<li>
-<p>Nested Struct JSON을 처리할때 DeepFields, DeepTag를 이용해서 Field와 Tag를 각각 모두 뽑아내어 처리하기
-=&gt; 비식별화 함수 로직 자체를 깔끔하게 해서 한 함수 내에서 처리</p>
-</li>
-</ul>
-<p><em>Old</em></p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">DeepFields</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">iface</span> <span style="color:#204a87;font-weight:bold">interface</span><span style="color:#000;font-weight:bold">{})</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#000">fields</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87">make</span><span style="color:#000;font-weight:bold">([]</span><span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span>
-	<span style="color:#000">ifaceValue</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ValueOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">iface</span><span style="color:#000;font-weight:bold">)</span>
-	<span style="color:#000">ifaceType</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeOf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">iface</span><span style="color:#000;font-weight:bold">)</span>
-
-	<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">i</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">i</span> <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#000">ifaceType</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">NumField</span><span style="color:#000;font-weight:bold">();</span> <span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">++</span> <span style="color:#000;font-weight:bold">{</span>
-		<span style="color:#000">v</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">ifaceValue</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Field</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">)</span>
-		<span style="color:#204a87;font-weight:bold">switch</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
-		<span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Struct</span><span style="color:#000;font-weight:bold">:</span>
-			<span style="color:#000">fields</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87">append</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">fields</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">DeepFields</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Interface</span><span style="color:#000;font-weight:bold">())</span><span style="color:#ce5c00;font-weight:bold">...</span><span style="color:#000;font-weight:bold">)</span>
-		<span style="color:#204a87;font-weight:bold">default</span><span style="color:#000;font-weight:bold">:</span>
-			<span style="color:#000">fields</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87">append</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">fields</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">)</span>
-		<span style="color:#000;font-weight:bold">}</span>
-	<span style="color:#000;font-weight:bold">}</span>
-	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">fields</span>
-<span style="color:#000;font-weight:bold">}</span>
-</code></pre></div><p><em>NEW</em></p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">deidentify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Ptr</span> <span style="color:#ce5c00;font-weight:bold">||</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Interface</span> <span style="color:#000;font-weight:bold">{</span>
-		<span style="color:#000">v</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Elem</span><span style="color:#000;font-weight:bold">()</span>
-	<span style="color:#000;font-weight:bold">}</span>
-
-	<span style="color:#204a87;font-weight:bold">switch</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Slice</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Array</span><span style="color:#000;font-weight:bold">:</span>
-		<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">idx</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">idx</span> <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Len</span><span style="color:#000;font-weight:bold">();</span> <span style="color:#000">idx</span><span style="color:#ce5c00;font-weight:bold">++</span> <span style="color:#000;font-weight:bold">{</span>
-			<span style="color:#000">deidentify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Index</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">))</span>
-		<span style="color:#000;font-weight:bold">}</span>
-	<span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Struct</span><span style="color:#000;font-weight:bold">:</span>
-		<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">idx</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">idx</span> <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Type</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">NumField</span><span style="color:#000;font-weight:bold">();</span> <span style="color:#000">idx</span><span style="color:#ce5c00;font-weight:bold">++</span> <span style="color:#000;font-weight:bold">{</span>
-			<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Type</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">Field</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Tag</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;deidentify&#34;</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#4e9a06">&#34;true&#34;</span> <span style="color:#000;font-weight:bold">{</span>
-				<span style="color:#000">mask</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Field</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">))</span>
-			<span style="color:#000;font-weight:bold">}</span>
-			<span style="color:#000">deidentify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Field</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">))</span>
-		<span style="color:#000;font-weight:bold">}</span>
-	<span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span>
-</code></pre></div><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">mask</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#204a87;font-weight:bold">switch</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Kind</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">reflect</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">:</span>
-		<span style="color:#000">values</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87">rune</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">())</span>
-
-		<span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">result</span> <span style="color:#204a87;font-weight:bold">string</span>
-		
-		<span style="color:#000">masked</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87">make</span><span style="color:#000;font-weight:bold">([]</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87">len</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">values</span><span style="color:#000;font-weight:bold">))</span>
-		<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">idx</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">masked</span> <span style="color:#000;font-weight:bold">{</span>
-			<span style="color:#000">masked</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;*&#34;</span>
-		<span style="color:#000;font-weight:bold">}</span>
-
-		<span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SetString</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">strings</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Join</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">masked</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">))</span>
-	<span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span>
-</code></pre></div><blockquote>
-<p>Rune을 쓰는 이유!</p>
-</blockquote>
 
 </div>
 

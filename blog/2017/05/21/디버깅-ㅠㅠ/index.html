@@ -23,12 +23,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blog/2017/05/21/%EB%94%94%EB%B2%84%EA%B9%85-%E3%85%A0%E3%85%A0/" />
 <meta property="article:published_time" content="2017-05-21T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-01-24T19:50:38+09:00" /><meta property="og:site_name" content="한국어 버전 타이틀" />
+<meta property="article:modified_time" content="2017-05-21T00:00:00+00:00" /><meta property="og:site_name" content="한국어 버전 타이틀" />
 <meta itemprop="name" content="디버깅 ㅠㅠ">
 <meta itemprop="description" content="Debugs  500 error 해결 서버오류인 500 error, 즉 API 호출은 정상적으로 이루어졌다는 뜻이다. 여러가지로 찾아보다가, 디버깅 결과 어이없게도  {% highlight csharp %} if (payment == null || checkout == null) { throw new Exception(&ldquo;Invalid Operation. Null Parameters&rdquo;); }
  여기서 500 error가 발생하는 것을 깨달았다.(디버깅의 실생활화가 절실합니다.) 그리고 정말 어이없게도 정말 서버단의 문제였다.(api 회사 죄송합니다..) &gt;*_database.Checkouts.SingleOrDefaultAsync(c =&gt; c.imp_uid == imp_uid)* 요 줄이 문제였는데, 서버단에서 생성한 모델인 checkout에 아임포트 아이디가 있을리가 만무, 따라서 호출 결과 null이 호출되고 위 에러가 발생한 것이다.">
 <meta itemprop="datePublished" content="2017-05-21T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-01-24T19:50:38+09:00" />
+<meta itemprop="dateModified" content="2017-05-21T00:00:00+00:00" />
 <meta itemprop="wordCount" content="178">
 
 
@@ -164,10 +164,10 @@
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/blog/~2018/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">2018 이전 글</a>
+    <a  href="/blog/until2018/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">2018 이전 글</a>
   </li>
   <ul>
-    <li class="collapse show" id="blog2018">
+    <li class="collapse show" id="bloguntil2018">
       
       
       
@@ -720,6 +720,22 @@
         
           
           
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-blog20191107reflect-ec96b4eb96bbeab28c-ec93b0eca780-2" href="/blog/2019/11/07/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-2/">reflect 어떻게 쓰지 - 2</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-blog20191106reflect-ec96b4eb96bbeab28c-ec93b0eca780-1" href="/blog/2019/11/06/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-1/">reflect 어떻게 쓰지 - 1</a>
+        
+      
+      
+      
+        
+          
+          
           <a class="td-sidebar-link td-sidebar-link__page " id="m-blog20191019ec96b8eb8b88eab080-ec82aceca480-eba7a5-eba6bdec8aa4ed8bb1-ec8389eab994" href="/blog/2019/10/19/%EC%96%B8%EB%8B%88%EA%B0%80-%EC%82%AC%EC%A4%80-%EB%A7%A5-%EB%A6%BD%EC%8A%A4%ED%8B%B1-%EC%83%89%EA%B9%94/">언니가 사준 맥 립스틱 색깔</a>
         
       
@@ -860,22 +876,6 @@
         
       
       
-      
-        
-          
-          
-          <a class="td-sidebar-link td-sidebar-link__page " id="m-blog10101reflect-ec96b4eb96bbeab28c-ec93b0eca780-1" href="/blog/1/01/01/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-1/">reflect 어떻게 쓰지 - 1</a>
-        
-      
-      
-      
-        
-          
-          
-          <a class="td-sidebar-link td-sidebar-link__page " id="m-blog10101reflect-ec96b4eb96bbeab28c-ec93b0eca780-2" href="/blog/1/01/01/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-2/">reflect 어떻게 쓰지 - 2</a>
-        
-      
-      
     </li>
   </ul>
 </ul>
@@ -914,8 +914,8 @@
     
     
 
-    <a href="https://github.com/matilda38/matilda38.github.io/edit/master/content/ko/blog/~2018/2017-05-21-the-debugs.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 페이지 편집</a>
-    <a href="https://github.com/matilda38/matilda38.github.io/new/master/content/ko/blog/~2018/2017-05-21-the-debugs.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
+    <a href="https://github.com/matilda38/matilda38.github.io/edit/master/content/ko/blog/Until2018/2017-05-21-the-debugs.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 페이지 편집</a>
+    <a href="https://github.com/matilda38/matilda38.github.io/new/master/content/ko/blog/Until2018/2017-05-21-the-debugs.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
     <a href="https://github.com/matilda38/matilda38.github.io/issues/new?title=%eb%94%94%eb%b2%84%ea%b9%85%20%e3%85%a0%e3%85%a0" target="_blank"><i class="fab fa-github fa-fw"></i> 문서에 이슈 생성</a>
     
       
@@ -924,7 +924,7 @@
 
   
   
-    <a id="print" href="/blog/~2018/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+    <a id="print" href="/blog/until2018/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
   
   </div>
 
