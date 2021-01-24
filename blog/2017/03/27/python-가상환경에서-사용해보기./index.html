@@ -25,8 +25,8 @@ python 2, 3
 virtualenvwrapper를 쓸수 없는 문제가 있었다.
 결국 기존에 설치되어있던 python3.5를 지우고 Homebrew를 통해 python3를 다시 설치했다.
 virtualenvwrapper를 사용하기 위해, pip(package 설치 관리자)를 이용하여
-{% highlight csharp %} $ pip install virtualenv $ pip install virtualenvwrapper
- 로 두가지를 설치하니 의도했던 /usr/local/bin에 잘 깔렸다." />
+$ pip install virtualenv $ pip install virtualenvwrapper 로 두가지를 설치하니 의도했던 /usr/local/bin에 잘 깔렸다.
+가상환경들을 담을 폴더를 만들고 {%highlight csharp %} $ mkdir ~/." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blog/2017/03/27/python-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0./" />
 <meta property="article:published_time" content="2017-03-27T00:00:00+00:00" />
@@ -39,11 +39,11 @@ python 2, 3
 virtualenvwrapper를 쓸수 없는 문제가 있었다.
 결국 기존에 설치되어있던 python3.5를 지우고 Homebrew를 통해 python3를 다시 설치했다.
 virtualenvwrapper를 사용하기 위해, pip(package 설치 관리자)를 이용하여
-{% highlight csharp %} $ pip install virtualenv $ pip install virtualenvwrapper
- 로 두가지를 설치하니 의도했던 /usr/local/bin에 잘 깔렸다.">
+$ pip install virtualenv $ pip install virtualenvwrapper 로 두가지를 설치하니 의도했던 /usr/local/bin에 잘 깔렸다.
+가상환경들을 담을 폴더를 만들고 {%highlight csharp %} $ mkdir ~/.">
 <meta itemprop="datePublished" content="2017-03-27T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2017-03-27T00:00:00+00:00" />
-<meta itemprop="wordCount" content="132">
+<meta itemprop="wordCount" content="128">
 
 
 
@@ -57,8 +57,8 @@ python 2, 3
 virtualenvwrapper를 쓸수 없는 문제가 있었다.
 결국 기존에 설치되어있던 python3.5를 지우고 Homebrew를 통해 python3를 다시 설치했다.
 virtualenvwrapper를 사용하기 위해, pip(package 설치 관리자)를 이용하여
-{% highlight csharp %} $ pip install virtualenv $ pip install virtualenvwrapper
- 로 두가지를 설치하니 의도했던 /usr/local/bin에 잘 깔렸다."/>
+$ pip install virtualenv $ pip install virtualenvwrapper 로 두가지를 설치하니 의도했던 /usr/local/bin에 잘 깔렸다.
+가상환경들을 담을 폴더를 만들고 {%highlight csharp %} $ mkdir ~/."/>
 
 
 
@@ -973,33 +973,31 @@ virtualenvwrapper를 사용하기 위해, pip(package 설치 관리자)를 이�
 <p>virtualenvwrapper를 쓸수 없는 문제가 있었다.</p>
 <p>결국 기존에 설치되어있던 python3.5를 지우고 Homebrew를 통해 python3를 다시 설치했다.</p>
 <p>virtualenvwrapper를 사용하기 위해, pip(package 설치 관리자)를 이용하여</p>
-<p>{% highlight csharp %}
-$ pip install virtualenv
-$ pip install virtualenvwrapper</p>
-<pre><code>
-로 두가지를 설치하니 의도했던 /usr/local/bin에 잘 깔렸다.
-
-가상환경들을 담을 폴더를 만들고
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#a40000">$</span> <span style="color:#000">pip</span> <span style="color:#000">install</span> <span style="color:#000">virtualenv</span>
+<span style="color:#a40000">$</span> <span style="color:#000">pip</span> <span style="color:#000">install</span> <span style="color:#000">virtualenvwrapper</span>
+</code></pre></div><p>로 두가지를 설치하니 의도했던 /usr/local/bin에 잘 깔렸다.</p>
+<p>가상환경들을 담을 폴더를 만들고
 {%highlight csharp %}
-$ mkdir ~/.virtualenvs
-</code></pre><p>.bashrc를 열어(없으면 만들고)
+$ mkdir ~/.virtualenvs</p>
+<pre><code>
+.bashrc를 열어(없으면 만들고)
 {%highlight csharp %}
 export WORKON_HOME=~/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh</p>
-<pre><code>를 추가해준다. /usr/local/bin/에 virtualenvwrapper.sh가 설치 되어있으므로 저런식으로 해준것.
+source /usr/local/bin/virtualenvwrapper.sh
+</code></pre><p>를 추가해준다. /usr/local/bin/에 virtualenvwrapper.sh가 설치 되어있으므로 저런식으로 해준것.</p>
+<p>{%highlight csharp %}
+source .bashrc</p>
+<pre><code>를 통해 .bashrc를 활성화해준다.
 
 {%highlight csharp %}
-source .bashrc
-</code></pre><p>를 통해 .bashrc를 활성화해준다.</p>
-<p>{%highlight csharp %}
-mkvirtualenv
-//가상환경 만들기
-deactivate
-//빠져나오기
-workon myenv
-//다시 활성화하기</p>
-<pre><code>이렇게 하게 되면 각 가상환경마다 다른 패키지를 사용할 수 있으므로 독립된 가상환경이 구축된것이다.
-</code></pre>
+  mkvirtualenv
+  //가상환경 만들기
+  deactivate
+  //빠져나오기
+  workon myenv
+  //다시 활성화하기
+</code></pre><p>이렇게 하게 되면 각 가상환경마다 다른 패키지를 사용할 수 있으므로 독립된 가상환경이 구축된것이다.</p>
+
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">

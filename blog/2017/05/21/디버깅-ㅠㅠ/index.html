@@ -18,26 +18,26 @@
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
 <title>디버깅 ㅠㅠ | log.info</title><meta property="og:title" content="디버깅 ㅠㅠ" />
-<meta property="og:description" content="Debugs  500 error 해결 서버오류인 500 error, 즉 API 호출은 정상적으로 이루어졌다는 뜻이다. 여러가지로 찾아보다가, 디버깅 결과 어이없게도  {% highlight csharp %} if (payment == null || checkout == null) { throw new Exception(&ldquo;Invalid Operation. Null Parameters&rdquo;); }
- 여기서 500 error가 발생하는 것을 깨달았다.(디버깅의 실생활화가 절실합니다.) 그리고 정말 어이없게도 정말 서버단의 문제였다.(api 회사 죄송합니다..) &gt;*_database.Checkouts.SingleOrDefaultAsync(c =&gt; c.imp_uid == imp_uid)* 요 줄이 문제였는데, 서버단에서 생성한 모델인 checkout에 아임포트 아이디가 있을리가 만무, 따라서 호출 결과 null이 호출되고 위 에러가 발생한 것이다." />
+<meta property="og:description" content="Debugs  500 error 해결 서버오류인 500 error, 즉 API 호출은 정상적으로 이루어졌다는 뜻이다. 여러가지로 찾아보다가, 디버깅 결과 어이없게도  if (payment == null || checkout == null) { throw new Exception(&#34;Invalid Operation. Null Parameters&#34;); } 여기서 500 error가 발생하는 것을 깨달았다.(디버깅의 실생활화가 절실합니다.) 그리고 정말 어이없게도 정말 서버단의 문제였다.(api 회사 죄송합니다..)
+ _database.Checkouts.SingleOrDefaultAsync(c =&gt; c.imp_uid == imp_uid) 요 줄이 문제였는데, 서버단에서 생성한 모델인 checkout에 아임포트 아이디가 있을리가 만무, 따라서 호출 결과 null이 호출되고 위 에러가 발생한 것이다." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blog/2017/05/21/%EB%94%94%EB%B2%84%EA%B9%85-%E3%85%A0%E3%85%A0/" />
 <meta property="article:published_time" content="2017-05-21T00:00:00+00:00" />
 <meta property="article:modified_time" content="2017-05-21T00:00:00+00:00" /><meta property="og:site_name" content="log.info" />
 <meta itemprop="name" content="디버깅 ㅠㅠ">
-<meta itemprop="description" content="Debugs  500 error 해결 서버오류인 500 error, 즉 API 호출은 정상적으로 이루어졌다는 뜻이다. 여러가지로 찾아보다가, 디버깅 결과 어이없게도  {% highlight csharp %} if (payment == null || checkout == null) { throw new Exception(&ldquo;Invalid Operation. Null Parameters&rdquo;); }
- 여기서 500 error가 발생하는 것을 깨달았다.(디버깅의 실생활화가 절실합니다.) 그리고 정말 어이없게도 정말 서버단의 문제였다.(api 회사 죄송합니다..) &gt;*_database.Checkouts.SingleOrDefaultAsync(c =&gt; c.imp_uid == imp_uid)* 요 줄이 문제였는데, 서버단에서 생성한 모델인 checkout에 아임포트 아이디가 있을리가 만무, 따라서 호출 결과 null이 호출되고 위 에러가 발생한 것이다.">
+<meta itemprop="description" content="Debugs  500 error 해결 서버오류인 500 error, 즉 API 호출은 정상적으로 이루어졌다는 뜻이다. 여러가지로 찾아보다가, 디버깅 결과 어이없게도  if (payment == null || checkout == null) { throw new Exception(&#34;Invalid Operation. Null Parameters&#34;); } 여기서 500 error가 발생하는 것을 깨달았다.(디버깅의 실생활화가 절실합니다.) 그리고 정말 어이없게도 정말 서버단의 문제였다.(api 회사 죄송합니다..)
+ _database.Checkouts.SingleOrDefaultAsync(c =&gt; c.imp_uid == imp_uid) 요 줄이 문제였는데, 서버단에서 생성한 모델인 checkout에 아임포트 아이디가 있을리가 만무, 따라서 호출 결과 null이 호출되고 위 에러가 발생한 것이다.">
 <meta itemprop="datePublished" content="2017-05-21T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2017-05-21T00:00:00+00:00" />
-<meta itemprop="wordCount" content="178">
+<meta itemprop="wordCount" content="169">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="디버깅 ㅠㅠ"/>
-<meta name="twitter:description" content="Debugs  500 error 해결 서버오류인 500 error, 즉 API 호출은 정상적으로 이루어졌다는 뜻이다. 여러가지로 찾아보다가, 디버깅 결과 어이없게도  {% highlight csharp %} if (payment == null || checkout == null) { throw new Exception(&ldquo;Invalid Operation. Null Parameters&rdquo;); }
- 여기서 500 error가 발생하는 것을 깨달았다.(디버깅의 실생활화가 절실합니다.) 그리고 정말 어이없게도 정말 서버단의 문제였다.(api 회사 죄송합니다..) &gt;*_database.Checkouts.SingleOrDefaultAsync(c =&gt; c.imp_uid == imp_uid)* 요 줄이 문제였는데, 서버단에서 생성한 모델인 checkout에 아임포트 아이디가 있을리가 만무, 따라서 호출 결과 null이 호출되고 위 에러가 발생한 것이다."/>
+<meta name="twitter:description" content="Debugs  500 error 해결 서버오류인 500 error, 즉 API 호출은 정상적으로 이루어졌다는 뜻이다. 여러가지로 찾아보다가, 디버깅 결과 어이없게도  if (payment == null || checkout == null) { throw new Exception(&#34;Invalid Operation. Null Parameters&#34;); } 여기서 500 error가 발생하는 것을 깨달았다.(디버깅의 실생활화가 절실합니다.) 그리고 정말 어이없게도 정말 서버단의 문제였다.(api 회사 죄송합니다..)
+ _database.Checkouts.SingleOrDefaultAsync(c =&gt; c.imp_uid == imp_uid) 요 줄이 문제였는데, 서버단에서 생성한 모델인 checkout에 아임포트 아이디가 있을리가 만무, 따라서 호출 결과 null이 호출되고 위 에러가 발생한 것이다."/>
 
 
 
@@ -951,40 +951,36 @@
 서버오류인 500 error, 즉 API 호출은 정상적으로 이루어졌다는 뜻이다.
 여러가지로 찾아보다가, 디버깅 결과 어이없게도</li>
 </ol>
-<p>{% highlight csharp %}
-if (payment == null || checkout == null)
-{
-throw new Exception(&ldquo;Invalid Operation. Null Parameters&rdquo;);
-}</p>
-<pre><code>
-여기서 500 error가 발생하는 것을 깨달았다.(디버깅의 실생활화가 절실합니다.)
-그리고 정말 어이없게도 정말 서버단의 문제였다.(api 회사 죄송합니다..)
-
-&gt;*_database.Checkouts.SingleOrDefaultAsync(c =&gt; c.imp_uid == imp_uid)*
-요 줄이 문제였는데, 서버단에서 생성한 모델인 checkout에 아임포트 아이디가 있을리가 만무, 따라서 호출 결과 null이 호출되고 위 에러가 발생한 것이다.  
-그래서, *_database.Checkouts.SingleOrDefaultAsync(c =&gt; c.merchant_uid == payment.TransactionId)* 위와 같이 고쳐줬다.
-
-2. Parameter가 잘 안들어가는 문제.
-
-js로 location.href를 통해 /checkout/ShowResult/{merchant_uid_value}를 날려주었더니,
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">payment</span> <span style="color:#000;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">null</span> <span style="color:#000;font-weight:bold">||</span> <span style="color:#000">checkout</span> <span style="color:#000;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">null</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">throw</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">Exception</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Invalid Operation. Null Parameters&#34;</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>여기서 500 error가 발생하는 것을 깨달았다.(디버깅의 실생활화가 절실합니다.)
+그리고 정말 어이없게도 정말 서버단의 문제였다.(api 회사 죄송합니다..)</p>
+<blockquote>
+<p><em>_database.Checkouts.SingleOrDefaultAsync(c =&gt; c.imp_uid == imp_uid)</em>
+요 줄이 문제였는데, 서버단에서 생성한 모델인 checkout에 아임포트 아이디가 있을리가 만무, 따라서 호출 결과 null이 호출되고 위 에러가 발생한 것이다.<br>
+그래서, <em>_database.Checkouts.SingleOrDefaultAsync(c =&gt; c.merchant_uid == payment.TransactionId)</em> 위와 같이 고쳐줬다.</p>
+</blockquote>
+<ol start="2">
+<li>Parameter가 잘 안들어가는 문제.</li>
+</ol>
+<p>js로 location.href를 통해 /checkout/ShowResult/{merchant_uid_value}를 날려주었더니,
 디버깅 결과. Controller 상에서 merchant_uid를 받지 못하고 null로 표시되는 것을 확인할 수 있었다.
-이를 해결하기 위해 *[Route(&quot;Checkout/ShowResult/{merchant_uid}&quot;)]* 를 추가해주었더니 파라미터로 잘 들어간다.
-
-{% highlight csharp %}
-[HttpGet]
-[Route(&quot;Checkout/ShowResult/{merchant_uid}&quot;)]
-public async Task&lt;IActionResult&gt; ShowResult(string merchant_uid){
-    return View(await *_checkoutservice.ShowResultAsync(merchant_uid)*);
-}
-
-</code></pre><ol start="3">
+이를 해결하기 위해 <em>[Route(&ldquo;Checkout/ShowResult/{merchant_uid}&quot;)]</em> 를 추가해주었더니 파라미터로 잘 들어간다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#c4a000">[HttpGet]</span>
+<span style="color:#c4a000">[Route(&#34;Checkout/ShowResult/{merchant_uid}&#34;)]</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">async</span> <span style="color:#000">Task</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">IActionResult</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">ShowResult</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">merchant_uid</span><span style="color:#000;font-weight:bold">){</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">await</span> <span style="color:#000;font-weight:bold">*</span><span style="color:#000">_checkoutservice</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ShowResultAsync</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">merchant_uid</span><span style="color:#000;font-weight:bold">)*);</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><ol start="3">
 <li>highlight 태그가 자꾸 안닫혔다고 하는 지킬 블로그.
 <a href="http://blog.slaks.net/2013-08-09/jekyll-tag-was-never-closed/">Tags are not closed</a></li>
 </ol>
 <p>excerpt_separator 때문이라고 하는데, 이 에러에 대해 잘은 모르겠다. 이게 맞아야 valid한 tag라나 뭐라나, 그래서
 config.yml에</p>
 <blockquote>
-<p>excerpt_separator: &quot;&quot;</p>
+<p>excerpt_separator: &quot;&rdquo;</p>
 </blockquote>
 <p>를 추가해주면 해결된다. 이를 추가하면 excerpt_separator가 조기에 종료되어 추가 검사를 하지 않는 효과를 본다고 한다.</p>
 

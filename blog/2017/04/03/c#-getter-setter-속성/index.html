@@ -19,17 +19,19 @@
 
 <title>c# getter setter 속성 | log.info</title><meta property="og:title" content="c# getter setter 속성" />
 <meta property="og:description" content="Property(속성)을 정의 할때 쓰는 개념. 겟터 &amp; 셋터 Get &amp; Set  public 으로 변수를 선언해버리면 외부에서 마음대로 값을 설정해버릴수있고 잘못된값을 넣을 수 있는 가능성 존재. &amp; 그렇다고 private으로 선언하면 외부에서 아예 값을 건드릴 수 없다. 값을 안전하게 변경하려면 대체 어떻게 해야 하는 것일까?
-= Getter setter {% highlight csharp %} private int width; public int Width { get {return width;} set { if(value &gt; 0) {width = value;} else {Console." />
+= Getter setter
+private int width; public int Width { get {return width;} set { if(value &gt; 0) {width = value;} else {Console.WriteLine(&#34;너비는 자연수로&#34;);} } } 보통 일반적인 프레임워크에서 사용할 때는 이렇게 쓴다." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blog/2017/04/03/c#-getter-setter-%EC%86%8D%EC%84%B1/" />
 <meta property="article:published_time" content="2017-04-03T00:00:00+00:00" />
 <meta property="article:modified_time" content="2017-04-03T00:00:00+00:00" /><meta property="og:site_name" content="log.info" />
 <meta itemprop="name" content="c# getter setter 속성">
 <meta itemprop="description" content="Property(속성)을 정의 할때 쓰는 개념. 겟터 &amp; 셋터 Get &amp; Set  public 으로 변수를 선언해버리면 외부에서 마음대로 값을 설정해버릴수있고 잘못된값을 넣을 수 있는 가능성 존재. &amp; 그렇다고 private으로 선언하면 외부에서 아예 값을 건드릴 수 없다. 값을 안전하게 변경하려면 대체 어떻게 해야 하는 것일까?
-= Getter setter {% highlight csharp %} private int width; public int Width { get {return width;} set { if(value &gt; 0) {width = value;} else {Console.">
+= Getter setter
+private int width; public int Width { get {return width;} set { if(value &gt; 0) {width = value;} else {Console.WriteLine(&#34;너비는 자연수로&#34;);} } } 보통 일반적인 프레임워크에서 사용할 때는 이렇게 쓴다.">
 <meta itemprop="datePublished" content="2017-04-03T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2017-04-03T00:00:00+00:00" />
-<meta itemprop="wordCount" content="98">
+<meta itemprop="wordCount" content="90">
 
 
 
@@ -37,7 +39,8 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="c# getter setter 속성"/>
 <meta name="twitter:description" content="Property(속성)을 정의 할때 쓰는 개념. 겟터 &amp; 셋터 Get &amp; Set  public 으로 변수를 선언해버리면 외부에서 마음대로 값을 설정해버릴수있고 잘못된값을 넣을 수 있는 가능성 존재. &amp; 그렇다고 private으로 선언하면 외부에서 아예 값을 건드릴 수 없다. 값을 안전하게 변경하려면 대체 어떻게 해야 하는 것일까?
-= Getter setter {% highlight csharp %} private int width; public int Width { get {return width;} set { if(value &gt; 0) {width = value;} else {Console."/>
+= Getter setter
+private int width; public int Width { get {return width;} set { if(value &gt; 0) {width = value;} else {Console.WriteLine(&#34;너비는 자연수로&#34;);} } } 보통 일반적인 프레임워크에서 사용할 때는 이렇게 쓴다."/>
 
 
 
@@ -953,25 +956,21 @@
 <p>public 으로 변수를 선언해버리면 외부에서 마음대로 값을 설정해버릴수있고 잘못된값을 넣을 수 있는 가능성 존재.
 &amp;
 그렇다고 private으로 선언하면 외부에서 아예 값을 건드릴 수 없다. 값을 안전하게 변경하려면 대체 어떻게 해야 하는 것일까?</p>
-<p>= Getter setter
-{% highlight csharp %}
-private int width;
-public int Width
-{
-get {return width;}
-set
-{
-if(value &gt; 0) {width = value;}
-else {Console.WriteLine(&ldquo;너비는 자연수로&rdquo;);}
-}
-}</p>
-<pre><code>
-보통 일반적인 프레임워크에서 사용할 때는 이렇게 쓴다.
-
-{% highlight csharp %}
-public int Width { get; set; }
-public int Height { get; set; }
-</code></pre>
+<p>= Getter setter</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">private</span> <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">width</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">Width</span>
+<span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">get</span> <span style="color:#000;font-weight:bold">{</span><span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">width</span><span style="color:#000;font-weight:bold">;}</span>
+  <span style="color:#204a87;font-weight:bold">set</span>
+  <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">value</span> <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span><span style="color:#000">width</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">value</span><span style="color:#000;font-weight:bold">;}</span>
+    <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span><span style="color:#000">Console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WriteLine</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;너비는 자연수로&#34;</span><span style="color:#000;font-weight:bold">);}</span>
+  <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>보통 일반적인 프레임워크에서 사용할 때는 이렇게 쓴다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">Width</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">Height</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+</code></pre></div>
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">

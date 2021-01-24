@@ -1192,25 +1192,23 @@ docker start -I centos7_project
 <p>뭐였나면,,,</p>
 <h3 id="heading"></h3>
 <p>각 html이나 markdown파일마다 layout을 정의하는게 규칙인데, 일반적인 글을 올릴때는 post로 지정해둔다. layout 폴더로 들어가보면, post, default, page, category_index가 있는데, 이것들이 site.pages, site.posts들을 의미하는 거였다. site는 이 블로그 자체를 의미하고 layout이 page냐 post냐 에 따라 각각 site.pages site.posts들에 저장되고 있었다(Jekyll 엔진 자체적으로 처리). 내가 원했던 건 메뉴에 search를 추가하는 것이었다.</p>
-<p>{% highlight ruby%}
-assign pages_list = site.pages | sort:&ldquo;url&rdquo;
-for node in pages_list
-if node.title != null
-if node.layout == &ldquo;page&rdquo;
-<li class="sb-close { if page.url == node.url }active{ endif }">
-<a href="{{ node.url | prepend: site.baseurl }}">{{ node.title }}</a>
-</li>
-endif
-endif
-endfor
-{% endhighlight%}</p>
-<p>메뉴가 있는 includes/sidebar.html에는 이런식으로 코드가 작성되어있었기 때문에, pages_list = site.pages는 layout이 page인 파일들을 의미하는 것이었다. 따라서 page_list에 search를 추가하여 메뉴를 추가해야했다. 이는 search.html에</p>
-<h2 id="-highlight-ruby">{% highlight ruby%}</h2>
-<h2 id="permalink-search">layout: page
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"> <span style="color:#000">assign</span> <span style="color:#000">pages_list</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">site</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#000">pages</span> <span style="color:#ce5c00;font-weight:bold">|</span> <span style="color:#4e9a06">sort</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;url&#34;</span>
+ <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">node</span> <span style="color:#204a87;font-weight:bold">in</span> <span style="color:#000">pages_list</span>
+     <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">node</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#000">title</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#000">null</span>
+         <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">node</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#000">layout</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#4e9a06">&#34;page&#34;</span>
+        <span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#000">li</span> <span style="color:#000">class</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;sb-close { if page.url == node.url }active{ endif }&#34;</span><span style="color:#ce5c00;font-weight:bold">&gt;</span>
+            <span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#000">a</span> <span style="color:#000">href</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;{{ node.url | prepend: site.baseurl }}&#34;</span><span style="color:#ce5c00;font-weight:bold">&gt;</span><span style="color:#000;font-weight:bold">{{</span> <span style="color:#000">node</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#000">title</span> <span style="color:#000;font-weight:bold">}}</span><span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#4e9a06">/a&gt;
+</span><span style="color:#4e9a06">        &lt;/</span><span style="color:#000">li</span><span style="color:#ce5c00;font-weight:bold">&gt;</span>
+         <span style="color:#000">endif</span>
+     <span style="color:#000">endif</span>
+ <span style="color:#000">endfor</span>
+</code></pre></div><p>메뉴가 있는 includes/sidebar.html에는 이런식으로 코드가 작성되어있었기 때문에, pages_list = site.pages는 layout이 page인 파일들을 의미하는 것이었다. 따라서 page_list에 search를 추가하여 메뉴를 추가해야했다. 이는 search.html에</p>
+<pre><code>---
+layout: page
 title: Search
-permalink: /search/</h2>
-<p>{% endhighlight%}</p>
-<p>이런식으로 추가해주면 jekyll에 의해 자동으로 search가 page로 인식되고 pages_list에 search도 들어간다.</p>
+permalink: /search/
+---
+</code></pre><p>이런식으로 추가해주면 jekyll에 의해 자동으로 search가 page로 인식되고 pages_list에 search도 들어간다.</p>
 <p>아무튼 이제 메뉴에 search를 추가했으니, 실제로 검색을 위한 로직이 필요하다. 이는
 <a href="https://github.com/christian-fei/Simple-Jekyll-Search">Simple-Jekyll-Search</a>라는 JS 라이브러리를 사용했다. JS 라이브러리이기 때문에 NPM을 사용하여 설치할 수 있는데,</p>
 <p><em>npm으로 설치하면 ~.min.js만 설치되서 이것만 로드하면 될 줄 알았더니 안되더라&hellip;.물론 내가 잘 못 설치한 걸수도 있음.</em></p>
@@ -1246,44 +1244,42 @@ permalink: /search/</h2>
 <p>ruby 자체를 Programming에 쓸 일은 별로 없지만, (요즘엔 Rails도 안쓰고 스크립트는 거의 Python으로 처리하므로,) 맥에 ruby를 깔아둬야 할 일은 꽤 자주 발생했다. 일단, Mac에서 많이 쓰는 Package Manager인 Homebrew도 ruby 기반이라 ruby가 설치 되어있어야하고, 지금 이 정적 블로그 엔진도 Jekyll이라는 ruby 기반 엔진이라, ruby가 없으면 로컬에서 돌려볼 수가 없었다. 컴퓨터를 바꾸기도 했었고 초기화로 메모리를 모두 날려먹은 적이 있어 기존에 설치해둔 ruby가 없어 설치하는 김에 이번 기회에 아예 게시글로 정리해두려고 한다.</p>
 <p>알다시피 맥에는 기본 Ruby가 깔려있다. 초반에는 이 기본 Ruby로 어찌저찌 해결했는데, Gem을 깔아야되는 상황이 되니 기본 ruby를 건드렸다간 큰일이날 듯했다. 물론 권한도 없었다. 하지만 강제로 권한을 풀었다간 뭔가 큰 일이 날것같은 느낌. 어디인지는 모르겠지만 Mac에서 기본적으로 ruby를 가지고 있는 이유는 어딘가에서 ruby를 시스템용으로 사용하기 때문이다. 결국 이 기본 ruby는 사용하지 않고 막 쓸 별개 ruby를 깔기로 했다. 정확히 기억은 안나지만, python도 비슷한 이슈를 가지고 있어서 virtualenv라는 가상환경을 사용했던듯하다. ruby에도 이런 환경(?) 매니저를 가지고 있다. 프로젝트마다 필요한 루비 버전이 다를 수 있기 때문에 해당 프로젝트에서 사용할 루비를 지정할 수도 있고 시스템 전반에서 주로 사용할 ruby를 지정할 수도 있다.</p>
 <p>Environment Manager for Ruby로 RVM과 rbenv 두 개가 있는데, 예전에 Rails를 2015년 하반기 처음 입문했을 때만해도 rvm을 많이 썼었다. 그때는 그냥 rbenv가 이름이 더 이뻐서 그걸 썼는데, 지금 다시 관련내용을 찾아보니, 거의 rbenv로 대세가 넘어왔다. 많은 게시물들이 rbenv를 다루고 있었다.</p>
-<p>{% highlight bash%}
-brew update
-brew install ruby</p>
-<pre><code>Homebrew를 이용해서 Ruby를 설치하는것이 훨씬 편하다. 공식 페이지에서도 권장하고 있다. Homebrew가 없다면 밑에 링크에서 다운받도록 한다. Homebrew를 설치하는 데 필요한 루비는 맥 기본 루비이기때문에 루비를 따로 설치하지 않아도 그냥 Homebrew부터 깔면된다. Node, MySql등 여러 툴들을 사용할 때도 굉장히 유용하게 쓸 수 있기 때문에 맥 사용자라면, 깔아두는 것을 추천한다.
-[Homebrew 설치하기](https://brew.sh/index_ko.html)
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew update
+brew install ruby
+</code></pre></div><p>Homebrew를 이용해서 Ruby를 설치하는것이 훨씬 편하다. 공식 페이지에서도 권장하고 있다. Homebrew가 없다면 밑에 링크에서 다운받도록 한다. Homebrew를 설치하는 데 필요한 루비는 맥 기본 루비이기때문에 루비를 따로 설치하지 않아도 그냥 Homebrew부터 깔면된다. Node, MySql등 여러 툴들을 사용할 때도 굉장히 유용하게 쓸 수 있기 때문에 맥 사용자라면, 깔아두는 것을 추천한다.
+<a href="https://brew.sh/index_ko.html">Homebrew 설치하기</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8f5902;font-style:italic"># If you use bash</span>
+<span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#39;export PATH=/usr/local/Cellar/ruby/2.4.1_1/bin:$PATH&#39;</span> &gt;&gt; ~/.bash_profile
+<span style="color:#8f5902;font-style:italic"># If you use ZSH:</span>
+<span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#39;export PATH=/usr/local/Cellar/ruby/2.4.1_1/bin:$PATH&#39;</span> &gt;&gt; ~/.zprofile
+</code></pre></div><p>나는 Oh-my-zsh라는 zsh 쉘을 쓰고 있기 때문에 아랫줄을 실행해주었다. 쉘에 PATH를 설정해주는 작업이다. 2.4.1_1 이는 버전명으로 설치한 버전명을 넣도록 한다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install rbenv ruby-build
+<span style="color:#8f5902;font-style:italic"># zsh</span>
+<span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#39;export PATH=&#34;$HOME/.rbenv/bin:$PATH&#34;&#39;</span> &gt;&gt; ~/.zprofile
+<span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#39;eval &#34;$(rbenv init -)&#34;&#39;</span> &gt;&gt; ~/.zprofile  
 
-{% highlight bash%}
-# If you use bash
-echo 'export PATH=/usr/local/Cellar/ruby/2.4.1_1/bin:$PATH' &gt;&gt; ~/.bash_profile
-# If you use ZSH:
-echo 'export PATH=/usr/local/Cellar/ruby/2.4.1_1/bin:$PATH' &gt;&gt; ~/.zprofile
-</code></pre><p>나는 Oh-my-zsh라는 zsh 쉘을 쓰고 있기 때문에 아랫줄을 실행해주었다. 쉘에 PATH를 설정해주는 작업이다. 2.4.1_1 이는 버전명으로 설치한 버전명을 넣도록 한다.</p>
-<p>{% highlight bash%}
-brew install rbenv ruby-build</p>
-<h1 id="zsh">zsh</h1>
-<p>echo &lsquo;export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;&rsquo; &raquo; ~/.zprofile
-echo &lsquo;eval &ldquo;$(rbenv init -)&quot;&rsquo; &raquo; ~/.zprofile</p>
-<h1 id="list-all-available-versions">list all available versions:</h1>
-<p>rbenv install -l</p>
-<h1 id="install-a-ruby-version">install a Ruby version:</h1>
-<p>rbenv install 2.4.1</p>
-<h1 id="set-ruby-version-for-a-specific-dir">set ruby version for a specific dir</h1>
-<p>rbenv local 2.4.1</p>
-<h1 id="set-ruby-version-globally">set ruby version globally</h1>
-<p>rbenv global 2.4.1</p>
-<p>rbenv rehash
-gem update &ndash;system</p>
-<pre><code>ruby를 깔았으니, 버전 관리 툴인 rbenv와 빌드 툴인 ruby-build를 brew를 통해 설치하도록 한다. 아까와 마찬가지로 .rbenv도 쉘 path에 등록해주고 쉘이 시작될때마다, rbenv가 init되도록 해준다.
+<span style="color:#8f5902;font-style:italic"># list all available versions:</span>
+rbenv install -l
 
-설치가능한 버전들을 list해보고 원하는 버전을 설치한다. 설치후엔 **source ~./zprofile** 이 명령어를 한번 쳐주는 것도 좋다. 아까 환경변수 설정한것을 반영하도록 하는 명령어인데, 나의 경우엔 설치 후에 **rbenv global 2.4.1** 이 명령어가 먹히지않아서 **ruby -v** 했을 때 계속 옛날 루비 버전만 나왔었다. source 명령어 이후엔 잘 반영되었다. 어쩌면 터미널 껏다 켰음 그냥 됬을 수도 ㅋㅋ
+<span style="color:#8f5902;font-style:italic"># install a Ruby version:</span>
+rbenv install 2.4.1
 
-rbenv rehash 이걸로 뭐였더라 무슨 변수 정리해주고, gem update를 해주면 &lt;span style=&quot;color:#003366&quot;&gt;ruby 설정완료.&lt;/span&gt;
+<span style="color:#8f5902;font-style:italic"># set ruby version for a specific dir</span>
+rbenv <span style="color:#204a87">local</span> 2.4.1
 
-이제 2.4.1 버전 루비로 블로그에 Gem도 설치하고 jekyll serve도 해야겠다.
+<span style="color:#8f5902;font-style:italic"># set ruby version globally</span>
+rbenv global 2.4.1
 
-[참고](https://stackoverflow.com/questions/14607193/installing-gem-or-updating-rubygems-fails-with-permissions-error)
-*echo $PATH* 로 환경변수를 볼때, 환경변수에 등록된 순서가 *~/.rbenv/shims* 가 ruby보다 늦게 나오면, 에러가 날 수 있다고 한다. 즉, rbenv가 먼저 load되어야한다는 말, 그때는 bash에 *export PATH=$HOME/.rbenv/shims:$PATH* 를 가장 마지막 줄에 넣으면 된다고 한다. 아마도 가장 마지막 줄의 path가 가장 먼저 load되기 때문인듯하다.
-</code></pre>
+rbenv rehash
+gem update --system
+
+</code></pre></div><p>ruby를 깔았으니, 버전 관리 툴인 rbenv와 빌드 툴인 ruby-build를 brew를 통해 설치하도록 한다. 아까와 마찬가지로 .rbenv도 쉘 path에 등록해주고 쉘이 시작될때마다, rbenv가 init되도록 해준다.</p>
+<p>설치가능한 버전들을 list해보고 원하는 버전을 설치한다. 설치후엔 <strong>source ~./zprofile</strong> 이 명령어를 한번 쳐주는 것도 좋다. 아까 환경변수 설정한것을 반영하도록 하는 명령어인데, 나의 경우엔 설치 후에 <strong>rbenv global 2.4.1</strong> 이 명령어가 먹히지않아서 <strong>ruby -v</strong> 했을 때 계속 옛날 루비 버전만 나왔었다. source 명령어 이후엔 잘 반영되었다. 어쩌면 터미널 껏다 켰음 그냥 됬을 수도 ㅋㅋ</p>
+<p>rbenv rehash 이걸로 뭐였더라 무슨 변수 정리해주고, gem update를 해주면 <span style="color:#003366">ruby 설정완료.</span></p>
+<p>이제 2.4.1 버전 루비로 블로그에 Gem도 설치하고 jekyll serve도 해야겠다.</p>
+<p><a href="https://stackoverflow.com/questions/14607193/installing-gem-or-updating-rubygems-fails-with-permissions-error">참고</a>
+<em>echo $PATH</em> 로 환경변수를 볼때, 환경변수에 등록된 순서가 <em>~/.rbenv/shims</em> 가 ruby보다 늦게 나오면, 에러가 날 수 있다고 한다. 즉, rbenv가 먼저 load되어야한다는 말, 그때는 bash에 <em>export PATH=$HOME/.rbenv/shims:$PATH</em> 를 가장 마지막 줄에 넣으면 된다고 한다. 아마도 가장 마지막 줄의 path가 가장 먼저 load되기 때문인듯하다.</p>
+
 </div>
 
 
@@ -1405,15 +1401,13 @@ fmt.Printf(&quot;%v&quot;, s+str)
 
 <span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">a</span><span style="color:#000;font-weight:bold">)</span><span style="color:#8f5902;font-style:italic">//string 타입 a
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">)</span><span style="color:#8f5902;font-style:italic">//int 타입인 c
-</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">{</span><span style="color:#ce5c00;font-weight:bold">%</span> <span style="color:#000">endhighlight</span><span style="color:#ce5c00;font-weight:bold">%</span><span style="color:#000;font-weight:bold">}</span>
-
-<span style="color:#000;font-weight:bold">&gt;</span><span style="color:#a40000">$</span><span style="color:#204a87;font-weight:bold">go</span> <span style="color:#000">run</span> <span style="color:#000">practice</span><span style="color:#000;font-weight:bold">.</span><span style="color:#204a87;font-weight:bold">go</span>
-<span style="color:#000">hello</span>
-<span style="color:#0000cf;font-weight:bold">5</span>
-
-<span style="color:#000">run</span> <span style="color:#000">하면</span> <span style="color:#000">위와</span> <span style="color:#000">같이</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">값을</span> <span style="color:#000">Println에</span> <span style="color:#000">넣었을</span> <span style="color:#000">때</span> <span style="color:#000">알아서</span> <span style="color:#000">적합한</span> <span style="color:#000">형태로</span> <span style="color:#000">출력해준다</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#000">함수내에서</span> <span style="color:#204a87;font-weight:bold">interface</span><span style="color:#000;font-weight:bold">{}</span><span style="color:#000">파라미터로</span> <span style="color:#000">들어온</span> <span style="color:#000">값의</span> <span style="color:#000">타입과</span> <span style="color:#000">값을</span> <span style="color:#000">판단하여</span> <span style="color:#000">출력해주기</span> <span style="color:#000">때문</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#000">interface에</span> <span style="color:#000">관한</span> <span style="color:#000">예제를</span> <span style="color:#000">몇</span> <span style="color:#000">개</span> <span style="color:#000">더</span> <span style="color:#000">해보자</span><span style="color:#000;font-weight:bold">.</span>
-<span style="color:#4e9a06">``</span><span style="color:#a40000">`</span><span style="color:#204a87;font-weight:bold">go</span>
-<span style="color:#204a87;font-weight:bold">package</span> <span style="color:#000">main</span>
+</span></code></pre></div><blockquote>
+<p>$go run practice.go
+hello
+5</p>
+</blockquote>
+<p>run 하면 위와 같이 string, int 값을 Println에 넣었을 때 알아서 적합한 형태로 출력해준다. 함수내에서 interface{}파라미터로 들어온 값의 타입과 값을 판단하여 출력해주기 때문. interface에 관한 예제를 몇 개 더 해보자.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">package</span> <span style="color:#000">main</span>
 
 <span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000;font-weight:bold">(</span>
 	<span style="color:#4e9a06">&#34;fmt&#34;</span>
@@ -1424,96 +1418,79 @@ fmt.Printf(&quot;%v&quot;, s+str)
 	<span style="color:#000">When</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Time</span>
 	<span style="color:#000">What</span> <span style="color:#204a87;font-weight:bold">string</span>
 <span style="color:#000;font-weight:bold">}</span>
-</code></pre></div><p>func (e *MyError) Error() string {
-return fmt.Sprintf(&ldquo;at %v, %s&rdquo;,
-e.When, e.What)
-}</p>
-<pre><code>func run() error {
-	return &amp;MyError{
-		time.Now(),
-		&quot;it didn't work&quot;,
-	}
-}
 
-func main() {
-	if err := run(); err != nil {
-		fmt.Println(err)
-	}
-}
-{% endhighlight%}
-위 예제는 error에 관한 건데, 일반적으로 go programming에서는 error를 리턴하는 경우가 흔하다.
-fmt 패키지가 Println을 통해 err 객체를 출력할때, Error 인터페이스를 구현하고 있는 지 찾는다고 한다.
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">e</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">MyError</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">Error</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Sprintf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;at %v, %s&#34;</span><span style="color:#000;font-weight:bold">,</span>
+		<span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">When</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">What</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">run</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">MyError</span><span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Now</span><span style="color:#000;font-weight:bold">(),</span>
+		<span style="color:#4e9a06">&#34;it didn&#39;t work&#34;</span><span style="color:#000;font-weight:bold">,</span>
+	<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
 
-&gt; type error interface {
-    Error() string
-}
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">main</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">run</span><span style="color:#000;font-weight:bold">();</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">err</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>위 예제는 error에 관한 건데, 일반적으로 go programming에서는 error를 리턴하는 경우가 흔하다.
+fmt 패키지가 Println을 통해 err 객체를 출력할때, Error 인터페이스를 구현하고 있는 지 찾는다고 한다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#204a87;font-weight:bold">interface</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">Error</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">string</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>여기서도 마찬가지로 err 객체가 Error 인터페이스를 구현하고 있는지, Error 메소드를 가지는 지 찾아보면,</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">e</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">MyError</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">Error</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000;font-weight:bold">{}</span>
+</code></pre></div><p>MyError 구조체는 이 메소드를 가진다.(composition) 따라서, 위 메소드가 호출된다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">package</span> <span style="color:#000">main</span>
 
-여기서도 마찬가지로 err 객체가 Error 인터페이스를 구현하고 있는지, Error 메소드를 가지는 지 찾아보면,
-</code></pre><p>func (e *MyError) Error() string {}</p>
-<pre><code>MyError 구조체는 이 메소드를 가진다.(composition) 따라서, 위 메소드가 호출된다.
-```go
-package main
+<span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000;font-weight:bold">(</span>
+	<span style="color:#4e9a06">&#34;fmt&#34;</span>
+<span style="color:#000;font-weight:bold">)</span>
+<span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">ErrNegativeSqrt</span> <span style="color:#204a87;font-weight:bold">float64</span>
 
-import (
-	&quot;fmt&quot;
-)
-type ErrNegativeSqrt float64
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">e</span> <span style="color:#000">ErrNegativeSqrt</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">Error</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Sprintf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;cannot Sqrt negative number : %g&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">e</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span>
 
-func (e ErrNegativeSqrt) Error() string{
-	return fmt.Sprintf(&quot;cannot Sqrt negative number : %g&quot;, e)
-}
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">Sqrt</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">x</span> <span style="color:#204a87;font-weight:bold">float64</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">float64</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">x</span> <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">{</span>
+	  <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ErrNegativeSqrt</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">x</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span>
+<span style="color:#000;font-weight:bold">}</span>
 
-func Sqrt(x float64) (float64, error) {
-	if x &lt; 0{
-	  return 0, ErrNegativeSqrt(x)
-	}
-	return 0, nil
-}
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">main</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Sqrt</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#000;font-weight:bold">))</span>
+	<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Sqrt</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#000;font-weight:bold">))</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>Exercise 예제를 하나 더 보면, ErrNegativeSqrt 라는 이름의 타입을 하나 정의한다. 그럼, sqrt(-2)를 호출했을때, if문에 의해 ErrNegativeSqrt 타입의 객체를 반환하게 된다. fmt가 Println을 수행할 때, 위 객체의 Error 인터페이스를 찾고, Error 메소드를 구현하고 있으므로, 해당 메소드를 출력해주면 된다.</p>
+<h2 id="json-marshall-and-unmarshall">Json Marshall and UnMarshall</h2>
+<p>참고) <a href="https://gobyexample.com/json">json by example</a></p>
+<p>인터페이스를 공부하게 된 계기가 되어준게 JSON string으로의 인코딩이었다. Go data structure 타입의 객체를 Json으로 인코딩하여 API Response를 날려줘야하므로, standard library인 encoding/json을 이용해야했다.
+json.Marshal(var interface{}) 함수는 interface{}형태의 파라미터를 받아 해당 변수의 type, value값을 판단하여 json 형태로 encode해준다.</p>
+<p>json.Unmarshal은 당연히 그 반대과정인 decoding을 수행하는데, 예제에도 나와있듯 decode된 데이터를 담을 dat이라는 변수를 선언해준다. 이 변수는 string key에 interface{} value값을 가지는데, byt로 들어온 json string 값을 decode하여 dat의 자료구조에 적합하게 집어넣어준다. interface{}로 선언한 까닭에 여러가지 값이 value로 들어갈 수 있다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">dat</span> <span style="color:#204a87;font-weight:bold">map</span><span style="color:#000;font-weight:bold">[</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">]</span><span style="color:#204a87;font-weight:bold">interface</span><span style="color:#000;font-weight:bold">{}</span>
+<span style="color:#8f5902;font-style:italic">//Here’s the actual decoding, and a check for associated errors.
+</span><span style="color:#8f5902;font-style:italic">//go 에서는 이런식으로 error를 체크해주는것이 좋다.
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">json</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Unmarshal</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">byt</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">dat</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87">panic</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">err</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">dat</span><span style="color:#000;font-weight:bold">)</span>
+</code></pre></div><p>참고 예제에 나와있듯, decode된 객체의 값들을 사용하기 위해서 적합한 값으로 cast해줘야한다. (interface{}로 value를 받았으므로)</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">num</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">dat</span><span style="color:#000;font-weight:bold">[</span><span style="color:#4e9a06">&#34;num&#34;</span><span style="color:#000;font-weight:bold">].(</span><span style="color:#204a87;font-weight:bold">float64</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">ok</span><span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">num</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>nested data 구조에 접근하기 위해서는 연속적인 cast를 필요로 할 수 있다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">strs</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">dat</span><span style="color:#000;font-weight:bold">[</span><span style="color:#4e9a06">&#34;strs&#34;</span><span style="color:#000;font-weight:bold">].([]</span><span style="color:#204a87;font-weight:bold">interface</span><span style="color:#000;font-weight:bold">{})</span>
+<span style="color:#000">str1</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">strs</span><span style="color:#000;font-weight:bold">[</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">].(</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">str1</span><span style="color:#000;font-weight:bold">)</span>
+</code></pre></div><p>예상되는 타입으로 cast하고 해당값을 자유롭게 go 에서 사용할 수 있다.</p>
+<p>참고) go tour
+요약) ok 없이 interface의 type assertion을 수행하면, 실제로 변환이 불가능할땐 panic이 발생한다. ok가 있으면 interface가 해당 타입을 가지면, true 아니면 false가 되고 t는 해당 타입 T의 zero value가 되고 panic이 발생하지 않는다.</p>
 
-func main() {
-	fmt.Println(Sqrt(2))
-	fmt.Println(Sqrt(-2))
-}
-{% endhighlight%}
-Exercise 예제를 하나 더 보면, ErrNegativeSqrt 라는 이름의 타입을 하나 정의한다. 그럼, sqrt(-2)를 호출했을때, if문에 의해 ErrNegativeSqrt 타입의 객체를 반환하게 된다. fmt가 Println을 수행할 때, 위 객체의 Error 인터페이스를 찾고, Error 메소드를 구현하고 있으므로, 해당 메소드를 출력해주면 된다.
-
-## Json Marshall and UnMarshall
-참고) [json by example](https://gobyexample.com/json)
-
-인터페이스를 공부하게 된 계기가 되어준게 JSON string으로의 인코딩이었다. Go data structure 타입의 객체를 Json으로 인코딩하여 API Response를 날려줘야하므로, standard library인 encoding/json을 이용해야했다.
-json.Marshal(var interface{}) 함수는 interface{}형태의 파라미터를 받아 해당 변수의 type, value값을 판단하여 json 형태로 encode해준다.
-
-json.Unmarshal은 당연히 그 반대과정인 decoding을 수행하는데, 예제에도 나와있듯 decode된 데이터를 담을 dat이라는 변수를 선언해준다. 이 변수는 string key에 interface{} value값을 가지는데, byt로 들어온 json string 값을 decode하여 dat의 자료구조에 적합하게 집어넣어준다. interface{}로 선언한 까닭에 여러가지 값이 value로 들어갈 수 있다.
-
-```go
-var dat map[string]interface{}
-//Here’s the actual decoding, and a check for associated errors.
-//go 에서는 이런식으로 error를 체크해주는것이 좋다.
-    if err := json.Unmarshal(byt, &amp;dat); err != nil {
-        panic(err)
-    }
-    fmt.Println(dat)
-{% endhighlight%}
-
-참고 예제에 나와있듯, decode된 객체의 값들을 사용하기 위해서 적합한 값으로 cast해줘야한다. (interface{}로 value를 받았으므로)     
-```go
-num, ok := dat[&quot;num&quot;].(float64)
-if ok{
-    fmt.Println(num)
-}
-{% endhighlight%}
-nested data 구조에 접근하기 위해서는 연속적인 cast를 필요로 할 수 있다.
-
-```go
-  strs := dat[&quot;strs&quot;].([]interface{})
-  str1 := strs[0].(string)
-  fmt.Println(str1)
-{% endhighlight%}
-예상되는 타입으로 cast하고 해당값을 자유롭게 go 에서 사용할 수 있다.
-
-참고) go tour
-요약) ok 없이 interface의 type assertion을 수행하면, 실제로 변환이 불가능할땐 panic이 발생한다. ok가 있으면 interface가 해당 타입을 가지면, true 아니면 false가 되고 t는 해당 타입 T의 zero value가 되고 panic이 발생하지 않는다.
-</code></pre>
 </div>
 
 
@@ -2049,40 +2026,36 @@ ex) 학원.</p>
 서버오류인 500 error, 즉 API 호출은 정상적으로 이루어졌다는 뜻이다.
 여러가지로 찾아보다가, 디버깅 결과 어이없게도</li>
 </ol>
-<p>{% highlight csharp %}
-if (payment == null || checkout == null)
-{
-throw new Exception(&ldquo;Invalid Operation. Null Parameters&rdquo;);
-}</p>
-<pre><code>
-여기서 500 error가 발생하는 것을 깨달았다.(디버깅의 실생활화가 절실합니다.)
-그리고 정말 어이없게도 정말 서버단의 문제였다.(api 회사 죄송합니다..)
-
-&gt;*_database.Checkouts.SingleOrDefaultAsync(c =&gt; c.imp_uid == imp_uid)*
-요 줄이 문제였는데, 서버단에서 생성한 모델인 checkout에 아임포트 아이디가 있을리가 만무, 따라서 호출 결과 null이 호출되고 위 에러가 발생한 것이다.  
-그래서, *_database.Checkouts.SingleOrDefaultAsync(c =&gt; c.merchant_uid == payment.TransactionId)* 위와 같이 고쳐줬다.
-
-2. Parameter가 잘 안들어가는 문제.
-
-js로 location.href를 통해 /checkout/ShowResult/{merchant_uid_value}를 날려주었더니,
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">payment</span> <span style="color:#000;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">null</span> <span style="color:#000;font-weight:bold">||</span> <span style="color:#000">checkout</span> <span style="color:#000;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">null</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">throw</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">Exception</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Invalid Operation. Null Parameters&#34;</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>여기서 500 error가 발생하는 것을 깨달았다.(디버깅의 실생활화가 절실합니다.)
+그리고 정말 어이없게도 정말 서버단의 문제였다.(api 회사 죄송합니다..)</p>
+<blockquote>
+<p><em>_database.Checkouts.SingleOrDefaultAsync(c =&gt; c.imp_uid == imp_uid)</em>
+요 줄이 문제였는데, 서버단에서 생성한 모델인 checkout에 아임포트 아이디가 있을리가 만무, 따라서 호출 결과 null이 호출되고 위 에러가 발생한 것이다.<br>
+그래서, <em>_database.Checkouts.SingleOrDefaultAsync(c =&gt; c.merchant_uid == payment.TransactionId)</em> 위와 같이 고쳐줬다.</p>
+</blockquote>
+<ol start="2">
+<li>Parameter가 잘 안들어가는 문제.</li>
+</ol>
+<p>js로 location.href를 통해 /checkout/ShowResult/{merchant_uid_value}를 날려주었더니,
 디버깅 결과. Controller 상에서 merchant_uid를 받지 못하고 null로 표시되는 것을 확인할 수 있었다.
-이를 해결하기 위해 *[Route(&quot;Checkout/ShowResult/{merchant_uid}&quot;)]* 를 추가해주었더니 파라미터로 잘 들어간다.
-
-{% highlight csharp %}
-[HttpGet]
-[Route(&quot;Checkout/ShowResult/{merchant_uid}&quot;)]
-public async Task&lt;IActionResult&gt; ShowResult(string merchant_uid){
-    return View(await *_checkoutservice.ShowResultAsync(merchant_uid)*);
-}
-
-</code></pre><ol start="3">
+이를 해결하기 위해 <em>[Route(&ldquo;Checkout/ShowResult/{merchant_uid}&quot;)]</em> 를 추가해주었더니 파라미터로 잘 들어간다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#c4a000">[HttpGet]</span>
+<span style="color:#c4a000">[Route(&#34;Checkout/ShowResult/{merchant_uid}&#34;)]</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">async</span> <span style="color:#000">Task</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">IActionResult</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">ShowResult</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">merchant_uid</span><span style="color:#000;font-weight:bold">){</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">await</span> <span style="color:#000;font-weight:bold">*</span><span style="color:#000">_checkoutservice</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ShowResultAsync</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">merchant_uid</span><span style="color:#000;font-weight:bold">)*);</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><ol start="3">
 <li>highlight 태그가 자꾸 안닫혔다고 하는 지킬 블로그.
 <a href="http://blog.slaks.net/2013-08-09/jekyll-tag-was-never-closed/">Tags are not closed</a></li>
 </ol>
 <p>excerpt_separator 때문이라고 하는데, 이 에러에 대해 잘은 모르겠다. 이게 맞아야 valid한 tag라나 뭐라나, 그래서
 config.yml에</p>
 <blockquote>
-<p>excerpt_separator: &quot;&quot;</p>
+<p>excerpt_separator: &quot;&rdquo;</p>
 </blockquote>
 <p>를 추가해주면 해결된다. 이를 추가하면 excerpt_separator가 조기에 종료되어 추가 검사를 하지 않는 효과를 본다고 한다.</p>
 
@@ -2226,136 +2199,142 @@ Thanks Denis Fokin &amp; Vasily Chernov for your help, this has been bugging me 
 <em>IdentityUser에서 Id , UserName, Email등 필수 field들이 이미 선언되어있기 때문에 따로 Account에서 선언해줄 필요는 없다.</em></p>
 </li>
 <li>
-<p>startup.cs에 위와 같이 등록해준다.
-{% highlight csharp %}
-//add identity module
-services.AddIdentity&lt;Account, IdentityRole&gt;()
-.AddEntityFrameworkStores<DatabaseContext>()
-.AddDefaultTokenProviders();</p>
+<p>startup.cs에 위와 같이 등록해준다.</p>
 </li>
 </ol>
-<p>services.Configure<IdentityOptions>(options =&gt;
-{
-options.Password.RequiredLength = 8;
-options.Password.RequireNonAlphanumeric = false;
-options.Password.RequireUppercase = false;
-var scheme = options.Cookies.ApplicationCookieAuthenticationScheme;
-});</p>
-<pre><code>물론 아래 configure는 option이기 때문에 원하는 대로 지정할 수 있다. 그리고 Account같은 경우에는 회원관리 모델을 의미하므로 적절히 사용하도록 하자.
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#8f5902;font-style:italic">//add identity module
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">services</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddIdentity</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">IdentityRole</span><span style="color:#000;font-weight:bold">&gt;()</span>
+    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddEntityFrameworkStores</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">DatabaseContext</span><span style="color:#000;font-weight:bold">&gt;()</span>
+    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddDefaultTokenProviders</span><span style="color:#000;font-weight:bold">();</span>
 
-마지막으로 configure 함수에
-{% highlight csharp %}
-app.UseIdentity();
-</code></pre><p>를 추가해준다.
+<span style="color:#000">services</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Configure</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">IdentityOptions</span><span style="color:#000;font-weight:bold">&gt;(</span><span style="color:#000">options</span> <span style="color:#000;font-weight:bold">=&gt;</span>
+<span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">options</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Password</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RequiredLength</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0000cf;font-weight:bold">8</span><span style="color:#000;font-weight:bold">;</span>
+    <span style="color:#000">options</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Password</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RequireNonAlphanumeric</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">;</span>
+    <span style="color:#000">options</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Password</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RequireUppercase</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">;</span>
+    <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">scheme</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">options</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Cookies</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ApplicationCookieAuthenticationScheme</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#000;font-weight:bold">});</span>
+</code></pre></div><p>물론 아래 configure는 option이기 때문에 원하는 대로 지정할 수 있다. 그리고 Account같은 경우에는 회원관리 모델을 의미하므로 적절히 사용하도록 하자.</p>
+<p>마지막으로 configure 함수에</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#000">app</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UseIdentity</span><span style="color:#000;font-weight:bold">();</span>
+</code></pre></div><p>를 추가해준다.
 4. DatabaseContext도 dbcontext를 상속하는 것이 아닌,</p>
-<p>{% highlight csharp %}
-public class DatabaseContext : IdentityDbContext<Account></p>
-<pre><code>위와 같이 IdentityDbContext&lt;Account&gt;를 상속해주도록 하자.
-
-위와 같이 되면 일단
-{% highlight csharp %}
-public DbSet&lt;Account&gt; Accounts { get; set; }
-</code></pre><p>와 같은 건 필요없다. 해당 IdentityDbContext에서 <em>Users<Account> AspNetUsers 라고 따로 테이블이 형성되기 때문.</em></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">DatabaseContext</span> <span style="color:#000;font-weight:bold">:</span> <span style="color:#000">IdentityDbContext</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span>
+</code></pre></div><p>위와 같이 IdentityDbContext<Account>를 상속해주도록 하자.</p>
+<p>위와 같이 되면 일단</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">DbSet</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">Accounts</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>와 같은 건 필요없다. 해당 IdentityDbContext에서 <em>Users<Account> AspNetUsers 라고 따로 테이블이 형성되기 때문.</em></p>
 <p>이제 설정은 끝났고, Identity Module의 기능을 이용하기만 하면 된다.</p>
-<p>{% highlight csharp %}
-private readonly UserManager<Account> _userManager;</p>
-<p>private readonly SignInManager<Account> _signInManager;</p>
-<p>public AuthController(UserManager<Account> userManager, SignInManager<Account> signInManager)
-{
-_userManager = userManager;
-_signInManager = signInManager;
-}</p>
-<p>// GET: /Auth/Register
-[HttpGet]
-[AllowAnonymous]
-public IActionResult Join(string returnUrl = null)
-{
-ViewData[&ldquo;ReturnUrl&rdquo;] = returnUrl;
-return View();
-}</p>
-<p>[HttpPost]
-[AllowAnonymous]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Join(JoinViewModel model){
-if (ModelState.IsValid)
-{
-var user = new Account { UserName = model.Email, Name= &ldquo;연습중&rdquo; , Email = model.Email, Phone= &ldquo;010-010-010&rdquo;};
-var result = await _userManager.CreateAsync(user, model.Password);
-if (result.Succeeded)
-{
-await _signInManager.SignInAsync(user, isPersistent: false);
-return RedirectToAction(nameof(HomeController.Index), &ldquo;Home&rdquo;);
-}
-AddErrors(result);
-}
-// If we got this far, something failed, redisplay form
-return View(model);</p>
-<p>}</p>
-<pre><code>// GET: /Auth/Login
-</code></pre>
-<p>[HttpGet]
-[AllowAnonymous]
-public IActionResult Login(string returnUrl = null)
-{
-ViewData[&ldquo;ReturnUrl&rdquo;] = returnUrl;
-return View();
-}</p>
-<pre><code>[HttpPost]
-[AllowAnonymous]
-[ValidateAntiForgeryToken]
-public async Task&lt;IActionResult&gt; Login(LoginViewModel model, string returnUrl = null){
-    ViewData[&quot;ReturnUrl&quot;] = returnUrl;
-    if(ModelState.IsValid){
-        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
-        if(result.Succeeded)
-        {
-            return RedirectToLocal(returnUrl);   
-        }
-        else
-        {
-            ModelState.AddModelError(string.Empty, &quot;invalid attempt&quot;);
-            return View(model);
-        }
-    }
-    return View(model);
-}
-</code></pre>
-<p>[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> LogOut()
-{
-await _signInManager.SignOutAsync();</p>
-<pre><code>return RedirectToAction(nameof(HomeController.Index), &quot;Home&quot;);
-</code></pre>
-<p>}</p>
-<p>#region Helpers</p>
-<p>private void AddErrors(IdentityResult result)
-{
-foreach (var error in result.Errors)
-{
-ModelState.AddModelError(string.Empty, error.Description);
-}
-}</p>
-<pre><code>private Task&lt;Account&gt; GetCurrentUserAsync()
-</code></pre>
-<p>{
-return _userManager.GetUserAsync(HttpContext.User);
-}</p>
-<p>private IActionResult RedirectToLocal(string returnUrl)
-{
-if (Url.IsLocalUrl(returnUrl))
-{
-return Redirect(returnUrl);
-}
-else
-{
-return RedirectToAction(nameof(HomeController.Index), &ldquo;Home&rdquo;);
-}
-}</p>
-<p>#endregion</p>
-<p>{% endhighlight%}</p>
-<p>예제코드를 참고해본 회원관리 컨트롤러이다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">private</span> <span style="color:#204a87;font-weight:bold">readonly</span> <span style="color:#000">UserManager</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">_userManager</span><span style="color:#000;font-weight:bold">;</span>
 
+<span style="color:#204a87;font-weight:bold">private</span> <span style="color:#204a87;font-weight:bold">readonly</span> <span style="color:#000">SignInManager</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">_signInManager</span><span style="color:#000;font-weight:bold">;</span>
+
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">AuthController</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">UserManager</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">userManager</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">SignInManager</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">signInManager</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">_userManager</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">userManager</span><span style="color:#000;font-weight:bold">;</span>
+    <span style="color:#000">_signInManager</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">signInManager</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#8f5902;font-style:italic">// GET: /Auth/Register
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#c4a000">[HttpGet]</span>
+<span style="color:#c4a000">[AllowAnonymous]</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">IActionResult</span> <span style="color:#000">Join</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">returnUrl</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">null</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">ViewData</span><span style="color:#000;font-weight:bold">[</span><span style="color:#4e9a06">&#34;ReturnUrl&#34;</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">;</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">();</span>
+<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#c4a000">
+</span><span style="color:#c4a000">[HttpPost]</span>
+<span style="color:#c4a000">[AllowAnonymous]</span>
+<span style="color:#c4a000">[ValidateAntiForgeryToken]</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">async</span> <span style="color:#000">Task</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">IActionResult</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">Join</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">JoinViewModel</span> <span style="color:#000">model</span><span style="color:#000;font-weight:bold">){</span>
+  <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">ModelState</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IsValid</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">user</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">Account</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#000">UserName</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">model</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Email</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Name</span><span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;연습중&#34;</span> <span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Email</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">model</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Email</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Phone</span><span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;010-010-010&#34;</span><span style="color:#000;font-weight:bold">};</span>
+		<span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">result</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">await</span> <span style="color:#000">_userManager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">CreateAsync</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">user</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">model</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Password</span><span style="color:#000;font-weight:bold">);</span>
+		<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">result</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Succeeded</span><span style="color:#000;font-weight:bold">)</span>
+		<span style="color:#000;font-weight:bold">{</span>
+			<span style="color:#204a87;font-weight:bold">await</span> <span style="color:#000">_signInManager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SignInAsync</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">user</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">isPersistent</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">);</span>
+			<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToAction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">nameof</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">HomeController</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Index</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#4e9a06">&#34;Home&#34;</span><span style="color:#000;font-weight:bold">);</span>
+		<span style="color:#000;font-weight:bold">}</span>
+		<span style="color:#000">AddErrors</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">result</span><span style="color:#000;font-weight:bold">);</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#8f5902;font-style:italic">// If we got this far, something failed, redisplay form
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">model</span><span style="color:#000;font-weight:bold">);</span>
+
+<span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#8f5902;font-style:italic">// GET: /Auth/Login
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#c4a000">[HttpGet]</span>
+<span style="color:#c4a000">[AllowAnonymous]</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">IActionResult</span> <span style="color:#000">Login</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">returnUrl</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">null</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">ViewData</span><span style="color:#000;font-weight:bold">[</span><span style="color:#4e9a06">&#34;ReturnUrl&#34;</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">;</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">();</span>
+<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#c4a000">
+</span><span style="color:#c4a000">    [HttpPost]</span>
+<span style="color:#c4a000">    [AllowAnonymous]</span>
+<span style="color:#c4a000">    [ValidateAntiForgeryToken]</span>
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">async</span> <span style="color:#000">Task</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">IActionResult</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">Login</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">LoginViewModel</span> <span style="color:#000">model</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">returnUrl</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">null</span><span style="color:#000;font-weight:bold">){</span>
+        <span style="color:#000">ViewData</span><span style="color:#000;font-weight:bold">[</span><span style="color:#4e9a06">&#34;ReturnUrl&#34;</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">;</span>
+        <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ModelState</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IsValid</span><span style="color:#000;font-weight:bold">){</span>
+            <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">result</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">await</span> <span style="color:#000">_signInManager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">PasswordSignInAsync</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">model</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Email</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">model</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Password</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">lockoutOnFailure</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">);</span>
+            <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">result</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Succeeded</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#000;font-weight:bold">{</span>
+                <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToLocal</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">);</span>   
+            <span style="color:#000;font-weight:bold">}</span>
+            <span style="color:#204a87;font-weight:bold">else</span>
+            <span style="color:#000;font-weight:bold">{</span>
+                <span style="color:#000">ModelState</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddModelError</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Empty</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;invalid attempt&#34;</span><span style="color:#000;font-weight:bold">);</span>
+                <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">model</span><span style="color:#000;font-weight:bold">);</span>
+            <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">model</span><span style="color:#000;font-weight:bold">);</span>
+    <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#c4a000">
+</span><span style="color:#c4a000">[HttpPost]</span>
+<span style="color:#c4a000">[ValidateAntiForgeryToken]</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">async</span> <span style="color:#000">Task</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">IActionResult</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">LogOut</span><span style="color:#000;font-weight:bold">()</span>
+<span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">await</span> <span style="color:#000">_signInManager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SignOutAsync</span><span style="color:#000;font-weight:bold">();</span>
+
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToAction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">nameof</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">HomeController</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Index</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#4e9a06">&#34;Home&#34;</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#8f5902;font-style:italic">#region Helpers
+</span><span style="color:#8f5902;font-style:italic"></span>
+<span style="color:#204a87;font-weight:bold">private</span> <span style="color:#204a87;font-weight:bold">void</span> <span style="color:#000">AddErrors</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">IdentityResult</span> <span style="color:#000">result</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">foreach</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">error</span> <span style="color:#204a87;font-weight:bold">in</span> <span style="color:#000">result</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Errors</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">ModelState</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddModelError</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Empty</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">error</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Description</span><span style="color:#000;font-weight:bold">);</span>
+	<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#204a87;font-weight:bold">private</span> <span style="color:#000">Task</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">GetCurrentUserAsync</span><span style="color:#000;font-weight:bold">()</span>
+<span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">_userManager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetUserAsync</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">HttpContext</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">User</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#204a87;font-weight:bold">private</span> <span style="color:#000">IActionResult</span> <span style="color:#000">RedirectToLocal</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">Url</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IsLocalUrl</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">))</span>
+	<span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">Redirect</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">);</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#204a87;font-weight:bold">else</span>
+	<span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToAction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">nameof</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">HomeController</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Index</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#4e9a06">&#34;Home&#34;</span><span style="color:#000;font-weight:bold">);</span>
+	<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#8f5902;font-style:italic">#endregion
+</span><span style="color:#8f5902;font-style:italic"></span>
+<span style="color:#000;font-weight:bold">{%</span> <span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">예제코드를</span> <span style="color:#a40000">참고해본</span> <span style="color:#a40000">회원관리</span> <span style="color:#a40000">컨트롤러이다</span><span style="color:#000;font-weight:bold">.</span>
+</code></pre></div>
 </div>
 
 
@@ -2600,17 +2579,13 @@ else
 	<h1 id="1-11-관계">1. 1:1 관계</h1>
 <p><em>본 게시글은 <a href="https://docs.microsoft.com/en-us/ef/core/modeling/relationships">ef core documentation</a>을 참고하여 만들어졌음을 알려드립니다.</em></p>
 <p>1:다 관계에서는 reference navigation을 가지는 개체가 종속(dependent)개체이고, collection으로(ICollection등) 가지고 있는 개체가 주(principal)개체임을 쉽게 알수있지만, 1:1관계의 경우 이를 쉽게 알 수 없기 때문에(두 모델 모두 서로의 id를 가진다.) foreign key를 설정할 때 종속 개체를 명시해주어야한다. 다음 예시를 보자.</p>
-<p>{% highlight csharp %}
-modelBuilder.Entity<Artwork>()
-.HasOne(a=&gt; a.Auction)
-.WithOne(b=&gt; b.Artwork)
-.HasForeignKey<Auction>(c =&gt; c.ArtworkId)
-.OnDelete(DeleteBehavior.Cascade);</p>
-<pre><code>Artwork라는 개체를 만들었고 이 개체에 Auction이라는 테이블의 개체를 1:1 Matching시킨다. 이때 ForeignKey는 Auction의 ArtworkId로 한다. 즉 주(Principal)개체가 Artwork이고, 종속 개체가 Auction인 셈!
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#000">modelBuilder</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Entity</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Artwork</span><span style="color:#000;font-weight:bold">&gt;()</span>
+       <span style="color:#000;font-weight:bold">.</span><span style="color:#000">HasOne</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">a</span><span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000">a</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Auction</span><span style="color:#000;font-weight:bold">)</span>
+       <span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithOne</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">b</span><span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000">b</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Artwork</span><span style="color:#000;font-weight:bold">)</span>
+       <span style="color:#000;font-weight:bold">.</span><span style="color:#000">HasForeignKey</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Auction</span><span style="color:#000;font-weight:bold">&gt;(</span><span style="color:#000">c</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ArtworkId</span><span style="color:#000;font-weight:bold">)</span>
+       <span style="color:#000;font-weight:bold">.</span><span style="color:#000">OnDelete</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">DeleteBehavior</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Cascade</span><span style="color:#000;font-weight:bold">);</span>      
+</code></pre></div><p>Artwork라는 개체를 만들었고 이 개체에 Auction이라는 테이블의 개체를 1:1 Matching시킨다. 이때 ForeignKey는 Auction의 ArtworkId로 한다. 즉 주(Principal)개체가 Artwork이고, 종속 개체가 Auction인 셈!</p>
 
-{% highlight csharp %}
-</code></pre><p>{% highlight csharp %}</p>
-<pre><code></code></pre>
 </div>
 
 
@@ -2640,84 +2615,81 @@ modelBuilder.Entity<Artwork>()
 	<p>mission: c++로 피보나치 짜기.</p>
 <p>c# 책으로 공부하다가, 피보나치 짜는 문제가 있어서 얼마 전 많이 말아먹은(^^) 현대차 인적성이 떠올랐다. 기본적인 스택/큐/피보나치도 까먹어서 결국 맛있게 말아먹은 시험! 유후!</p>
 <p>아무튼, c#은 FiboNacci 클래스를 만들고 정적 변수와 메소드를 만들어서 Program 클래스의 Main 함수에서 부르는 방식으로 처리할 수 있었다. Memo를 위해 Dictionary 자료형을 이용하면 된다.</p>
-<p>{% highlight csharp %}
-//Rextester.Program.Main is the entry point for your code. Don&rsquo;t change it.
-//Compiler version 4.0.30319.17929 for Microsoft (R) .NET Framework 4.5
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;</p>
-<p>namespace Rextester
-{
-public class FiboNacci
-{
-public static Dictionary&lt;int, long&gt;memo = new Dictionary&lt;int,long&gt;();
-public static long fibo(int n){
-if(n&lt;0) return 0;
-if(n==1) return 1;
-if(memo.ContainsKey(n))
-return memo[n];
-else{
-long value = fibo(n-1) + fibo(n-2);
-memo[n] = value;
-return value;
-}
-}
-}
-public class Program
-{
-public static void Main(string[] args)
-{
-Console.WriteLine(&ldquo;FiboNacci&rdquo;);
-Console.WriteLine(FiboNacci.fibo(120));
-}
-}
-}</p>
-<pre><code>
-c#의 Dictionary 자료형이 어떤 자료형에 대응되는가 (c++에서) 를 찾아보다 보니 map 자료형을 찾을 수 있었다. 헤더에 추가해주고,
-{% highlight cplusplus %}
-#include&lt;iostream&gt;
-#include&lt;cstdlib&gt;
-#include&lt;map&gt;
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#8f5902;font-style:italic">//Rextester.Program.Main is the entry point for your code. Don&#39;t change it.
+</span><span style="color:#8f5902;font-style:italic">//Compiler version 4.0.30319.17929 for Microsoft (R) .NET Framework 4.5
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">using</span> <span style="color:#000">System</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">using</span> <span style="color:#000">System.Collections.Generic</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">using</span> <span style="color:#000">System.Linq</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">using</span> <span style="color:#000">System.Text.RegularExpressions</span><span style="color:#000;font-weight:bold">;</span>
 
-using namespace std;
-class Fibonacci
-{
-public:
-  static map&lt;int, long&gt; fibomemo;
-  static long fibo(int n);
-};
+<span style="color:#204a87;font-weight:bold">namespace</span> <span style="color:#000">Rextester</span>
+<span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">FiboNacci</span>
+    <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">static</span> <span style="color:#000">Dictionary</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#204a87;font-weight:bold">int</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">long</span><span style="color:#000;font-weight:bold">&gt;</span><span style="color:#000">memo</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">Dictionary</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#204a87;font-weight:bold">int</span><span style="color:#000;font-weight:bold">,</span><span style="color:#204a87;font-weight:bold">long</span><span style="color:#000;font-weight:bold">&gt;();</span>
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">static</span> <span style="color:#204a87;font-weight:bold">long</span> <span style="color:#000">fibo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">n</span><span style="color:#000;font-weight:bold">){</span>
+          <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">n</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span>
+          <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">n</span><span style="color:#000;font-weight:bold">==</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">;</span>
+          <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">memo</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ContainsKey</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">n</span><span style="color:#000;font-weight:bold">))</span>
+            <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">memo</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">n</span><span style="color:#000;font-weight:bold">];</span>
+          <span style="color:#204a87;font-weight:bold">else</span><span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">long</span> <span style="color:#204a87;font-weight:bold">value</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">fibo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">n</span><span style="color:#000;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#000">fibo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">n</span><span style="color:#000;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#000;font-weight:bold">);</span>
+            <span style="color:#000">memo</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">n</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">value</span><span style="color:#000;font-weight:bold">;</span>
+            <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">value</span><span style="color:#000;font-weight:bold">;</span>
+          <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">Program</span>
+    <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">static</span> <span style="color:#204a87;font-weight:bold">void</span> <span style="color:#000">Main</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">[]</span> <span style="color:#000">args</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">Console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WriteLine</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;FiboNacci&#34;</span><span style="color:#000;font-weight:bold">);</span>
+            <span style="color:#000">Console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WriteLine</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">FiboNacci</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">fibo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">120</span><span style="color:#000;font-weight:bold">));</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>c#의 Dictionary 자료형이 어떤 자료형에 대응되는가 (c++에서) 를 찾아보다 보니 map 자료형을 찾을 수 있었다. 헤더에 추가해주고,</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#8f5902;font-style:italic">#include</span><span style="color:#8f5902;font-style:italic">&lt;iostream&gt;</span><span style="color:#8f5902;font-style:italic">
+</span><span style="color:#8f5902;font-style:italic">#include</span><span style="color:#8f5902;font-style:italic">&lt;cstdlib&gt;</span><span style="color:#8f5902;font-style:italic">
+</span><span style="color:#8f5902;font-style:italic">#include</span><span style="color:#8f5902;font-style:italic">&lt;map&gt;</span><span style="color:#8f5902;font-style:italic">
+</span><span style="color:#8f5902;font-style:italic"></span>
+<span style="color:#204a87;font-weight:bold">using</span> <span style="color:#204a87;font-weight:bold">namespace</span> <span style="color:#000">std</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">Fibonacci</span>
+<span style="color:#000;font-weight:bold">{</span>
+<span style="color:#204a87;font-weight:bold">public</span><span style="color:#ce5c00;font-weight:bold">:</span>
+  <span style="color:#204a87;font-weight:bold">static</span> <span style="color:#000">map</span><span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#204a87;font-weight:bold">int</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">long</span><span style="color:#ce5c00;font-weight:bold">&gt;</span> <span style="color:#000">fibomemo</span><span style="color:#000;font-weight:bold">;</span>
+  <span style="color:#204a87;font-weight:bold">static</span> <span style="color:#204a87;font-weight:bold">long</span> <span style="color:#000">fibo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">n</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">};</span>
 
-//정적 멤버(static member) 변수는 클래스 외부에서 정의해주어야한다.
-map&lt;int, long&gt; Fibonacci::fibomemo;
+<span style="color:#8f5902;font-style:italic">//정적 멤버(static member) 변수는 클래스 외부에서 정의해주어야한다.
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">map</span><span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#204a87;font-weight:bold">int</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">long</span><span style="color:#ce5c00;font-weight:bold">&gt;</span> <span style="color:#000">Fibonacci</span><span style="color:#ce5c00;font-weight:bold">::</span><span style="color:#000">fibomemo</span><span style="color:#000;font-weight:bold">;</span>
 
-long Fibonacci::fibo(int n)
-{
-  if(n &lt; 0) return 0;
-  if(n == 1) return 1;
+<span style="color:#204a87;font-weight:bold">long</span> <span style="color:#000">Fibonacci</span><span style="color:#ce5c00;font-weight:bold">::</span><span style="color:#000">fibo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">n</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">n</span> <span style="color:#ce5c00;font-weight:bold">&lt;</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span>
+  <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">n</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">;</span>
 
-  if(fibomemo.count(n) &gt; 0)
-  {
-    return fibomemo[n];
-  }
-  else
-  {
-    long value = fibo(n-1)+fibo(n-2);
-    Fibonacci::fibomemo[n] = value;
-    return value;
-  }
-}
+  <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">fibomemo</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">count</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">n</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">&gt;</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span>
+  <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">fibomemo</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">n</span><span style="color:#000;font-weight:bold">];</span>
+  <span style="color:#000;font-weight:bold">}</span>
+  <span style="color:#204a87;font-weight:bold">else</span>
+  <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">long</span> <span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">fibo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">n</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">)</span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#000">fibo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">n</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#000;font-weight:bold">);</span>
+    <span style="color:#000">Fibonacci</span><span style="color:#ce5c00;font-weight:bold">::</span><span style="color:#000">fibomemo</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">n</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">value</span><span style="color:#000;font-weight:bold">;</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">value</span><span style="color:#000;font-weight:bold">;</span>
+  <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
 
-int main()
-{
-    int num;
-    cin &gt;&gt; num;
-    cout &lt;&lt; Fibonacci::fibo(num);
+<span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">main</span><span style="color:#000;font-weight:bold">()</span>
+<span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">num</span><span style="color:#000;font-weight:bold">;</span>
+    <span style="color:#000">cin</span> <span style="color:#ce5c00;font-weight:bold">&gt;&gt;</span> <span style="color:#000">num</span><span style="color:#000;font-weight:bold">;</span>
+    <span style="color:#000">cout</span> <span style="color:#ce5c00;font-weight:bold">&lt;&lt;</span> <span style="color:#000">Fibonacci</span><span style="color:#ce5c00;font-weight:bold">::</span><span style="color:#000">fibo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">num</span><span style="color:#000;font-weight:bold">);</span>
 
-    return 0;
-}
-
-</code></pre><p>혹시 차이점이 눈에 확들어오지 않는다면, class 부분이 짧아진걸 일단 볼 수 있다. 기본 로직은 정확히 동일하지만, c++의 경우 클래스에서 정적 멤버(변수/메소드)를 선언해주고, <strong>클래스 외부에서 정적 멤버를 정의해주어야한다.</strong></p>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>혹시 차이점이 눈에 확들어오지 않는다면, class 부분이 짧아진걸 일단 볼 수 있다. 기본 로직은 정확히 동일하지만, c++의 경우 클래스에서 정적 멤버(변수/메소드)를 선언해주고, <strong>클래스 외부에서 정적 멤버를 정의해주어야한다.</strong></p>
 <p>정적 멤버는 모든 객체가 공유하는 멤버다. 멤버 변수/멤버 함수들은 객체마다 하나씩 존재했었고, 객체는 저마다 자신의 멤버를 사용했다. 즉, 보통의 멤버들은 객체가 생성되면서 같이 생성되기 때문에 따로 정의해줄 필요가 없다. 그러나 정적 멤버 변수는 오직 하나만 생성되기 때문에 별도로 정의해주어야 한다.</p>
 <p>하지만 정적 멤버 변수와 함수는 클래스에 오직 <em>하나만</em> 존재하기 때문에 모든 객체들은 하나의 정적멤버를 같이 사용하게 된다. 따라서 클래스 자체에 관련된 정보/전체 객체와 관련된 정보를 보관하고 다루는 데 유용하게 쓸 수 있다.</p>
 <p><em>참고: 정적 멤버 함수에서는 클래스의 일반 멤버 변수에 접근 할 수 없다. 어떤 객체의 변수를 의미하는 지 알 수 없기 때문이다.</em></p>
@@ -2771,25 +2743,21 @@ vector<int> v;</p>
 <p>public 으로 변수를 선언해버리면 외부에서 마음대로 값을 설정해버릴수있고 잘못된값을 넣을 수 있는 가능성 존재.
 &amp;
 그렇다고 private으로 선언하면 외부에서 아예 값을 건드릴 수 없다. 값을 안전하게 변경하려면 대체 어떻게 해야 하는 것일까?</p>
-<p>= Getter setter
-{% highlight csharp %}
-private int width;
-public int Width
-{
-get {return width;}
-set
-{
-if(value &gt; 0) {width = value;}
-else {Console.WriteLine(&ldquo;너비는 자연수로&rdquo;);}
-}
-}</p>
-<pre><code>
-보통 일반적인 프레임워크에서 사용할 때는 이렇게 쓴다.
-
-{% highlight csharp %}
-public int Width { get; set; }
-public int Height { get; set; }
-</code></pre>
+<p>= Getter setter</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">private</span> <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">width</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">Width</span>
+<span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">get</span> <span style="color:#000;font-weight:bold">{</span><span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">width</span><span style="color:#000;font-weight:bold">;}</span>
+  <span style="color:#204a87;font-weight:bold">set</span>
+  <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">value</span> <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span><span style="color:#000">width</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">value</span><span style="color:#000;font-weight:bold">;}</span>
+    <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span><span style="color:#000">Console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WriteLine</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;너비는 자연수로&#34;</span><span style="color:#000;font-weight:bold">);}</span>
+  <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>보통 일반적인 프레임워크에서 사용할 때는 이렇게 쓴다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">Width</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">Height</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+</code></pre></div>
 </div>
 
 
@@ -2867,33 +2835,31 @@ As I said above, but just to repeat here, I expect to have a real fix out soon. 
 <p>virtualenvwrapper를 쓸수 없는 문제가 있었다.</p>
 <p>결국 기존에 설치되어있던 python3.5를 지우고 Homebrew를 통해 python3를 다시 설치했다.</p>
 <p>virtualenvwrapper를 사용하기 위해, pip(package 설치 관리자)를 이용하여</p>
-<p>{% highlight csharp %}
-$ pip install virtualenv
-$ pip install virtualenvwrapper</p>
-<pre><code>
-로 두가지를 설치하니 의도했던 /usr/local/bin에 잘 깔렸다.
-
-가상환경들을 담을 폴더를 만들고
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#a40000">$</span> <span style="color:#000">pip</span> <span style="color:#000">install</span> <span style="color:#000">virtualenv</span>
+<span style="color:#a40000">$</span> <span style="color:#000">pip</span> <span style="color:#000">install</span> <span style="color:#000">virtualenvwrapper</span>
+</code></pre></div><p>로 두가지를 설치하니 의도했던 /usr/local/bin에 잘 깔렸다.</p>
+<p>가상환경들을 담을 폴더를 만들고
 {%highlight csharp %}
-$ mkdir ~/.virtualenvs
-</code></pre><p>.bashrc를 열어(없으면 만들고)
+$ mkdir ~/.virtualenvs</p>
+<pre><code>
+.bashrc를 열어(없으면 만들고)
 {%highlight csharp %}
 export WORKON_HOME=~/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh</p>
-<pre><code>를 추가해준다. /usr/local/bin/에 virtualenvwrapper.sh가 설치 되어있으므로 저런식으로 해준것.
+source /usr/local/bin/virtualenvwrapper.sh
+</code></pre><p>를 추가해준다. /usr/local/bin/에 virtualenvwrapper.sh가 설치 되어있으므로 저런식으로 해준것.</p>
+<p>{%highlight csharp %}
+source .bashrc</p>
+<pre><code>를 통해 .bashrc를 활성화해준다.
 
 {%highlight csharp %}
-source .bashrc
-</code></pre><p>를 통해 .bashrc를 활성화해준다.</p>
-<p>{%highlight csharp %}
-mkvirtualenv
-//가상환경 만들기
-deactivate
-//빠져나오기
-workon myenv
-//다시 활성화하기</p>
-<pre><code>이렇게 하게 되면 각 가상환경마다 다른 패키지를 사용할 수 있으므로 독립된 가상환경이 구축된것이다.
-</code></pre>
+  mkvirtualenv
+  //가상환경 만들기
+  deactivate
+  //빠져나오기
+  workon myenv
+  //다시 활성화하기
+</code></pre><p>이렇게 하게 되면 각 가상환경마다 다른 패키지를 사용할 수 있으므로 독립된 가상환경이 구축된것이다.</p>
+
 </div>
 
 
@@ -2957,178 +2923,182 @@ workon myenv
 <ol>
 <li>필요한 패키지 설치.</li>
 </ol>
-<p>{% highlight csharp %}</p>
-<p><PackageReference Include="Microsoft.AspNetCore.Identity" Version="1.1.0" />
-<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.0"/>
-<PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.0"/></p>
-<pre><code>
-EntityFrameworkCore를 사용할 예정이므로 함께 연결할 데이터베이스 서버 패키지도 설치해 놓으면 된다.
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#">
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">PackageReference</span> <span style="color:#000">Include</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;Microsoft.AspNetCore.Identity&#34;</span> <span style="color:#000">Version</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;1.1.0&#34;</span> <span style="color:#000;font-weight:bold">/&gt;</span>
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">PackageReference</span> <span style="color:#000">Include</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;Microsoft.AspNetCore.Identity.EntityFrameworkCore&#34;</span> <span style="color:#000">Version</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;1.1.0&#34;</span><span style="color:#000;font-weight:bold">/&gt;</span>
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">PackageReference</span> <span style="color:#000">Include</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;Microsoft.AspNetCore.Authentication.Cookies&#34;</span> <span style="color:#000">Version</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;1.1.0&#34;</span><span style="color:#000;font-weight:bold">/&gt;</span>
 
-{% highlight csharp %}
- &lt;PackageReference Include=&quot;Microsoft.EntityFrameworkCore.SqlServer&quot; Version=&quot;1.1.1&quot; /&gt;
-</code></pre><p>이외에도 mysql, sqlite등을 연결 할 수 있다.</p>
+</code></pre></div><p>EntityFrameworkCore를 사용할 예정이므로 함께 연결할 데이터베이스 서버 패키지도 설치해 놓으면 된다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"> <span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">PackageReference</span> <span style="color:#000">Include</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;Microsoft.EntityFrameworkCore.SqlServer&#34;</span> <span style="color:#000">Version</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;1.1.1&#34;</span> <span style="color:#000;font-weight:bold">/&gt;</span>
+</code></pre></div><p>이외에도 mysql, sqlite등을 연결 할 수 있다.</p>
 <ol start="2">
 <li>회원정보를 다룰 DbContext, User, Role 클래스를 생성한다.</li>
 </ol>
 <p>로컬 sql 서버에 회원 정보를 저장할 것이므로, 접근할 때 필요한 db context 를 생성해야한다. 또한 어떤 user type인지, role(역할)은 무엇인지도 저장해야하므로, 위 클래스들을 생성한다.</p>
 <p>User은 각 회원의 정보를 저장하므로,</p>
-<p>{% highlight csharp %}</p>
-<p>public class Account : IdentityUser, IModel
-{
-public long Id { get;set; }
-public string Name { get;set; }</p>
-<pre><code>    public virtual ICollection&lt;Post&gt; Posts { get;set; }
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#">
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">Account</span> <span style="color:#000;font-weight:bold">:</span> <span style="color:#000">IdentityUser</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">IModel</span>
+    <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">long</span> <span style="color:#000">Id</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span><span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">Name</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span><span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
 
-    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
-    public DateTimeOffset UpdatedAt { get; set; }
-}
-</code></pre>
-<pre><code>
-이런식으로 저장할 수 있다. 튜토리얼에는 MyIdentityUser라고 되어있지만 자유롭게 설정가능하다. **주목할 점은, 이 클래스는 IdentityUser을 상속한다는 점이다.** (Microsoft.AspNetCore.Identity.EntityFrameworkCore namespace)
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">virtual</span> <span style="color:#000">ICollection</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Post</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">Posts</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span><span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
 
-IdentityUser은 UserName, Password, Email 같은 기본 정보들을 저장한다. 따라서 Account에는 내가 따로 저장하고 싶은 프로퍼티를 저장하면 된다.
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">DateTimeOffset</span> <span style="color:#000">CreatedAt</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">DateTimeOffset</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Now</span><span style="color:#000;font-weight:bold">;</span>
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">DateTimeOffset</span> <span style="color:#000">UpdatedAt</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>이런식으로 저장할 수 있다. 튜토리얼에는 MyIdentityUser라고 되어있지만 자유롭게 설정가능하다. <strong>주목할 점은, 이 클래스는 IdentityUser을 상속한다는 점이다.</strong> (Microsoft.AspNetCore.Identity.EntityFrameworkCore namespace)</p>
+<p>IdentityUser은 UserName, Password, Email 같은 기본 정보들을 저장한다. 따라서 Account에는 내가 따로 저장하고 싶은 프로퍼티를 저장하면 된다.</p>
+<p>마찬가지로 AccountIdentityRole 모델도</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">using</span> <span style="color:#000">Microsoft.AspNetCore.Identity.EntityFrameworkCore</span><span style="color:#000;font-weight:bold">;</span>
 
-마찬가지로 AccountIdentityRole 모델도
-{% highlight csharp %}
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">AccountIdentityRole</span> <span style="color:#000;font-weight:bold">:</span> <span style="color:#000">IdentityRole</span>
+<span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">Description</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>와 같이 나타낼 수 있다. identityrole에는 RoleName과 같은 필드가 저장되므로, Description 추가를 원하면 위와 같이 추가해도 되고 아니면 그냥 안해도 RoleName은 쓸 수있다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">MomLueContext</span> <span style="color:#000;font-weight:bold">:</span> <span style="color:#000">IdentityDbContext</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">AccountIdentityRole</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">,</span> <span style="color:#000">IDatabaseContext</span>
+<span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">DbSet</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">Accounts</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">DbSet</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Post</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">Posts</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
 
-public class AccountIdentityRole : IdentityRole
-{
-    public string Description { get; set; }
-}
-</code></pre><p>와 같이 나타낼 수 있다. identityrole에는 RoleName과 같은 필드가 저장되므로, Description 추가를 원하면 위와 같이 추가해도 되고 아니면 그냥 안해도 RoleName은 쓸 수있다.
-{% highlight csharp %}
-public class MomLueContext : IdentityDbContext&lt;Account, AccountIdentityRole, string&gt; , IDatabaseContext
-{
-public DbSet<Account> Accounts { get; set; }
-public DbSet<Post> Posts { get; set; }</p>
-<pre><code>protected override void OnConfiguring(DbContextOptionsBuilder options)
-{
-    options.UseMySql(&quot;server=localhost;userid=root;password=;database=helloworld;&quot;);
-}
-</code></pre>
-<pre><code>이렇게 MomLueContext 를 구성하여 회원정보, 역할을 파라미터로 가지는 IdentityDbContext를 상속, IDatabaseContext를 구현하도록 만든다.
-
-IdentityDbContext가 이미 DbContext를 상속했을 것이므로, 굳이 DbContext를 또 상속하도록 해주지 않아도 된다.
-
-4. Startup.cs에 설정하기.(configuration)
-
-{%highlight csharp %}
+    <span style="color:#204a87;font-weight:bold">protected</span> <span style="color:#204a87;font-weight:bold">override</span> <span style="color:#204a87;font-weight:bold">void</span> <span style="color:#000">OnConfiguring</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">DbContextOptionsBuilder</span> <span style="color:#000">options</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">options</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UseMySql</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;server=localhost;userid=root;password=;database=helloworld;&#34;</span><span style="color:#000;font-weight:bold">);</span>
+    <span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>이렇게 MomLueContext 를 구성하여 회원정보, 역할을 파라미터로 가지는 IdentityDbContext를 상속, IDatabaseContext를 구현하도록 만든다.</p>
+<p>IdentityDbContext가 이미 DbContext를 상속했을 것이므로, 굳이 DbContext를 또 상속하도록 해주지 않아도 된다.</p>
+<ol start="4">
+<li>Startup.cs에 설정하기.(configuration)</li>
+</ol>
+<p>{%highlight csharp %}
 services.AddIdentity&lt;Account, AccountIdentityRole&gt;()
-        .AddEntityFrameworkStores&lt;MomLueContext&gt;()
-        .AddDefaultTokenProviders();
+.AddEntityFrameworkStores<MomLueContext>()
+.AddDefaultTokenProviders();
 {%endhighlight%}
 를 정의했기에, Identity framework가 MomLueContext로 database context를 사용한다는 것을 알 수 있다. Account가 사용자를 담는 모델이름이고, 이는 MyIdentityUser이런식으로 정의할 수 있다.(Account는 예약어가 아니다.) 마찬가지로 AccountIdentityRole도 다른 이름의 모델로 사용할 수 있다.
-[다른 context instance 쓰는 문제](http://www.jerriepelser.com/blog/resolve-dbcontext-as-interface-in-aspnet5-ioc-container/)
-
-{%highlight csharp %}
-services.AddDbContext&lt;MomLueContext&gt;();
+<a href="http://www.jerriepelser.com/blog/resolve-dbcontext-as-interface-in-aspnet5-ioc-container/">다른 context instance 쓰는 문제</a></p>
+<p>{%highlight csharp %}
+services.AddDbContext<MomLueContext>();
 //MomLueContext를 이 application의 dbcontext로 사용한다.
-services.AddScoped&lt;IDatabaseContext&gt;(provider =&gt; provider.GetService&lt;MomLueContext&gt;());
+services.AddScoped<IDatabaseContext>(provider =&gt; provider.GetService<MomLueContext>());
 {%endhighlight%}
-IDatabaseContext는  
-기존에 &lt;span style=&quot;color:#003366&quot;&gt;services.AddScoped&lt;IDatabaseContext, MomLueContext&gt;();&lt;/span&gt;로 되어 있었다.
-
-[password 관련해서 configuration 하는법](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration)
-
-{%highlight csharp %}
-  services.Configure&lt;IdentityOptions&gt;(options =&gt; {
-      options.Password.RequireDigit = true;
-      options.Password.RequiredLength = 8;
-      options.Password.RequireNonAlphanumeric = false;
-      options.Password.RequireUppercase= false;
-  });
-</code></pre><p>이렇게 안해주니 패스워드 조건 디폴트가 너무 까다로웠다. 위 조건으로 해결.</p>
-<p>{%highlight csharp %}</p>
-<p>{%endhighlight%}</p>
-<ul>
-<li>해결:: 태그 헬퍼 사용하기.</li>
-</ul>
-<p><strong>_ViewImports.cshtml</strong>
-{%highlight csharp %}
-@addTagHelper &ldquo;<em>, Microsoft.AspNetCore.Mvc.TagHelpers&rdquo;
-@addTagHelper &ldquo;</em>, MomLue&rdquo;
-{%endhighlight%}
-로 했더니 안되던 태그 헬퍼가 작동한다. 헬퍼가 적용이 안되서 결국 html 헬퍼로 임시방편해두었었는데, 저렇게 하니 되는군. &ldquo;&ldquo;를 안붙혔어서 그랫나보다.
-*<em>@addTagHelper <em>, Microsoft.AspNetCore.Mvc.TagHelpers</em></em>
-이런식으로 냅뒀었다. 그래서 안되었었나보다.</p>
+IDatabaseContext는<br>
+기존에 <span style="color:#003366">services.AddScoped&lt;IDatabaseContext, MomLueContext&gt;();</span>로 되어 있었다.</p>
+<p><a href="https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration">password 관련해서 configuration 하는법</a></p>
 <p>{%highlight csharp %}
-<label asp-for="Title" class="col-lg-3 col-sm-3 control-label">제목</label></p>
-  <div class="col-lg-6" >
-    <input asp-for="Title" class="form-control" />
-  </div>
-{%endhighlight%}
-<p>장점은 asp-for 가 동작한다는것. @Html.TextBoxFor(x=&gt;x.Email, new { @class= &ldquo;form-control&rdquo;})
-이런식으로 안써도 된다!!! 예헤이!!</p>
-<p>{%highlight csharp %}
-public class Repository<T> : IRepository<T> where T : class, IModel
-{
-public virtual DbSet<T> GetAll()
-{
-return Context.Set<T>();
-}
-{%endhighlight%}
-IRepository를 상속하는 Repository 클래스에서 테이블을 통째로 가져오는 GetAll 메소드를 호출할떄</p>
-<p>부모인 IRepository에서
+services.Configure<IdentityOptions>(options =&gt; {
+options.Password.RequireDigit = true;
+options.Password.RequiredLength = 8;
+options.Password.RequireNonAlphanumeric = false;
+options.Password.RequireUppercase= false;
+});</p>
+<pre><code>이렇게 안해주니 패스워드 조건 디폴트가 너무 까다로웠다. 위 조건으로 해결.
+
 {%highlight csharp %}
-public interface IRepository<T> where T : class
-{
+
+{%endhighlight%}
+
+* 해결:: 태그 헬퍼 사용하기.
+
+**_ViewImports.cshtml**
+{%highlight csharp %}
+@addTagHelper &quot;*, Microsoft.AspNetCore.Mvc.TagHelpers&quot;
+@addTagHelper &quot;*, MomLue&quot;
+{%endhighlight%}
+로 했더니 안되던 태그 헬퍼가 작동한다. 헬퍼가 적용이 안되서 결국 html 헬퍼로 임시방편해두었었는데, 저렇게 하니 되는군. &quot;&quot;를 안붙혔어서 그랫나보다.
+**@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers**
+이런식으로 냅뒀었다. 그래서 안되었었나보다.
+
+{%highlight csharp %}
+  &lt;label asp-for=&quot;Title&quot; class=&quot;col-lg-3 col-sm-3 control-label&quot;&gt;제목&lt;/label&gt;
+  &lt;div class=&quot;col-lg-6&quot; &gt;
+    &lt;input asp-for=&quot;Title&quot; class=&quot;form-control&quot; /&gt;
+  &lt;/div&gt;
+{%endhighlight%}
+
+장점은 asp-for 가 동작한다는것. @Html.TextBoxFor(x=&gt;x.Email, new { @class= &quot;form-control&quot;})
+이런식으로 안써도 된다!!! 예헤이!!
+
+{%highlight csharp %}
+public class Repository&lt;T&gt; : IRepository&lt;T&gt; where T : class, IModel
+   {
+      public virtual DbSet&lt;T&gt; GetAll()
+             {
+                 return Context.Set&lt;T&gt;();
+             }
+{%endhighlight%}
+IRepository를 상속하는 Repository 클래스에서 테이블을 통째로 가져오는 GetAll 메소드를 호출할떄
+
+부모인 IRepository에서
+{%highlight csharp %}
+public interface IRepository&lt;T&gt; where T : class
+   {
 {%endhighlight%}
 T: class 안해주면
 {%highlight csharp %}
-public virtual DbSet<T> GetAll()
-{
-return Context.Set<T>();
-}
+public virtual DbSet&lt;T&gt; GetAll()
+        {
+            return Context.Set&lt;T&gt;();
+        }
 {%endhighlight%}
-가 안먹는다.</p>
-<p>{%highlight csharp %}
+가 안먹는다.
+
+{%highlight csharp %}
 public IActionResult Index()
-{
-List<Post> postList = PostRepository.GetAll().Include( post=&gt; post.Account )
-.ToList();
+        {
+            List&lt;Post&gt; postList = PostRepository.GetAll().Include( post=&gt; post.Account )
+                .ToList();
 {%endhighlight%}
-암튼 저렇게 repository를 구성해주면 위 코드가 잘 먹는데, 해당 테이블 뿐만 아니라 참조하고 있는 다른 테이블 (여기서는 Account 테이블)을 함께 가져올 수 있도록 한다. <span style="color:#003366">lazy loading</span>이 지원되지 않기 때문에 Eager loading을 수행한것이다.
-<a href="https://docs.microsoft.com/en-us/ef/core/querying/related-data">loading 관련 documentation</a></p>
-<p>{%highlight csharp %}
+암튼 저렇게 repository를 구성해주면 위 코드가 잘 먹는데, 해당 테이블 뿐만 아니라 참조하고 있는 다른 테이블 (여기서는 Account 테이블)을 함께 가져올 수 있도록 한다. &lt;span style=&quot;color:#003366&quot;&gt;lazy loading&lt;/span&gt;이 지원되지 않기 때문에 Eager loading을 수행한것이다.
+[loading 관련 documentation](https://docs.microsoft.com/en-us/ef/core/querying/related-data)
+
+{%highlight csharp %}
 [Authorize]
 public IActionResult Create()
 {
-var postViewModel = new PostViewModel();
-return View(postViewModel);
+    var postViewModel = new PostViewModel();
+    return View(postViewModel);
 }
 [HttpPostAttribute]
-public async Task<IActionResult> Insert(PostViewModel postview)
+public async Task&lt;IActionResult&gt; Insert(PostViewModel postview)
 {
-var userAccount = UserManager.GetUserAsync(HttpContext.User).Result;</p>
-<pre><code>var post = new Post {
-    Account = userAccount,
-    Title = postview.Title,
-    Content = postview.Content,
-    Tag = postview.Tag,
-};
+    var userAccount = UserManager.GetUserAsync(HttpContext.User).Result;
 
-PostRepository.Insert(post);
-await PostRepository.SaveChangesAsync();
+    var post = new Post {
+        Account = userAccount,
+        Title = postview.Title,
+        Content = postview.Content,
+        Tag = postview.Tag,
+    };
 
-return RedirectToAction(&quot;Index&quot;, &quot;Post&quot;);
-</code></pre>
-<p>}
+    PostRepository.Insert(post);
+    await PostRepository.SaveChangesAsync();
+
+    return RedirectToAction(&quot;Index&quot;, &quot;Post&quot;);
+}
 {%endhighlight%}
-create 액션은 인증된 사용자가 수행할 수 있도록 Authorize옵션을 주고,</p>
-<p>실제 데이터베이스에 집어넣는 과정은 Insert 액션을 통해 수행한다. UserManager<Account> UserManager;을 통해 생성한 UserManager 객체로
-HttpContext내에 존재하는 user 객체를 얻어 userAccount에 넣고 이를 이용해 Post 객체를 생성하여 미리 만들어준 PostRepository(포스트 저장소)에 insert 메소드를 이용해서 넣어준다. 그리고 이를 SaveChangesAsync를 이용해 repository에 저장한다.</p>
-<p>{%highlight csharp %}
-{%endhighlight%}</p>
-<p>{%highlight csharp %}
-{%endhighlight%}</p>
-<p>{%highlight csharp %}
-{%endhighlight%}</p>
-<p>{%highlight csharp %}
-{%endhighlight%}</p>
-<p>{%highlight csharp %}
-{%endhighlight%}</p>
+create 액션은 인증된 사용자가 수행할 수 있도록 Authorize옵션을 주고,
 
+실제 데이터베이스에 집어넣는 과정은 Insert 액션을 통해 수행한다. UserManager&lt;Account&gt; UserManager;을 통해 생성한 UserManager 객체로
+HttpContext내에 존재하는 user 객체를 얻어 userAccount에 넣고 이를 이용해 Post 객체를 생성하여 미리 만들어준 PostRepository(포스트 저장소)에 insert 메소드를 이용해서 넣어준다. 그리고 이를 SaveChangesAsync를 이용해 repository에 저장한다.
+
+
+{%highlight csharp %}
+{%endhighlight%}
+
+{%highlight csharp %}
+{%endhighlight%}
+
+{%highlight csharp %}
+{%endhighlight%}
+
+{%highlight csharp %}
+{%endhighlight%}
+
+{%highlight csharp %}
+{%endhighlight%}
+</code></pre>
 </div>
 
 
@@ -3584,95 +3554,128 @@ return RedirectToAction(&ldquo;Detail&rdquo;, new{id = new_post.Id});
     <input type= "submit" value = "Submit">
 </form>
 <p>{% endhighlight%}</p>
-<p>{% highlight csharp %}</p>
-<pre><code>public IActionResult Create()
-{
-        if(HttpContext.Session.GetInt32(&quot;AccountId&quot;)!= null)
-            return View();
-        else
-            return RedirectToAction(&quot;Login&quot;, &quot;Auth&quot;);
-}
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#">
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">IActionResult</span> <span style="color:#000">Create</span><span style="color:#000;font-weight:bold">()</span>
+    <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">HttpContext</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Session</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetInt32</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;AccountId&#34;</span><span style="color:#000;font-weight:bold">)!=</span> <span style="color:#204a87;font-weight:bold">null</span><span style="color:#000;font-weight:bold">)</span>
+                <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">();</span>
+            <span style="color:#204a87;font-weight:bold">else</span>
+                <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToAction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Login&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;Auth&#34;</span><span style="color:#000;font-weight:bold">);</span>
+    <span style="color:#000;font-weight:bold">}</span>
 
-//Post method를 위해 post 어트리뷰트 붙여주기
-[HttpPost]
+    <span style="color:#8f5902;font-style:italic">//Post method를 위해 post 어트리뷰트 붙여주기
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#c4a000">    [HttpPost]</span>
 
-public IActionResult Create(string title, string content)
-{
-    Post newPost = new Post();
-    newPost.Title = title;
-    newPost.Content = content;
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">IActionResult</span> <span style="color:#000">Create</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">title</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">content</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">Post</span> <span style="color:#000">newPost</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">Post</span><span style="color:#000;font-weight:bold">();</span>
+        <span style="color:#000">newPost</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Title</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">title</span><span style="color:#000;font-weight:bold">;</span>
+        <span style="color:#000">newPost</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Content</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">content</span><span style="color:#000;font-weight:bold">;</span>
 
-    var db = new DatabaseContext();
-    db.Posts.Add(newPost);
-    db.SaveChanges();
+        <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">db</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">DatabaseContext</span><span style="color:#000;font-weight:bold">();</span>
+        <span style="color:#000">db</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Posts</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Add</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">newPost</span><span style="color:#000;font-weight:bold">);</span>
+        <span style="color:#000">db</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SaveChanges</span><span style="color:#000;font-weight:bold">();</span>
 
-    return RedirectToAction(&quot;Detail&quot;, new{id = newPost.Id});
-}
-</code></pre>
-<p>{%endhighlight%}</p>
-<p>[HttpPost]를 이용해서 Post Method을 사용하는 Action임을 알리자.  HttpPostAttribute의 준말.</p>
-<p>기본 Default인 Get방식을 사용하는 Create()와 구분가능.</p>
-<p>모호한 함수지정 에러를 피할 수 있다. (AmbiguousActionException: Multiple actions matched.)</p>
-<p>Create Action으로 Post 객체를 생성했으니, Detail로 이동할 차례,</p>
-<p><span style="color:#003366">return RedirectToAction(&ldquo;Detail&rdquo;, new{id = newPost.Id});</span></p>
-<p>으로 이동해줄텐데, 동일 컨트롤러 내의 Detail 액션으로 이동할 때, 익명 객체를 생성하여 파라미터로 함께 보내준다. new{} 안에 id 객체를 넣을 건데 이는 생성된 post의 id를 넣어 보낸다.</p>
-<p>이렇게 보내진 id는</p>
-<p>{% highlight csharp %}</p>
-<p>public IActionResult Detail(int id)
-{
-var db = new DatabaseContext();
-var post = db.Posts.Find(id);</p>
-<pre><code>return View(post);
-</code></pre>
-<p>}</p>
-<p>{%endhighlight%}</p>
-<p>기본적으로 controller / action / id로 routing 이 진행된다.</p>
-<p>{% highlight csharp %}
-app.UseMvc(routes =&gt;
-{
-routes.MapRoute(
-name: &ldquo;default&rdquo;,
-template: &ldquo;{controller=Home}/{action=Index}/{id?}&quot;);
-});
-{%endhighlight%}</p>
-<p>따라서,</p>
-<p>{%highlight html %}
-//Post 객체가 나올 것이라고 예고하기 위해 @model을 썼다.
-//@는 c#코드를 html파일에 쓰기 위해 사용하는 기호
-@model Post</p>
-<p>//c# 코드가 1줄동안 이어지기 때문에 중괄호를 사용해주었다 띄어쓰기가 포함되어있는 c#코드는 {}가 필요하다.
-@{Post post= Model;}</p>
-<h1>게시글 @post.Id </h1>
-<div>
-<p>제목: @post.Title</p>
-<p>내용: @post.Content</p>
-</div>
-{%endhighlight%}
-<p>여기서 @Model의 Model은 넘겨진 View(post)의 파라미터 Post객체를 의미하겠지.
-물론 Detail.cshtml파일에서 Model 을 다루기 위해서는</p>
-<p>_ViewImports.cshtml 파일에
-@using WebApplication.Models
-을 삽입해줘야한다.</p>
-<p>마지막 정리는 Session 문제</p>
-<p>Login, Join 문제를 위해!</p>
-<p>using Microsoft.AspNetCore.Http; 일단 이거 import 해주고,</p>
-<p>{% highlight csharp %}
-{%endhighlight%}</p>
-<p>{% highlight csharp %}
-{%endhighlight%}</p>
-<p>{% highlight csharp %}
-{%endhighlight%}</p>
-<p>{% highlight csharp %}
-{%endhighlight%}</p>
-<p>nullable에 대하여 =&gt; model 간 관계가 optional일때는 nullable 객체가 필요하다.</p>
-<p>즉,</p>
-<p>{% highlight csharp %}</p>
-<p>//related exhibition OPTIONAL
-public long? ExhibitionId { get; set; }
-public Exhibition RelatedExhibition { get; set; }</p>
-<p>{%endhighlight%}</p>
-<p>이런식이 되는 것인데, RelatedExhibition은 exhibition 객체이다. 즉. class 객체일 경우 reference 타입(주소값 타입)이라 ?라는 nullable 표시가 필요없다. 하지만 ExhibitionId의 경우 value 타입(값 타입)이기 때문에 빌 수 있다(여기서는 연관된 exhibition을 가지지 않을 수 있다라는 뜻)는 nullable 표시 ?을 붙혀주어야한다. 그래서 long? 타입으로 선언해 준것이다.</p>
+        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToAction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Detail&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">new</span><span style="color:#000;font-weight:bold">{</span><span style="color:#000">id</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">newPost</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Id</span><span style="color:#000;font-weight:bold">});</span>
+    <span style="color:#000;font-weight:bold">}</span>
 
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+<span style="color:#c4a000">
+</span><span style="color:#c4a000">[HttpPost]</span><span style="color:#a40000">를</span> <span style="color:#a40000">이용해서</span> <span style="color:#000">Post</span> <span style="color:#000">Method을</span> <span style="color:#a40000">사용하는</span> <span style="color:#000">Action임을</span> <span style="color:#a40000">알리자</span><span style="color:#000;font-weight:bold">.</span>  <span style="color:#000">HttpPostAttribute의</span> <span style="color:#a40000">준말</span><span style="color:#000;font-weight:bold">.</span>
+
+<span style="color:#a40000">기본</span> <span style="color:#000">Default인</span> <span style="color:#000">Get방식을</span> <span style="color:#a40000">사용하는</span> <span style="color:#000">Create</span><span style="color:#000;font-weight:bold">()</span><span style="color:#a40000">와</span> <span style="color:#a40000">구분가능</span><span style="color:#000;font-weight:bold">.</span>
+
+<span style="color:#a40000">모호한</span> <span style="color:#a40000">함수지정</span> <span style="color:#a40000">에러를</span> <span style="color:#a40000">피할</span> <span style="color:#a40000">수</span> <span style="color:#a40000">있다</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">AmbiguousActionException</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">Multiple</span> <span style="color:#000">actions</span> <span style="color:#000">matched</span><span style="color:#000;font-weight:bold">.)</span>
+
+<span style="color:#000">Create</span> <span style="color:#000">Action으로</span> <span style="color:#000">Post</span> <span style="color:#a40000">객체를</span> <span style="color:#a40000">생성했으니</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Detail로</span> <span style="color:#a40000">이동할</span> <span style="color:#a40000">차례</span><span style="color:#000;font-weight:bold">,</span>
+
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">span</span> <span style="color:#000">style</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;color:#003366&#34;</span><span style="color:#000;font-weight:bold">&gt;</span><span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToAction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Detail&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">new</span><span style="color:#000;font-weight:bold">{</span><span style="color:#000">id</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">newPost</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Id</span><span style="color:#000;font-weight:bold">});&lt;/</span><span style="color:#000">span</span><span style="color:#000;font-weight:bold">&gt;</span>
+
+<span style="color:#a40000">으로</span> <span style="color:#a40000">이동해줄텐데</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#a40000">동일</span> <span style="color:#a40000">컨트롤러</span> <span style="color:#a40000">내의</span> <span style="color:#000">Detail</span> <span style="color:#a40000">액션으로</span> <span style="color:#a40000">이동할</span> <span style="color:#a40000">때</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#a40000">익명</span> <span style="color:#a40000">객체를</span> <span style="color:#a40000">생성하여</span> <span style="color:#a40000">파라미터로</span> <span style="color:#a40000">함께</span> <span style="color:#a40000">보내준다</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#204a87;font-weight:bold">new</span><span style="color:#000;font-weight:bold">{}</span> <span style="color:#a40000">안에</span> <span style="color:#000">id</span> <span style="color:#a40000">객체를</span> <span style="color:#a40000">넣을</span> <span style="color:#a40000">건데</span> <span style="color:#a40000">이는</span> <span style="color:#a40000">생성된</span> <span style="color:#000">post의</span> <span style="color:#000">id를</span> <span style="color:#a40000">넣어</span> <span style="color:#a40000">보낸다</span><span style="color:#000;font-weight:bold">.</span>
+
+<span style="color:#a40000">이렇게</span> <span style="color:#a40000">보내진</span> <span style="color:#000">id는</span>
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">IActionResult</span> <span style="color:#000">Detail</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">id</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">db</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">DatabaseContext</span><span style="color:#000;font-weight:bold">();</span>
+    <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">post</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">db</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Posts</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Find</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">id</span><span style="color:#000;font-weight:bold">);</span>
+
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">post</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">기본적으로</span> <span style="color:#000">controller</span> <span style="color:#000;font-weight:bold">/</span> <span style="color:#000">action</span> <span style="color:#000;font-weight:bold">/</span> <span style="color:#000">id로</span> <span style="color:#000">routing</span> <span style="color:#a40000">이</span> <span style="color:#a40000">진행된다</span><span style="color:#000;font-weight:bold">.</span>
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+    <span style="color:#000">app</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UseMvc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">routes</span> <span style="color:#000;font-weight:bold">=&gt;</span>
+        <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">routes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">MapRoute</span><span style="color:#000;font-weight:bold">(</span>
+            <span style="color:#000">name</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;default&#34;</span><span style="color:#000;font-weight:bold">,</span>
+            <span style="color:#000">template</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;{controller=Home}/{action=Index}/{id?}&#34;</span><span style="color:#000;font-weight:bold">);</span>
+        <span style="color:#000;font-weight:bold">});</span>
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">따라서</span><span style="color:#000;font-weight:bold">,</span>
+
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">highlight</span> <span style="color:#000">html</span> <span style="color:#000;font-weight:bold">%}</span>
+<span style="color:#8f5902;font-style:italic">//Post 객체가 나올 것이라고 예고하기 위해 @model을 썼다.
+</span><span style="color:#8f5902;font-style:italic">//@는 c#코드를 html파일에 쓰기 위해 사용하는 기호
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">@model</span> <span style="color:#000">Post</span>
+
+<span style="color:#8f5902;font-style:italic">//c# 코드가 1줄동안 이어지기 때문에 중괄호를 사용해주었다 띄어쓰기가 포함되어있는 c#코드는 {}가 필요하다.
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#a40000">@</span><span style="color:#000;font-weight:bold">{</span><span style="color:#000">Post</span> <span style="color:#000">post</span><span style="color:#000;font-weight:bold">=</span> <span style="color:#000">Model</span><span style="color:#000;font-weight:bold">;}</span>
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">h1</span><span style="color:#000;font-weight:bold">&gt;</span><span style="color:#a40000">게시글</span> <span style="color:#000">@post</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Id</span> <span style="color:#000;font-weight:bold">&lt;/</span><span style="color:#000">h1</span><span style="color:#000;font-weight:bold">&gt;</span>
+
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">div</span><span style="color:#000;font-weight:bold">&gt;</span>
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">p</span><span style="color:#000;font-weight:bold">&gt;</span><span style="color:#a40000">제목</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">@post</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Title</span><span style="color:#000;font-weight:bold">&lt;/</span><span style="color:#000">p</span><span style="color:#000;font-weight:bold">&gt;</span>
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">p</span><span style="color:#000;font-weight:bold">&gt;</span><span style="color:#a40000">내용</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">@post</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Content</span><span style="color:#000;font-weight:bold">&lt;/</span><span style="color:#000">p</span><span style="color:#000;font-weight:bold">&gt;</span>
+<span style="color:#000;font-weight:bold">&lt;/</span><span style="color:#000">div</span><span style="color:#000;font-weight:bold">&gt;</span>
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">여기서</span> <span style="color:#000">@Model의</span> <span style="color:#000">Model은</span> <span style="color:#a40000">넘겨진</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">post</span><span style="color:#000;font-weight:bold">)</span><span style="color:#a40000">의</span> <span style="color:#a40000">파라미터</span> <span style="color:#000">Post객체를</span> <span style="color:#a40000">의미하겠지</span><span style="color:#000;font-weight:bold">.</span>
+<span style="color:#a40000">물론</span> <span style="color:#000">Detail</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">cshtml파일에서</span> <span style="color:#000">Model</span> <span style="color:#a40000">을</span> <span style="color:#a40000">다루기</span> <span style="color:#a40000">위해서는</span>
+
+<span style="color:#000">_ViewImports</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">cshtml</span> <span style="color:#a40000">파일에</span>
+<span style="color:#000">@using</span> <span style="color:#000">WebApplication</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Models</span>
+<span style="color:#a40000">을</span> <span style="color:#a40000">삽입해줘야한다</span><span style="color:#000;font-weight:bold">.</span>
+
+
+<span style="color:#a40000">마지막</span> <span style="color:#a40000">정리는</span> <span style="color:#000">Session</span> <span style="color:#a40000">문제</span>
+
+<span style="color:#000">Login</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Join</span> <span style="color:#a40000">문제를</span> <span style="color:#a40000">위해</span><span style="color:#000;font-weight:bold">!</span>
+
+<span style="color:#204a87;font-weight:bold">using</span> <span style="color:#000">Microsoft.AspNetCore.Http</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#a40000">일단</span> <span style="color:#a40000">이거</span> <span style="color:#000">import</span> <span style="color:#a40000">해주고</span><span style="color:#000;font-weight:bold">,</span>
+
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#000">nullable에</span> <span style="color:#a40000">대하여</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000">model</span> <span style="color:#a40000">간</span> <span style="color:#a40000">관계가</span> <span style="color:#000">optional일때는</span> <span style="color:#000">nullable</span> <span style="color:#a40000">객체가</span> <span style="color:#a40000">필요하다</span><span style="color:#000;font-weight:bold">.</span>
+
+<span style="color:#a40000">즉</span><span style="color:#000;font-weight:bold">,</span>
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+
+  <span style="color:#8f5902;font-style:italic">//related exhibition OPTIONAL
+</span><span style="color:#8f5902;font-style:italic"></span>  <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">long?</span> <span style="color:#000">ExhibitionId</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">Exhibition</span> <span style="color:#000">RelatedExhibition</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">이런식이</span> <span style="color:#a40000">되는</span> <span style="color:#a40000">것인데</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">RelatedExhibition은</span> <span style="color:#000">exhibition</span> <span style="color:#a40000">객체이다</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#a40000">즉</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#204a87;font-weight:bold">class</span> <span style="color:#a40000">객체일</span> <span style="color:#a40000">경우</span> <span style="color:#000">reference</span> <span style="color:#a40000">타입</span><span style="color:#000;font-weight:bold">(</span><span style="color:#a40000">주소값</span> <span style="color:#a40000">타입</span><span style="color:#000;font-weight:bold">)</span><span style="color:#a40000">이라</span> <span style="color:#000;font-weight:bold">?</span><span style="color:#a40000">라는</span> <span style="color:#000">nullable</span> <span style="color:#a40000">표시가</span> <span style="color:#a40000">필요없다</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#a40000">하지만</span> <span style="color:#000">ExhibitionId의</span> <span style="color:#a40000">경우</span> <span style="color:#204a87;font-weight:bold">value</span> <span style="color:#a40000">타입</span><span style="color:#000;font-weight:bold">(</span><span style="color:#a40000">값</span> <span style="color:#a40000">타입</span><span style="color:#000;font-weight:bold">)</span><span style="color:#a40000">이기</span> <span style="color:#a40000">때문에</span> <span style="color:#a40000">빌</span> <span style="color:#a40000">수</span> <span style="color:#a40000">있다</span><span style="color:#000;font-weight:bold">(</span><span style="color:#a40000">여기서는</span> <span style="color:#a40000">연관된</span> <span style="color:#000">exhibition을</span> <span style="color:#a40000">가지지</span> <span style="color:#a40000">않을</span> <span style="color:#a40000">수</span> <span style="color:#a40000">있다라는</span> <span style="color:#a40000">뜻</span><span style="color:#000;font-weight:bold">)</span><span style="color:#a40000">는</span> <span style="color:#000">nullable</span> <span style="color:#a40000">표시</span> <span style="color:#000;font-weight:bold">?</span><span style="color:#a40000">을</span> <span style="color:#a40000">붙혀주어야한다</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#a40000">그래서</span> <span style="color:#204a87;font-weight:bold">long?</span> <span style="color:#a40000">타입으로</span> <span style="color:#a40000">선언해</span> <span style="color:#a40000">준것이다</span><span style="color:#000;font-weight:bold">.</span>
+</code></pre></div>
 </div>
 
 
@@ -4339,27 +4342,24 @@ Finite set 등의 개념을 소개하면서 갈루아 필드, AES에 필요한 �
 <ol start="2">
 <li>주소값 저장.</li>
 </ol>
-<p>Transpose 즉 전치 행렬 만드는 기본 코드 쓰다가 깨달은 사실
-{% highlight c %}
-int arr[2][3]={ {1,2,3},{4,5,6} }; //2행 3열 행렬이 생기겠죠?
-int *ptr=arr;//arr의 주소를 저장합니다.
-for(i=0;i&lt;6;i++)
-printf(&quot;%d&quot;,<em>ptr++); //요건 가능.
-for(i=0;i&lt;6;i++)
-printf(&quot;%d&quot;,</em>(arr+i)); //요건 절대루 안됩니다.</p>
-<pre><code>이유를 생각해볼까요?
-
-사실 당연해요. 2차원 배열 같은 경우에는
-![다차원배열 주소값](https://s3.ap-northeast-2.amazonaws.com/matilda38.github.io/screen3.png)
-이런식으로 저장되기 때문에 arr[i]같은 경우에는 해당 행의 시작주소를 저장하는 것이죠.
-
-arr[i]=&amp;arr[i][0]
-*(arr[i])==arr[i][0]
-가 되는 거죠.
-
-```ruby
-
-</code></pre><p>반성&hellip;!</p>
+<p>Transpose 즉 전치 행렬 만드는 기본 코드 쓰다가 깨달은 사실</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">arr</span><span style="color:#000;font-weight:bold">[</span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#000;font-weight:bold">][</span><span style="color:#0000cf;font-weight:bold">3</span><span style="color:#000;font-weight:bold">]</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#000;font-weight:bold">{</span> <span style="color:#000;font-weight:bold">{</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">,</span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#000;font-weight:bold">,</span><span style="color:#0000cf;font-weight:bold">3</span><span style="color:#000;font-weight:bold">},{</span><span style="color:#0000cf;font-weight:bold">4</span><span style="color:#000;font-weight:bold">,</span><span style="color:#0000cf;font-weight:bold">5</span><span style="color:#000;font-weight:bold">,</span><span style="color:#0000cf;font-weight:bold">6</span><span style="color:#000;font-weight:bold">}</span> <span style="color:#000;font-weight:bold">};</span> <span style="color:#8f5902;font-style:italic">//2행 3열 행렬이 생기겠죠?
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">int</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ptr</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#000">arr</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#8f5902;font-style:italic">//arr의 주소를 저장합니다.
+</span><span style="color:#8f5902;font-style:italic"></span>
+<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span><span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#0000cf;font-weight:bold">6</span><span style="color:#000;font-weight:bold">;</span><span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">++</span><span style="color:#000;font-weight:bold">){</span>
+    <span style="color:#000">printf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;%d&#34;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ptr</span><span style="color:#ce5c00;font-weight:bold">++</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#8f5902;font-style:italic">//요건 가능.
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
+<span style="color:#204a87;font-weight:bold">for</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span><span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#0000cf;font-weight:bold">6</span><span style="color:#000;font-weight:bold">;</span><span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">++</span><span style="color:#000;font-weight:bold">){</span>
+    <span style="color:#000">printf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;%d&#34;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">arr</span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">));</span> <span style="color:#8f5902;font-style:italic">//요건 절대루 안됩니다.
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>    
+</code></pre></div><p>이유를 생각해볼까요?</p>
+<p>사실 당연해요. 2차원 배열 같은 경우에는
+<img src="https://s3.ap-northeast-2.amazonaws.com/matilda38.github.io/screen3.png" alt="다차원배열 주소값">
+이런식으로 저장되기 때문에 arr[i]같은 경우에는 해당 행의 시작주소를 저장하는 것이죠.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000">arr</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">]</span><span style="color:#ce5c00;font-weight:bold">=&amp;</span><span style="color:#000">arr</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">][</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">]</span>
+<span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">arr</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">])</span><span style="color:#ce5c00;font-weight:bold">==</span><span style="color:#000">arr</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">][</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">]</span>
+<span style="color:#a40000">가</span> <span style="color:#a40000">되는</span> <span style="color:#a40000">거죠</span><span style="color:#000;font-weight:bold">.</span>
+</code></pre></div><p>반성&hellip;!</p>
 <p>블로그 검색 시스템은 언제쯤 만들수 있을까&hellip;.허허</p>
 
 </div>
@@ -5012,57 +5012,64 @@ sudo service nginx restart
 <p>python3</p>
 <p>python은 여러모로 충격적인 언어이다.
 일단 x라는 문자를 입력받았을때 <strong>int(x)하면 걍 정수가 나온다</strong>. (atoi(const char*), Int32.parseInt(char*)이런거 필요없음)</p>
-<p>DashInsert문제를 풀때 Python으로 풀면,
-{% highlight python %}
-def even(x,y):
-if int(x)%2 == 0 and int(y)%2==0:
-return True
-else:
-return False</p>
-<p>def odd(x,y):
-if int(x)%2 == 1 and int(y)%2==0:
-return True
-else:
-return False</p>
-<p>def DashInsert(s):
-ans = []
-for i in range(0,len(s)-1):
-if even(s[i],s[i+1]):
-ans.append('*')
-elif odd(s[i],s[i+1]):
-ans.append('-')
-else:
-ans.append(s[i])
-ans.append(s[-1])
-return ans</p>
-<p>print(DashInsert(input()))</p>
-<pre><code>위와 같이 풀수 있다. input()을 통해 문자열입력을 받고, ans라는 리스트를 선언하고,
-입력받은 문자열 배열에서 연속적인 두 수가 둘 다 짝수이면, 또는 홀수이면, 각 함수를 실행하게 만들 수 있다.
+<p>DashInsert문제를 풀때 Python으로 풀면,</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#204a87;font-weight:bold">def</span> <span style="color:#000">even</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">x</span><span style="color:#000;font-weight:bold">,</span><span style="color:#000">y</span><span style="color:#000;font-weight:bold">):</span>
+  <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">x</span><span style="color:#000;font-weight:bold">)</span><span style="color:#ce5c00;font-weight:bold">%</span><span style="color:#0000cf;font-weight:bold">2</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#0000cf;font-weight:bold">0</span> <span style="color:#204a87;font-weight:bold">and</span> <span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">y</span><span style="color:#000;font-weight:bold">)</span><span style="color:#ce5c00;font-weight:bold">%</span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#ce5c00;font-weight:bold">==</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">:</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#3465a4">True</span>
+  <span style="color:#204a87;font-weight:bold">else</span><span style="color:#000;font-weight:bold">:</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#3465a4">False</span>
 
-여기서,충격적인 점은 다음과 같다.
-람다를 사용하면,
+<span style="color:#204a87;font-weight:bold">def</span> <span style="color:#000">odd</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">x</span><span style="color:#000;font-weight:bold">,</span><span style="color:#000">y</span><span style="color:#000;font-weight:bold">):</span>
+  <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">x</span><span style="color:#000;font-weight:bold">)</span><span style="color:#ce5c00;font-weight:bold">%</span><span style="color:#0000cf;font-weight:bold">2</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#204a87;font-weight:bold">and</span> <span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">y</span><span style="color:#000;font-weight:bold">)</span><span style="color:#ce5c00;font-weight:bold">%</span><span style="color:#0000cf;font-weight:bold">2</span><span style="color:#ce5c00;font-weight:bold">==</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">:</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#3465a4">True</span>
+  <span style="color:#204a87;font-weight:bold">else</span><span style="color:#000;font-weight:bold">:</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#3465a4">False</span>
 
-*lambda 인자 : 표현식* 와 같이 함수를 간단히 작성할 수 있다.
-lambda를 이용한 파이썬 응용은, map, reduce, filter가 있는데,
+<span style="color:#204a87;font-weight:bold">def</span> <span style="color:#000">DashInsert</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">):</span>
+  <span style="color:#000">ans</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">[]</span>
+  <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">i</span> <span style="color:#204a87;font-weight:bold">in</span> <span style="color:#204a87">range</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">,</span><span style="color:#204a87">len</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">)</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">):</span>
+    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">even</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">],</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">]):</span>
+      <span style="color:#000">ans</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#000">append</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;\*&#39;</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#204a87;font-weight:bold">elif</span> <span style="color:#000">odd</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">],</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">]):</span>
+      <span style="color:#000">ans</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#000">append</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;\-&#39;</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#204a87;font-weight:bold">else</span><span style="color:#000;font-weight:bold">:</span>
+      <span style="color:#000">ans</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#000">append</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">])</span>
+  <span style="color:#000">ans</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#000">append</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">[</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">])</span>
+  <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">ans</span>
 
- - map(함수, 리스트) : map은 순서형 자료(리스트)를 받아서 모든 항을 함수처리를 해준 후 새로운 리스트를 반환한다.
-&gt; list(map(lambda x: x ** 2, range(5)))     # 파이썬 2 및 파이썬 3
- [0, 1, 4, 9, 16]
-
- - filter(함수, 리스트) : filter의 함수는 무조건 true/false를 반환하는 함수로 true를 반환하는 항만 살리고 나머지는 삭제한 리스트를 반환하는 함수이다.
-&gt;filter(lambda x: x &lt; 5, range(10))       # 파이썬 2
-[0, 1, 2, 3, 4]  
-
- - reduce(함수, 순서형 자료) : reduce는 특이하게 인자가 두개이고, 순서형자료(리스트, 튜플, 문자열)를 받고 원소들을 누적적으로 함수에 적용시킨다.
- 즉, 순서형 자료형에서 1,2번째 원소의 함수 적용값이 2,3번째 원소의 x값이 되는 것.
-&gt;reduce(lambda x, y: x + y, [0, 1, 2, 3, 4])
-10//0에다 1더하고, 그 결과인 1에다 2더하고, 그 결과인 3에다 3을, 그 결과인 6에다 4를 더해 10을 결과로 반환.
-
-암튼 충격적인건 이문제를 reduce로 풀 수있다는 것이다.
-{% highlight python %}
-from functools import reduce
-def DashInsert(s): return reduce(lambda x, y: x + ['\*','','\-'][int(x[-1])%2 + int(y) % 2] + y, s)
-</code></pre><p>와 진짜 이런생각 어떻게 하지?
+<span style="color:#204a87;font-weight:bold">print</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">DashInsert</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87">input</span><span style="color:#000;font-weight:bold">()))</span>
+</code></pre></div><p>위와 같이 풀수 있다. input()을 통해 문자열입력을 받고, ans라는 리스트를 선언하고,
+입력받은 문자열 배열에서 연속적인 두 수가 둘 다 짝수이면, 또는 홀수이면, 각 함수를 실행하게 만들 수 있다.</p>
+<p>여기서,충격적인 점은 다음과 같다.
+람다를 사용하면,</p>
+<p><em>lambda 인자 : 표현식</em> 와 같이 함수를 간단히 작성할 수 있다.
+lambda를 이용한 파이썬 응용은, map, reduce, filter가 있는데,</p>
+<ul>
+<li>map(함수, 리스트) : map은 순서형 자료(리스트)를 받아서 모든 항을 함수처리를 해준 후 새로운 리스트를 반환한다.</li>
+</ul>
+<blockquote>
+<p>list(map(lambda x: x ** 2, range(5)))     # 파이썬 2 및 파이썬 3
+[0, 1, 4, 9, 16]</p>
+</blockquote>
+<ul>
+<li>filter(함수, 리스트) : filter의 함수는 무조건 true/false를 반환하는 함수로 true를 반환하는 항만 살리고 나머지는 삭제한 리스트를 반환하는 함수이다.</li>
+</ul>
+<blockquote>
+<p>filter(lambda x: x &lt; 5, range(10))       # 파이썬 2
+[0, 1, 2, 3, 4]</p>
+</blockquote>
+<ul>
+<li>reduce(함수, 순서형 자료) : reduce는 특이하게 인자가 두개이고, 순서형자료(리스트, 튜플, 문자열)를 받고 원소들을 누적적으로 함수에 적용시킨다.
+즉, 순서형 자료형에서 1,2번째 원소의 함수 적용값이 2,3번째 원소의 x값이 되는 것.</li>
+</ul>
+<blockquote>
+<p>reduce(lambda x, y: x + y, [0, 1, 2, 3, 4])
+10//0에다 1더하고, 그 결과인 1에다 2더하고, 그 결과인 3에다 3을, 그 결과인 6에다 4를 더해 10을 결과로 반환.</p>
+</blockquote>
+<p>암튼 충격적인건 이문제를 reduce로 풀 수있다는 것이다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#204a87;font-weight:bold">from</span> <span style="color:#000">functools</span> <span style="color:#204a87;font-weight:bold">import</span> <span style="color:#204a87">reduce</span>
+<span style="color:#204a87;font-weight:bold">def</span> <span style="color:#000">DashInsert</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">):</span> <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87">reduce</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">lambda</span> <span style="color:#000">x</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">y</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">x</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000;font-weight:bold">[</span><span style="color:#4e9a06">&#39;\*&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#4e9a06">&#39;&#39;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#4e9a06">&#39;\-&#39;</span><span style="color:#000;font-weight:bold">][</span><span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">x</span><span style="color:#000;font-weight:bold">[</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">])</span><span style="color:#ce5c00;font-weight:bold">%</span><span style="color:#0000cf;font-weight:bold">2</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">y</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">%</span> <span style="color:#0000cf;font-weight:bold">2</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">y</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">)</span>
+</code></pre></div><p>와 진짜 이런생각 어떻게 하지?
 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
 <p>연속되는 두 원소 x,y에 대해서, 두 수가 모두 짝수이면 나머지가 0이고, 두 수가 모두 홀수이면 나머지가 모두 1이기 때문에,</p>
 <ul>
@@ -5303,25 +5310,21 @@ git checkout -b subbranch_of_b1 branch1</p>
 <a href="http://crynut84.github.io/2015-06-19/basic-command-git.html">깃 기초 명령어</a></p>
 <h2 id="git-ignore-파일-추가하기">Git Ignore 파일 추가하기</h2>
 <p>.gitignore파일로 git 저장소에 올리고 싶지 않은 파일들을 제외시킬 수 있다. 나의 경우엔</p>
-<pre><code>.idea/
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.idea/
 *.o
 bundle/
 Gemfile
 Gemfile_o
 secret/
-</code></pre><p>이런식으로 지정해줬는데 IDE 사용시 자동으로 추가되는 파일이나, 루비 젬파일들은 굳이 깃헙에 올려놓을 필요가 없으므로 제외시켰고, o같은 확장자를 가진 파일들은 대개 컴파일 과정에서 생기는 불필요한 파일이므로 제외시켜주었다. secret폴더에는 밖에 보이는 글말고 혼자 보고 싶은 글을 마크다운으로 작성해서 저장해놓기 위해 gitignore에 추가해주었다.</p>
-<p>{% highlight bash%}
-git rm -r –cached .
+</code></pre></div><p>이런식으로 지정해줬는데 IDE 사용시 자동으로 추가되는 파일이나, 루비 젬파일들은 굳이 깃헙에 올려놓을 필요가 없으므로 제외시켰고, o같은 확장자를 가진 파일들은 대개 컴파일 과정에서 생기는 불필요한 파일이므로 제외시켜주었다. secret폴더에는 밖에 보이는 글말고 혼자 보고 싶은 글을 마크다운으로 작성해서 저장해놓기 위해 gitignore에 추가해주었다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git rm -r –cached .
 git add .
-git commit -m “Updated .gitignore”</p>
-<pre><code>
-이런식으로 기존 cache를 지우고, gitignore가 업데이트 된것을 add 해준후, commit 해주면 gitignore가 반영된다.
-이는 git이 traking하는 파일들을 초기화하는 작업과 같다. 즉, gitignore에 있는 파일/폴더들은 track하지 마라 이 뜻과 같다.
+git commit -m “Updated .gitignore”
+</code></pre></div><p>이런식으로 기존 cache를 지우고, gitignore가 업데이트 된것을 add 해준후, commit 해주면 gitignore가 반영된다.
+이는 git이 traking하는 파일들을 초기화하는 작업과 같다. 즉, gitignore에 있는 파일/폴더들은 track하지 마라 이 뜻과 같다.</p>
+<p>이미 add된 특정 파일만 untrack하기 위한 명령어는</p>
+<p><strong>git rm &ndash;cached filename</strong> 라고 한다. <a href="https://stackoverflow.com/questions/1139762/ignore-files-that-have-already-been-committed-to-a-git-repository">stackoverflow</a></p>
 
-이미 add된 특정 파일만 untrack하기 위한 명령어는
-
-**git rm --cached filename** 라고 한다. [stackoverflow](https://stackoverflow.com/questions/1139762/ignore-files-that-have-already-been-committed-to-a-git-repository)
-</code></pre>
 </div>
 
 

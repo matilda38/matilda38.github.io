@@ -19,8 +19,8 @@
 
 <title>Asp.net Core에서 로그인 기능 구현하기 | log.info</title><meta property="og:title" content="Asp.net Core에서 로그인 기능 구현하기" />
 <meta property="og:description" content="로그인 기능 구현하기 본 튜토리얼은 인도아자씨네튜토리얼 깔끔한아자씨네가 뷰컴포넌트 정리한거 의 튜토리얼을 참고하였음을 알려드립니다.
- 필요한 패키지 설치.  {% highlight csharp %}
- EntityFrameworkCore를 사용할 예정이므로 함께 연결할 데이터베이스 서버 패키지도 설치해 놓으면 된다. {% highlight csharp %} &lt;PackageReference Include=&quot;Microsoft.EntityFrameworkCore.SqlServer&quot; Version=&quot;1.1.1&quot; /&gt; 이외에도 mysql, sqlite등을 연결 할 수 있다.
+ 필요한 패키지 설치.  &lt;PackageReference Include=&#34;Microsoft.AspNetCore.Identity&#34; Version=&#34;1.1.0&#34; /&gt; &lt;PackageReference Include=&#34;Microsoft.AspNetCore.Identity.EntityFrameworkCore&#34; Version=&#34;1.1.0&#34;/&gt; &lt;PackageReference Include=&#34;Microsoft.AspNetCore.Authentication.Cookies&#34; Version=&#34;1.1.0&#34;/&gt; EntityFrameworkCore를 사용할 예정이므로 함께 연결할 데이터베이스 서버 패키지도 설치해 놓으면 된다.
+&lt;PackageReference Include=&#34;Microsoft.EntityFrameworkCore.SqlServer&#34; Version=&#34;1.1.1&#34; /&gt; 이외에도 mysql, sqlite등을 연결 할 수 있다.
 회원정보를 다룰 DbContext, User, Role 클래스를 생성한다.  로컬 sql 서버에 회원 정보를 저장할 것이므로, 접근할 때 필요한 db context 를 생성해야한다." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blog/2017/03/22/asp.net-core%EC%97%90%EC%84%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/" />
@@ -28,12 +28,12 @@
 <meta property="article:modified_time" content="2017-03-22T00:00:00+00:00" /><meta property="og:site_name" content="log.info" />
 <meta itemprop="name" content="Asp.net Core에서 로그인 기능 구현하기">
 <meta itemprop="description" content="로그인 기능 구현하기 본 튜토리얼은 인도아자씨네튜토리얼 깔끔한아자씨네가 뷰컴포넌트 정리한거 의 튜토리얼을 참고하였음을 알려드립니다.
- 필요한 패키지 설치.  {% highlight csharp %}
- EntityFrameworkCore를 사용할 예정이므로 함께 연결할 데이터베이스 서버 패키지도 설치해 놓으면 된다. {% highlight csharp %} &lt;PackageReference Include=&quot;Microsoft.EntityFrameworkCore.SqlServer&quot; Version=&quot;1.1.1&quot; /&gt; 이외에도 mysql, sqlite등을 연결 할 수 있다.
+ 필요한 패키지 설치.  &lt;PackageReference Include=&#34;Microsoft.AspNetCore.Identity&#34; Version=&#34;1.1.0&#34; /&gt; &lt;PackageReference Include=&#34;Microsoft.AspNetCore.Identity.EntityFrameworkCore&#34; Version=&#34;1.1.0&#34;/&gt; &lt;PackageReference Include=&#34;Microsoft.AspNetCore.Authentication.Cookies&#34; Version=&#34;1.1.0&#34;/&gt; EntityFrameworkCore를 사용할 예정이므로 함께 연결할 데이터베이스 서버 패키지도 설치해 놓으면 된다.
+&lt;PackageReference Include=&#34;Microsoft.EntityFrameworkCore.SqlServer&#34; Version=&#34;1.1.1&#34; /&gt; 이외에도 mysql, sqlite등을 연결 할 수 있다.
 회원정보를 다룰 DbContext, User, Role 클래스를 생성한다.  로컬 sql 서버에 회원 정보를 저장할 것이므로, 접근할 때 필요한 db context 를 생성해야한다.">
 <meta itemprop="datePublished" content="2017-03-22T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2017-03-22T00:00:00+00:00" />
-<meta itemprop="wordCount" content="671">
+<meta itemprop="wordCount" content="673">
 
 
 
@@ -41,8 +41,8 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Asp.net Core에서 로그인 기능 구현하기"/>
 <meta name="twitter:description" content="로그인 기능 구현하기 본 튜토리얼은 인도아자씨네튜토리얼 깔끔한아자씨네가 뷰컴포넌트 정리한거 의 튜토리얼을 참고하였음을 알려드립니다.
- 필요한 패키지 설치.  {% highlight csharp %}
- EntityFrameworkCore를 사용할 예정이므로 함께 연결할 데이터베이스 서버 패키지도 설치해 놓으면 된다. {% highlight csharp %} &lt;PackageReference Include=&quot;Microsoft.EntityFrameworkCore.SqlServer&quot; Version=&quot;1.1.1&quot; /&gt; 이외에도 mysql, sqlite등을 연결 할 수 있다.
+ 필요한 패키지 설치.  &lt;PackageReference Include=&#34;Microsoft.AspNetCore.Identity&#34; Version=&#34;1.1.0&#34; /&gt; &lt;PackageReference Include=&#34;Microsoft.AspNetCore.Identity.EntityFrameworkCore&#34; Version=&#34;1.1.0&#34;/&gt; &lt;PackageReference Include=&#34;Microsoft.AspNetCore.Authentication.Cookies&#34; Version=&#34;1.1.0&#34;/&gt; EntityFrameworkCore를 사용할 예정이므로 함께 연결할 데이터베이스 서버 패키지도 설치해 놓으면 된다.
+&lt;PackageReference Include=&#34;Microsoft.EntityFrameworkCore.SqlServer&#34; Version=&#34;1.1.1&#34; /&gt; 이외에도 mysql, sqlite등을 연결 할 수 있다.
 회원정보를 다룰 DbContext, User, Role 클래스를 생성한다.  로컬 sql 서버에 회원 정보를 저장할 것이므로, 접근할 때 필요한 db context 를 생성해야한다."/>
 
 
@@ -959,178 +959,182 @@
 <ol>
 <li>필요한 패키지 설치.</li>
 </ol>
-<p>{% highlight csharp %}</p>
-<p><PackageReference Include="Microsoft.AspNetCore.Identity" Version="1.1.0" />
-<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.0"/>
-<PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.0"/></p>
-<pre><code>
-EntityFrameworkCore를 사용할 예정이므로 함께 연결할 데이터베이스 서버 패키지도 설치해 놓으면 된다.
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#">
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">PackageReference</span> <span style="color:#000">Include</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;Microsoft.AspNetCore.Identity&#34;</span> <span style="color:#000">Version</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;1.1.0&#34;</span> <span style="color:#000;font-weight:bold">/&gt;</span>
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">PackageReference</span> <span style="color:#000">Include</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;Microsoft.AspNetCore.Identity.EntityFrameworkCore&#34;</span> <span style="color:#000">Version</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;1.1.0&#34;</span><span style="color:#000;font-weight:bold">/&gt;</span>
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">PackageReference</span> <span style="color:#000">Include</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;Microsoft.AspNetCore.Authentication.Cookies&#34;</span> <span style="color:#000">Version</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;1.1.0&#34;</span><span style="color:#000;font-weight:bold">/&gt;</span>
 
-{% highlight csharp %}
- &lt;PackageReference Include=&quot;Microsoft.EntityFrameworkCore.SqlServer&quot; Version=&quot;1.1.1&quot; /&gt;
-</code></pre><p>이외에도 mysql, sqlite등을 연결 할 수 있다.</p>
+</code></pre></div><p>EntityFrameworkCore를 사용할 예정이므로 함께 연결할 데이터베이스 서버 패키지도 설치해 놓으면 된다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"> <span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">PackageReference</span> <span style="color:#000">Include</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;Microsoft.EntityFrameworkCore.SqlServer&#34;</span> <span style="color:#000">Version</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;1.1.1&#34;</span> <span style="color:#000;font-weight:bold">/&gt;</span>
+</code></pre></div><p>이외에도 mysql, sqlite등을 연결 할 수 있다.</p>
 <ol start="2">
 <li>회원정보를 다룰 DbContext, User, Role 클래스를 생성한다.</li>
 </ol>
 <p>로컬 sql 서버에 회원 정보를 저장할 것이므로, 접근할 때 필요한 db context 를 생성해야한다. 또한 어떤 user type인지, role(역할)은 무엇인지도 저장해야하므로, 위 클래스들을 생성한다.</p>
 <p>User은 각 회원의 정보를 저장하므로,</p>
-<p>{% highlight csharp %}</p>
-<p>public class Account : IdentityUser, IModel
-{
-public long Id { get;set; }
-public string Name { get;set; }</p>
-<pre><code>    public virtual ICollection&lt;Post&gt; Posts { get;set; }
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#">
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">Account</span> <span style="color:#000;font-weight:bold">:</span> <span style="color:#000">IdentityUser</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">IModel</span>
+    <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">long</span> <span style="color:#000">Id</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span><span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">Name</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span><span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
 
-    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
-    public DateTimeOffset UpdatedAt { get; set; }
-}
-</code></pre>
-<pre><code>
-이런식으로 저장할 수 있다. 튜토리얼에는 MyIdentityUser라고 되어있지만 자유롭게 설정가능하다. **주목할 점은, 이 클래스는 IdentityUser을 상속한다는 점이다.** (Microsoft.AspNetCore.Identity.EntityFrameworkCore namespace)
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">virtual</span> <span style="color:#000">ICollection</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Post</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">Posts</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span><span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
 
-IdentityUser은 UserName, Password, Email 같은 기본 정보들을 저장한다. 따라서 Account에는 내가 따로 저장하고 싶은 프로퍼티를 저장하면 된다.
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">DateTimeOffset</span> <span style="color:#000">CreatedAt</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">DateTimeOffset</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Now</span><span style="color:#000;font-weight:bold">;</span>
+        <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">DateTimeOffset</span> <span style="color:#000">UpdatedAt</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>이런식으로 저장할 수 있다. 튜토리얼에는 MyIdentityUser라고 되어있지만 자유롭게 설정가능하다. <strong>주목할 점은, 이 클래스는 IdentityUser을 상속한다는 점이다.</strong> (Microsoft.AspNetCore.Identity.EntityFrameworkCore namespace)</p>
+<p>IdentityUser은 UserName, Password, Email 같은 기본 정보들을 저장한다. 따라서 Account에는 내가 따로 저장하고 싶은 프로퍼티를 저장하면 된다.</p>
+<p>마찬가지로 AccountIdentityRole 모델도</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">using</span> <span style="color:#000">Microsoft.AspNetCore.Identity.EntityFrameworkCore</span><span style="color:#000;font-weight:bold">;</span>
 
-마찬가지로 AccountIdentityRole 모델도
-{% highlight csharp %}
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">AccountIdentityRole</span> <span style="color:#000;font-weight:bold">:</span> <span style="color:#000">IdentityRole</span>
+<span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">Description</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>와 같이 나타낼 수 있다. identityrole에는 RoleName과 같은 필드가 저장되므로, Description 추가를 원하면 위와 같이 추가해도 되고 아니면 그냥 안해도 RoleName은 쓸 수있다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">MomLueContext</span> <span style="color:#000;font-weight:bold">:</span> <span style="color:#000">IdentityDbContext</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">AccountIdentityRole</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">,</span> <span style="color:#000">IDatabaseContext</span>
+<span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">DbSet</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">Accounts</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">DbSet</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Post</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">Posts</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
 
-public class AccountIdentityRole : IdentityRole
-{
-    public string Description { get; set; }
-}
-</code></pre><p>와 같이 나타낼 수 있다. identityrole에는 RoleName과 같은 필드가 저장되므로, Description 추가를 원하면 위와 같이 추가해도 되고 아니면 그냥 안해도 RoleName은 쓸 수있다.
-{% highlight csharp %}
-public class MomLueContext : IdentityDbContext&lt;Account, AccountIdentityRole, string&gt; , IDatabaseContext
-{
-public DbSet<Account> Accounts { get; set; }
-public DbSet<Post> Posts { get; set; }</p>
-<pre><code>protected override void OnConfiguring(DbContextOptionsBuilder options)
-{
-    options.UseMySql(&quot;server=localhost;userid=root;password=;database=helloworld;&quot;);
-}
-</code></pre>
-<pre><code>이렇게 MomLueContext 를 구성하여 회원정보, 역할을 파라미터로 가지는 IdentityDbContext를 상속, IDatabaseContext를 구현하도록 만든다.
-
-IdentityDbContext가 이미 DbContext를 상속했을 것이므로, 굳이 DbContext를 또 상속하도록 해주지 않아도 된다.
-
-4. Startup.cs에 설정하기.(configuration)
-
-{%highlight csharp %}
+    <span style="color:#204a87;font-weight:bold">protected</span> <span style="color:#204a87;font-weight:bold">override</span> <span style="color:#204a87;font-weight:bold">void</span> <span style="color:#000">OnConfiguring</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">DbContextOptionsBuilder</span> <span style="color:#000">options</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">options</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UseMySql</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;server=localhost;userid=root;password=;database=helloworld;&#34;</span><span style="color:#000;font-weight:bold">);</span>
+    <span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>이렇게 MomLueContext 를 구성하여 회원정보, 역할을 파라미터로 가지는 IdentityDbContext를 상속, IDatabaseContext를 구현하도록 만든다.</p>
+<p>IdentityDbContext가 이미 DbContext를 상속했을 것이므로, 굳이 DbContext를 또 상속하도록 해주지 않아도 된다.</p>
+<ol start="4">
+<li>Startup.cs에 설정하기.(configuration)</li>
+</ol>
+<p>{%highlight csharp %}
 services.AddIdentity&lt;Account, AccountIdentityRole&gt;()
-        .AddEntityFrameworkStores&lt;MomLueContext&gt;()
-        .AddDefaultTokenProviders();
+.AddEntityFrameworkStores<MomLueContext>()
+.AddDefaultTokenProviders();
 {%endhighlight%}
 를 정의했기에, Identity framework가 MomLueContext로 database context를 사용한다는 것을 알 수 있다. Account가 사용자를 담는 모델이름이고, 이는 MyIdentityUser이런식으로 정의할 수 있다.(Account는 예약어가 아니다.) 마찬가지로 AccountIdentityRole도 다른 이름의 모델로 사용할 수 있다.
-[다른 context instance 쓰는 문제](http://www.jerriepelser.com/blog/resolve-dbcontext-as-interface-in-aspnet5-ioc-container/)
-
-{%highlight csharp %}
-services.AddDbContext&lt;MomLueContext&gt;();
+<a href="http://www.jerriepelser.com/blog/resolve-dbcontext-as-interface-in-aspnet5-ioc-container/">다른 context instance 쓰는 문제</a></p>
+<p>{%highlight csharp %}
+services.AddDbContext<MomLueContext>();
 //MomLueContext를 이 application의 dbcontext로 사용한다.
-services.AddScoped&lt;IDatabaseContext&gt;(provider =&gt; provider.GetService&lt;MomLueContext&gt;());
+services.AddScoped<IDatabaseContext>(provider =&gt; provider.GetService<MomLueContext>());
 {%endhighlight%}
-IDatabaseContext는  
-기존에 &lt;span style=&quot;color:#003366&quot;&gt;services.AddScoped&lt;IDatabaseContext, MomLueContext&gt;();&lt;/span&gt;로 되어 있었다.
-
-[password 관련해서 configuration 하는법](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration)
-
-{%highlight csharp %}
-  services.Configure&lt;IdentityOptions&gt;(options =&gt; {
-      options.Password.RequireDigit = true;
-      options.Password.RequiredLength = 8;
-      options.Password.RequireNonAlphanumeric = false;
-      options.Password.RequireUppercase= false;
-  });
-</code></pre><p>이렇게 안해주니 패스워드 조건 디폴트가 너무 까다로웠다. 위 조건으로 해결.</p>
-<p>{%highlight csharp %}</p>
-<p>{%endhighlight%}</p>
-<ul>
-<li>해결:: 태그 헬퍼 사용하기.</li>
-</ul>
-<p><strong>_ViewImports.cshtml</strong>
-{%highlight csharp %}
-@addTagHelper &ldquo;<em>, Microsoft.AspNetCore.Mvc.TagHelpers&rdquo;
-@addTagHelper &ldquo;</em>, MomLue&rdquo;
-{%endhighlight%}
-로 했더니 안되던 태그 헬퍼가 작동한다. 헬퍼가 적용이 안되서 결국 html 헬퍼로 임시방편해두었었는데, 저렇게 하니 되는군. &ldquo;&ldquo;를 안붙혔어서 그랫나보다.
-*<em>@addTagHelper <em>, Microsoft.AspNetCore.Mvc.TagHelpers</em></em>
-이런식으로 냅뒀었다. 그래서 안되었었나보다.</p>
+IDatabaseContext는<br>
+기존에 <span style="color:#003366">services.AddScoped&lt;IDatabaseContext, MomLueContext&gt;();</span>로 되어 있었다.</p>
+<p><a href="https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration">password 관련해서 configuration 하는법</a></p>
 <p>{%highlight csharp %}
-<label asp-for="Title" class="col-lg-3 col-sm-3 control-label">제목</label></p>
-  <div class="col-lg-6" >
-    <input asp-for="Title" class="form-control" />
-  </div>
-{%endhighlight%}
-<p>장점은 asp-for 가 동작한다는것. @Html.TextBoxFor(x=&gt;x.Email, new { @class= &ldquo;form-control&rdquo;})
-이런식으로 안써도 된다!!! 예헤이!!</p>
-<p>{%highlight csharp %}
-public class Repository<T> : IRepository<T> where T : class, IModel
-{
-public virtual DbSet<T> GetAll()
-{
-return Context.Set<T>();
-}
-{%endhighlight%}
-IRepository를 상속하는 Repository 클래스에서 테이블을 통째로 가져오는 GetAll 메소드를 호출할떄</p>
-<p>부모인 IRepository에서
+services.Configure<IdentityOptions>(options =&gt; {
+options.Password.RequireDigit = true;
+options.Password.RequiredLength = 8;
+options.Password.RequireNonAlphanumeric = false;
+options.Password.RequireUppercase= false;
+});</p>
+<pre><code>이렇게 안해주니 패스워드 조건 디폴트가 너무 까다로웠다. 위 조건으로 해결.
+
 {%highlight csharp %}
-public interface IRepository<T> where T : class
-{
+
+{%endhighlight%}
+
+* 해결:: 태그 헬퍼 사용하기.
+
+**_ViewImports.cshtml**
+{%highlight csharp %}
+@addTagHelper &quot;*, Microsoft.AspNetCore.Mvc.TagHelpers&quot;
+@addTagHelper &quot;*, MomLue&quot;
+{%endhighlight%}
+로 했더니 안되던 태그 헬퍼가 작동한다. 헬퍼가 적용이 안되서 결국 html 헬퍼로 임시방편해두었었는데, 저렇게 하니 되는군. &quot;&quot;를 안붙혔어서 그랫나보다.
+**@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers**
+이런식으로 냅뒀었다. 그래서 안되었었나보다.
+
+{%highlight csharp %}
+  &lt;label asp-for=&quot;Title&quot; class=&quot;col-lg-3 col-sm-3 control-label&quot;&gt;제목&lt;/label&gt;
+  &lt;div class=&quot;col-lg-6&quot; &gt;
+    &lt;input asp-for=&quot;Title&quot; class=&quot;form-control&quot; /&gt;
+  &lt;/div&gt;
+{%endhighlight%}
+
+장점은 asp-for 가 동작한다는것. @Html.TextBoxFor(x=&gt;x.Email, new { @class= &quot;form-control&quot;})
+이런식으로 안써도 된다!!! 예헤이!!
+
+{%highlight csharp %}
+public class Repository&lt;T&gt; : IRepository&lt;T&gt; where T : class, IModel
+   {
+      public virtual DbSet&lt;T&gt; GetAll()
+             {
+                 return Context.Set&lt;T&gt;();
+             }
+{%endhighlight%}
+IRepository를 상속하는 Repository 클래스에서 테이블을 통째로 가져오는 GetAll 메소드를 호출할떄
+
+부모인 IRepository에서
+{%highlight csharp %}
+public interface IRepository&lt;T&gt; where T : class
+   {
 {%endhighlight%}
 T: class 안해주면
 {%highlight csharp %}
-public virtual DbSet<T> GetAll()
-{
-return Context.Set<T>();
-}
+public virtual DbSet&lt;T&gt; GetAll()
+        {
+            return Context.Set&lt;T&gt;();
+        }
 {%endhighlight%}
-가 안먹는다.</p>
-<p>{%highlight csharp %}
+가 안먹는다.
+
+{%highlight csharp %}
 public IActionResult Index()
-{
-List<Post> postList = PostRepository.GetAll().Include( post=&gt; post.Account )
-.ToList();
+        {
+            List&lt;Post&gt; postList = PostRepository.GetAll().Include( post=&gt; post.Account )
+                .ToList();
 {%endhighlight%}
-암튼 저렇게 repository를 구성해주면 위 코드가 잘 먹는데, 해당 테이블 뿐만 아니라 참조하고 있는 다른 테이블 (여기서는 Account 테이블)을 함께 가져올 수 있도록 한다. <span style="color:#003366">lazy loading</span>이 지원되지 않기 때문에 Eager loading을 수행한것이다.
-<a href="https://docs.microsoft.com/en-us/ef/core/querying/related-data">loading 관련 documentation</a></p>
-<p>{%highlight csharp %}
+암튼 저렇게 repository를 구성해주면 위 코드가 잘 먹는데, 해당 테이블 뿐만 아니라 참조하고 있는 다른 테이블 (여기서는 Account 테이블)을 함께 가져올 수 있도록 한다. &lt;span style=&quot;color:#003366&quot;&gt;lazy loading&lt;/span&gt;이 지원되지 않기 때문에 Eager loading을 수행한것이다.
+[loading 관련 documentation](https://docs.microsoft.com/en-us/ef/core/querying/related-data)
+
+{%highlight csharp %}
 [Authorize]
 public IActionResult Create()
 {
-var postViewModel = new PostViewModel();
-return View(postViewModel);
+    var postViewModel = new PostViewModel();
+    return View(postViewModel);
 }
 [HttpPostAttribute]
-public async Task<IActionResult> Insert(PostViewModel postview)
+public async Task&lt;IActionResult&gt; Insert(PostViewModel postview)
 {
-var userAccount = UserManager.GetUserAsync(HttpContext.User).Result;</p>
-<pre><code>var post = new Post {
-    Account = userAccount,
-    Title = postview.Title,
-    Content = postview.Content,
-    Tag = postview.Tag,
-};
+    var userAccount = UserManager.GetUserAsync(HttpContext.User).Result;
 
-PostRepository.Insert(post);
-await PostRepository.SaveChangesAsync();
+    var post = new Post {
+        Account = userAccount,
+        Title = postview.Title,
+        Content = postview.Content,
+        Tag = postview.Tag,
+    };
 
-return RedirectToAction(&quot;Index&quot;, &quot;Post&quot;);
-</code></pre>
-<p>}
+    PostRepository.Insert(post);
+    await PostRepository.SaveChangesAsync();
+
+    return RedirectToAction(&quot;Index&quot;, &quot;Post&quot;);
+}
 {%endhighlight%}
-create 액션은 인증된 사용자가 수행할 수 있도록 Authorize옵션을 주고,</p>
-<p>실제 데이터베이스에 집어넣는 과정은 Insert 액션을 통해 수행한다. UserManager<Account> UserManager;을 통해 생성한 UserManager 객체로
-HttpContext내에 존재하는 user 객체를 얻어 userAccount에 넣고 이를 이용해 Post 객체를 생성하여 미리 만들어준 PostRepository(포스트 저장소)에 insert 메소드를 이용해서 넣어준다. 그리고 이를 SaveChangesAsync를 이용해 repository에 저장한다.</p>
-<p>{%highlight csharp %}
-{%endhighlight%}</p>
-<p>{%highlight csharp %}
-{%endhighlight%}</p>
-<p>{%highlight csharp %}
-{%endhighlight%}</p>
-<p>{%highlight csharp %}
-{%endhighlight%}</p>
-<p>{%highlight csharp %}
-{%endhighlight%}</p>
+create 액션은 인증된 사용자가 수행할 수 있도록 Authorize옵션을 주고,
 
+실제 데이터베이스에 집어넣는 과정은 Insert 액션을 통해 수행한다. UserManager&lt;Account&gt; UserManager;을 통해 생성한 UserManager 객체로
+HttpContext내에 존재하는 user 객체를 얻어 userAccount에 넣고 이를 이용해 Post 객체를 생성하여 미리 만들어준 PostRepository(포스트 저장소)에 insert 메소드를 이용해서 넣어준다. 그리고 이를 SaveChangesAsync를 이용해 repository에 저장한다.
+
+
+{%highlight csharp %}
+{%endhighlight%}
+
+{%highlight csharp %}
+{%endhighlight%}
+
+{%highlight csharp %}
+{%endhighlight%}
+
+{%highlight csharp %}
+{%endhighlight%}
+
+{%highlight csharp %}
+{%endhighlight%}
+</code></pre>
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">

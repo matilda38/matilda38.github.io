@@ -41,7 +41,7 @@ VSCode에서 Git은 이렇게 사용하면 된다. initalize 하고, 체크 버�
 이때 비쥬얼 스튜디오 온라인 팀프로젝트를 사용하고 싶으면 온라인에서 프로젝트 new 해주고 나오는 URL을 써주면 된다(Github와 같다).">
 <meta itemprop="datePublished" content="2017-03-06T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2017-03-06T00:00:00+00:00" />
-<meta itemprop="wordCount" content="563">
+<meta itemprop="wordCount" content="542">
 
 
 
@@ -1011,95 +1011,128 @@ return RedirectToAction(&ldquo;Detail&rdquo;, new{id = new_post.Id});
     <input type= "submit" value = "Submit">
 </form>
 <p>{% endhighlight%}</p>
-<p>{% highlight csharp %}</p>
-<pre><code>public IActionResult Create()
-{
-        if(HttpContext.Session.GetInt32(&quot;AccountId&quot;)!= null)
-            return View();
-        else
-            return RedirectToAction(&quot;Login&quot;, &quot;Auth&quot;);
-}
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#">
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">IActionResult</span> <span style="color:#000">Create</span><span style="color:#000;font-weight:bold">()</span>
+    <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">HttpContext</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Session</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetInt32</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;AccountId&#34;</span><span style="color:#000;font-weight:bold">)!=</span> <span style="color:#204a87;font-weight:bold">null</span><span style="color:#000;font-weight:bold">)</span>
+                <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">();</span>
+            <span style="color:#204a87;font-weight:bold">else</span>
+                <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToAction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Login&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;Auth&#34;</span><span style="color:#000;font-weight:bold">);</span>
+    <span style="color:#000;font-weight:bold">}</span>
 
-//Post method를 위해 post 어트리뷰트 붙여주기
-[HttpPost]
+    <span style="color:#8f5902;font-style:italic">//Post method를 위해 post 어트리뷰트 붙여주기
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#c4a000">    [HttpPost]</span>
 
-public IActionResult Create(string title, string content)
-{
-    Post newPost = new Post();
-    newPost.Title = title;
-    newPost.Content = content;
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">IActionResult</span> <span style="color:#000">Create</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">title</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">content</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">Post</span> <span style="color:#000">newPost</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">Post</span><span style="color:#000;font-weight:bold">();</span>
+        <span style="color:#000">newPost</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Title</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">title</span><span style="color:#000;font-weight:bold">;</span>
+        <span style="color:#000">newPost</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Content</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">content</span><span style="color:#000;font-weight:bold">;</span>
 
-    var db = new DatabaseContext();
-    db.Posts.Add(newPost);
-    db.SaveChanges();
+        <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">db</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">DatabaseContext</span><span style="color:#000;font-weight:bold">();</span>
+        <span style="color:#000">db</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Posts</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Add</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">newPost</span><span style="color:#000;font-weight:bold">);</span>
+        <span style="color:#000">db</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SaveChanges</span><span style="color:#000;font-weight:bold">();</span>
 
-    return RedirectToAction(&quot;Detail&quot;, new{id = newPost.Id});
-}
-</code></pre>
-<p>{%endhighlight%}</p>
-<p>[HttpPost]를 이용해서 Post Method을 사용하는 Action임을 알리자.  HttpPostAttribute의 준말.</p>
-<p>기본 Default인 Get방식을 사용하는 Create()와 구분가능.</p>
-<p>모호한 함수지정 에러를 피할 수 있다. (AmbiguousActionException: Multiple actions matched.)</p>
-<p>Create Action으로 Post 객체를 생성했으니, Detail로 이동할 차례,</p>
-<p><span style="color:#003366">return RedirectToAction(&ldquo;Detail&rdquo;, new{id = newPost.Id});</span></p>
-<p>으로 이동해줄텐데, 동일 컨트롤러 내의 Detail 액션으로 이동할 때, 익명 객체를 생성하여 파라미터로 함께 보내준다. new{} 안에 id 객체를 넣을 건데 이는 생성된 post의 id를 넣어 보낸다.</p>
-<p>이렇게 보내진 id는</p>
-<p>{% highlight csharp %}</p>
-<p>public IActionResult Detail(int id)
-{
-var db = new DatabaseContext();
-var post = db.Posts.Find(id);</p>
-<pre><code>return View(post);
-</code></pre>
-<p>}</p>
-<p>{%endhighlight%}</p>
-<p>기본적으로 controller / action / id로 routing 이 진행된다.</p>
-<p>{% highlight csharp %}
-app.UseMvc(routes =&gt;
-{
-routes.MapRoute(
-name: &ldquo;default&rdquo;,
-template: &ldquo;{controller=Home}/{action=Index}/{id?}&quot;);
-});
-{%endhighlight%}</p>
-<p>따라서,</p>
-<p>{%highlight html %}
-//Post 객체가 나올 것이라고 예고하기 위해 @model을 썼다.
-//@는 c#코드를 html파일에 쓰기 위해 사용하는 기호
-@model Post</p>
-<p>//c# 코드가 1줄동안 이어지기 때문에 중괄호를 사용해주었다 띄어쓰기가 포함되어있는 c#코드는 {}가 필요하다.
-@{Post post= Model;}</p>
-<h1>게시글 @post.Id </h1>
-<div>
-<p>제목: @post.Title</p>
-<p>내용: @post.Content</p>
-</div>
-{%endhighlight%}
-<p>여기서 @Model의 Model은 넘겨진 View(post)의 파라미터 Post객체를 의미하겠지.
-물론 Detail.cshtml파일에서 Model 을 다루기 위해서는</p>
-<p>_ViewImports.cshtml 파일에
-@using WebApplication.Models
-을 삽입해줘야한다.</p>
-<p>마지막 정리는 Session 문제</p>
-<p>Login, Join 문제를 위해!</p>
-<p>using Microsoft.AspNetCore.Http; 일단 이거 import 해주고,</p>
-<p>{% highlight csharp %}
-{%endhighlight%}</p>
-<p>{% highlight csharp %}
-{%endhighlight%}</p>
-<p>{% highlight csharp %}
-{%endhighlight%}</p>
-<p>{% highlight csharp %}
-{%endhighlight%}</p>
-<p>nullable에 대하여 =&gt; model 간 관계가 optional일때는 nullable 객체가 필요하다.</p>
-<p>즉,</p>
-<p>{% highlight csharp %}</p>
-<p>//related exhibition OPTIONAL
-public long? ExhibitionId { get; set; }
-public Exhibition RelatedExhibition { get; set; }</p>
-<p>{%endhighlight%}</p>
-<p>이런식이 되는 것인데, RelatedExhibition은 exhibition 객체이다. 즉. class 객체일 경우 reference 타입(주소값 타입)이라 ?라는 nullable 표시가 필요없다. 하지만 ExhibitionId의 경우 value 타입(값 타입)이기 때문에 빌 수 있다(여기서는 연관된 exhibition을 가지지 않을 수 있다라는 뜻)는 nullable 표시 ?을 붙혀주어야한다. 그래서 long? 타입으로 선언해 준것이다.</p>
+        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToAction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Detail&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">new</span><span style="color:#000;font-weight:bold">{</span><span style="color:#000">id</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">newPost</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Id</span><span style="color:#000;font-weight:bold">});</span>
+    <span style="color:#000;font-weight:bold">}</span>
 
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+<span style="color:#c4a000">
+</span><span style="color:#c4a000">[HttpPost]</span><span style="color:#a40000">를</span> <span style="color:#a40000">이용해서</span> <span style="color:#000">Post</span> <span style="color:#000">Method을</span> <span style="color:#a40000">사용하는</span> <span style="color:#000">Action임을</span> <span style="color:#a40000">알리자</span><span style="color:#000;font-weight:bold">.</span>  <span style="color:#000">HttpPostAttribute의</span> <span style="color:#a40000">준말</span><span style="color:#000;font-weight:bold">.</span>
+
+<span style="color:#a40000">기본</span> <span style="color:#000">Default인</span> <span style="color:#000">Get방식을</span> <span style="color:#a40000">사용하는</span> <span style="color:#000">Create</span><span style="color:#000;font-weight:bold">()</span><span style="color:#a40000">와</span> <span style="color:#a40000">구분가능</span><span style="color:#000;font-weight:bold">.</span>
+
+<span style="color:#a40000">모호한</span> <span style="color:#a40000">함수지정</span> <span style="color:#a40000">에러를</span> <span style="color:#a40000">피할</span> <span style="color:#a40000">수</span> <span style="color:#a40000">있다</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">AmbiguousActionException</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">Multiple</span> <span style="color:#000">actions</span> <span style="color:#000">matched</span><span style="color:#000;font-weight:bold">.)</span>
+
+<span style="color:#000">Create</span> <span style="color:#000">Action으로</span> <span style="color:#000">Post</span> <span style="color:#a40000">객체를</span> <span style="color:#a40000">생성했으니</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Detail로</span> <span style="color:#a40000">이동할</span> <span style="color:#a40000">차례</span><span style="color:#000;font-weight:bold">,</span>
+
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">span</span> <span style="color:#000">style</span><span style="color:#000;font-weight:bold">=</span><span style="color:#4e9a06">&#34;color:#003366&#34;</span><span style="color:#000;font-weight:bold">&gt;</span><span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToAction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Detail&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">new</span><span style="color:#000;font-weight:bold">{</span><span style="color:#000">id</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">newPost</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Id</span><span style="color:#000;font-weight:bold">});&lt;/</span><span style="color:#000">span</span><span style="color:#000;font-weight:bold">&gt;</span>
+
+<span style="color:#a40000">으로</span> <span style="color:#a40000">이동해줄텐데</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#a40000">동일</span> <span style="color:#a40000">컨트롤러</span> <span style="color:#a40000">내의</span> <span style="color:#000">Detail</span> <span style="color:#a40000">액션으로</span> <span style="color:#a40000">이동할</span> <span style="color:#a40000">때</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#a40000">익명</span> <span style="color:#a40000">객체를</span> <span style="color:#a40000">생성하여</span> <span style="color:#a40000">파라미터로</span> <span style="color:#a40000">함께</span> <span style="color:#a40000">보내준다</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#204a87;font-weight:bold">new</span><span style="color:#000;font-weight:bold">{}</span> <span style="color:#a40000">안에</span> <span style="color:#000">id</span> <span style="color:#a40000">객체를</span> <span style="color:#a40000">넣을</span> <span style="color:#a40000">건데</span> <span style="color:#a40000">이는</span> <span style="color:#a40000">생성된</span> <span style="color:#000">post의</span> <span style="color:#000">id를</span> <span style="color:#a40000">넣어</span> <span style="color:#a40000">보낸다</span><span style="color:#000;font-weight:bold">.</span>
+
+<span style="color:#a40000">이렇게</span> <span style="color:#a40000">보내진</span> <span style="color:#000">id는</span>
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">IActionResult</span> <span style="color:#000">Detail</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000">id</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">db</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">DatabaseContext</span><span style="color:#000;font-weight:bold">();</span>
+    <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">post</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">db</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Posts</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Find</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">id</span><span style="color:#000;font-weight:bold">);</span>
+
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">post</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">기본적으로</span> <span style="color:#000">controller</span> <span style="color:#000;font-weight:bold">/</span> <span style="color:#000">action</span> <span style="color:#000;font-weight:bold">/</span> <span style="color:#000">id로</span> <span style="color:#000">routing</span> <span style="color:#a40000">이</span> <span style="color:#a40000">진행된다</span><span style="color:#000;font-weight:bold">.</span>
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+    <span style="color:#000">app</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UseMvc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">routes</span> <span style="color:#000;font-weight:bold">=&gt;</span>
+        <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">routes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">MapRoute</span><span style="color:#000;font-weight:bold">(</span>
+            <span style="color:#000">name</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;default&#34;</span><span style="color:#000;font-weight:bold">,</span>
+            <span style="color:#000">template</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;{controller=Home}/{action=Index}/{id?}&#34;</span><span style="color:#000;font-weight:bold">);</span>
+        <span style="color:#000;font-weight:bold">});</span>
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">따라서</span><span style="color:#000;font-weight:bold">,</span>
+
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">highlight</span> <span style="color:#000">html</span> <span style="color:#000;font-weight:bold">%}</span>
+<span style="color:#8f5902;font-style:italic">//Post 객체가 나올 것이라고 예고하기 위해 @model을 썼다.
+</span><span style="color:#8f5902;font-style:italic">//@는 c#코드를 html파일에 쓰기 위해 사용하는 기호
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">@model</span> <span style="color:#000">Post</span>
+
+<span style="color:#8f5902;font-style:italic">//c# 코드가 1줄동안 이어지기 때문에 중괄호를 사용해주었다 띄어쓰기가 포함되어있는 c#코드는 {}가 필요하다.
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#a40000">@</span><span style="color:#000;font-weight:bold">{</span><span style="color:#000">Post</span> <span style="color:#000">post</span><span style="color:#000;font-weight:bold">=</span> <span style="color:#000">Model</span><span style="color:#000;font-weight:bold">;}</span>
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">h1</span><span style="color:#000;font-weight:bold">&gt;</span><span style="color:#a40000">게시글</span> <span style="color:#000">@post</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Id</span> <span style="color:#000;font-weight:bold">&lt;/</span><span style="color:#000">h1</span><span style="color:#000;font-weight:bold">&gt;</span>
+
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">div</span><span style="color:#000;font-weight:bold">&gt;</span>
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">p</span><span style="color:#000;font-weight:bold">&gt;</span><span style="color:#a40000">제목</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">@post</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Title</span><span style="color:#000;font-weight:bold">&lt;/</span><span style="color:#000">p</span><span style="color:#000;font-weight:bold">&gt;</span>
+<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">p</span><span style="color:#000;font-weight:bold">&gt;</span><span style="color:#a40000">내용</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">@post</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Content</span><span style="color:#000;font-weight:bold">&lt;/</span><span style="color:#000">p</span><span style="color:#000;font-weight:bold">&gt;</span>
+<span style="color:#000;font-weight:bold">&lt;/</span><span style="color:#000">div</span><span style="color:#000;font-weight:bold">&gt;</span>
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">여기서</span> <span style="color:#000">@Model의</span> <span style="color:#000">Model은</span> <span style="color:#a40000">넘겨진</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">post</span><span style="color:#000;font-weight:bold">)</span><span style="color:#a40000">의</span> <span style="color:#a40000">파라미터</span> <span style="color:#000">Post객체를</span> <span style="color:#a40000">의미하겠지</span><span style="color:#000;font-weight:bold">.</span>
+<span style="color:#a40000">물론</span> <span style="color:#000">Detail</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">cshtml파일에서</span> <span style="color:#000">Model</span> <span style="color:#a40000">을</span> <span style="color:#a40000">다루기</span> <span style="color:#a40000">위해서는</span>
+
+<span style="color:#000">_ViewImports</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">cshtml</span> <span style="color:#a40000">파일에</span>
+<span style="color:#000">@using</span> <span style="color:#000">WebApplication</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Models</span>
+<span style="color:#a40000">을</span> <span style="color:#a40000">삽입해줘야한다</span><span style="color:#000;font-weight:bold">.</span>
+
+
+<span style="color:#a40000">마지막</span> <span style="color:#a40000">정리는</span> <span style="color:#000">Session</span> <span style="color:#a40000">문제</span>
+
+<span style="color:#000">Login</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Join</span> <span style="color:#a40000">문제를</span> <span style="color:#a40000">위해</span><span style="color:#000;font-weight:bold">!</span>
+
+<span style="color:#204a87;font-weight:bold">using</span> <span style="color:#000">Microsoft.AspNetCore.Http</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#a40000">일단</span> <span style="color:#a40000">이거</span> <span style="color:#000">import</span> <span style="color:#a40000">해주고</span><span style="color:#000;font-weight:bold">,</span>
+
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#000">nullable에</span> <span style="color:#a40000">대하여</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000">model</span> <span style="color:#a40000">간</span> <span style="color:#a40000">관계가</span> <span style="color:#000">optional일때는</span> <span style="color:#000">nullable</span> <span style="color:#a40000">객체가</span> <span style="color:#a40000">필요하다</span><span style="color:#000;font-weight:bold">.</span>
+
+<span style="color:#a40000">즉</span><span style="color:#000;font-weight:bold">,</span>
+
+<span style="color:#a40000">```</span><span style="color:#000">c</span><span style="color:#a40000">#</span>
+
+  <span style="color:#8f5902;font-style:italic">//related exhibition OPTIONAL
+</span><span style="color:#8f5902;font-style:italic"></span>  <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">long?</span> <span style="color:#000">ExhibitionId</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">Exhibition</span> <span style="color:#000">RelatedExhibition</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#000;font-weight:bold">{%</span><span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">이런식이</span> <span style="color:#a40000">되는</span> <span style="color:#a40000">것인데</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">RelatedExhibition은</span> <span style="color:#000">exhibition</span> <span style="color:#a40000">객체이다</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#a40000">즉</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#204a87;font-weight:bold">class</span> <span style="color:#a40000">객체일</span> <span style="color:#a40000">경우</span> <span style="color:#000">reference</span> <span style="color:#a40000">타입</span><span style="color:#000;font-weight:bold">(</span><span style="color:#a40000">주소값</span> <span style="color:#a40000">타입</span><span style="color:#000;font-weight:bold">)</span><span style="color:#a40000">이라</span> <span style="color:#000;font-weight:bold">?</span><span style="color:#a40000">라는</span> <span style="color:#000">nullable</span> <span style="color:#a40000">표시가</span> <span style="color:#a40000">필요없다</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#a40000">하지만</span> <span style="color:#000">ExhibitionId의</span> <span style="color:#a40000">경우</span> <span style="color:#204a87;font-weight:bold">value</span> <span style="color:#a40000">타입</span><span style="color:#000;font-weight:bold">(</span><span style="color:#a40000">값</span> <span style="color:#a40000">타입</span><span style="color:#000;font-weight:bold">)</span><span style="color:#a40000">이기</span> <span style="color:#a40000">때문에</span> <span style="color:#a40000">빌</span> <span style="color:#a40000">수</span> <span style="color:#a40000">있다</span><span style="color:#000;font-weight:bold">(</span><span style="color:#a40000">여기서는</span> <span style="color:#a40000">연관된</span> <span style="color:#000">exhibition을</span> <span style="color:#a40000">가지지</span> <span style="color:#a40000">않을</span> <span style="color:#a40000">수</span> <span style="color:#a40000">있다라는</span> <span style="color:#a40000">뜻</span><span style="color:#000;font-weight:bold">)</span><span style="color:#a40000">는</span> <span style="color:#000">nullable</span> <span style="color:#a40000">표시</span> <span style="color:#000;font-weight:bold">?</span><span style="color:#a40000">을</span> <span style="color:#a40000">붙혀주어야한다</span><span style="color:#000;font-weight:bold">.</span> <span style="color:#a40000">그래서</span> <span style="color:#204a87;font-weight:bold">long?</span> <span style="color:#a40000">타입으로</span> <span style="color:#a40000">선언해</span> <span style="color:#a40000">준것이다</span><span style="color:#000;font-weight:bold">.</span>
+</code></pre></div>
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">

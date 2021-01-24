@@ -41,7 +41,7 @@
 등록된 원격저장소에 내 로컬 저장소에 있는 내용들(로컬 깃에 커밋완료 된것)">
 <meta itemprop="datePublished" content="2016-08-12T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2016-08-12T00:00:00+00:00" />
-<meta itemprop="wordCount" content="569">
+<meta itemprop="wordCount" content="566">
 
 
 
@@ -1047,25 +1047,21 @@ git checkout -b subbranch_of_b1 branch1</p>
 <a href="http://crynut84.github.io/2015-06-19/basic-command-git.html">깃 기초 명령어</a></p>
 <h2 id="git-ignore-파일-추가하기">Git Ignore 파일 추가하기</h2>
 <p>.gitignore파일로 git 저장소에 올리고 싶지 않은 파일들을 제외시킬 수 있다. 나의 경우엔</p>
-<pre><code>.idea/
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.idea/
 *.o
 bundle/
 Gemfile
 Gemfile_o
 secret/
-</code></pre><p>이런식으로 지정해줬는데 IDE 사용시 자동으로 추가되는 파일이나, 루비 젬파일들은 굳이 깃헙에 올려놓을 필요가 없으므로 제외시켰고, o같은 확장자를 가진 파일들은 대개 컴파일 과정에서 생기는 불필요한 파일이므로 제외시켜주었다. secret폴더에는 밖에 보이는 글말고 혼자 보고 싶은 글을 마크다운으로 작성해서 저장해놓기 위해 gitignore에 추가해주었다.</p>
-<p>{% highlight bash%}
-git rm -r –cached .
+</code></pre></div><p>이런식으로 지정해줬는데 IDE 사용시 자동으로 추가되는 파일이나, 루비 젬파일들은 굳이 깃헙에 올려놓을 필요가 없으므로 제외시켰고, o같은 확장자를 가진 파일들은 대개 컴파일 과정에서 생기는 불필요한 파일이므로 제외시켜주었다. secret폴더에는 밖에 보이는 글말고 혼자 보고 싶은 글을 마크다운으로 작성해서 저장해놓기 위해 gitignore에 추가해주었다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git rm -r –cached .
 git add .
-git commit -m “Updated .gitignore”</p>
-<pre><code>
-이런식으로 기존 cache를 지우고, gitignore가 업데이트 된것을 add 해준후, commit 해주면 gitignore가 반영된다.
-이는 git이 traking하는 파일들을 초기화하는 작업과 같다. 즉, gitignore에 있는 파일/폴더들은 track하지 마라 이 뜻과 같다.
+git commit -m “Updated .gitignore”
+</code></pre></div><p>이런식으로 기존 cache를 지우고, gitignore가 업데이트 된것을 add 해준후, commit 해주면 gitignore가 반영된다.
+이는 git이 traking하는 파일들을 초기화하는 작업과 같다. 즉, gitignore에 있는 파일/폴더들은 track하지 마라 이 뜻과 같다.</p>
+<p>이미 add된 특정 파일만 untrack하기 위한 명령어는</p>
+<p><strong>git rm &ndash;cached filename</strong> 라고 한다. <a href="https://stackoverflow.com/questions/1139762/ignore-files-that-have-already-been-committed-to-a-git-repository">stackoverflow</a></p>
 
-이미 add된 특정 파일만 untrack하기 위한 명령어는
-
-**git rm --cached filename** 라고 한다. [stackoverflow](https://stackoverflow.com/questions/1139762/ignore-files-that-have-already-been-committed-to-a-git-repository)
-</code></pre>
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">

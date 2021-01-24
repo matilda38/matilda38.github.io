@@ -24,7 +24,7 @@
 요약해보자면.
   Package Console 에 Microsoft.AspNetCore.Identity.EntityFrameworkCore 패키지를 추가해준다.
   기존에 회원관리를 위해 만들었던 모델. 나같은 경우엔 Account 였다. Account 에 IdentityUser를 상속해준다. IdentityUser에서 Id , UserName, Email등 필수 field들이 이미 선언되어있기 때문에 따로 Account에서 선언해줄 필요는 없다.
-  startup.cs에 위와 같이 등록해준다. {% highlight csharp %} //add identity module services." />
+  startup.cs에 위와 같이 등록해준다." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blog/2017/05/15/identity-%EB%AA%A8%EB%93%88%EC%9D%84-aspnetcore%EC%97%90-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0./" />
 <meta property="article:published_time" content="2017-05-15T00:00:00+00:00" />
@@ -36,10 +36,10 @@
 요약해보자면.
   Package Console 에 Microsoft.AspNetCore.Identity.EntityFrameworkCore 패키지를 추가해준다.
   기존에 회원관리를 위해 만들었던 모델. 나같은 경우엔 Account 였다. Account 에 IdentityUser를 상속해준다. IdentityUser에서 Id , UserName, Email등 필수 field들이 이미 선언되어있기 때문에 따로 Account에서 선언해줄 필요는 없다.
-  startup.cs에 위와 같이 등록해준다. {% highlight csharp %} //add identity module services.">
+  startup.cs에 위와 같이 등록해준다.">
 <meta itemprop="datePublished" content="2017-05-15T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2017-05-15T00:00:00+00:00" />
-<meta itemprop="wordCount" content="403">
+<meta itemprop="wordCount" content="383">
 
 
 
@@ -52,7 +52,7 @@
 요약해보자면.
   Package Console 에 Microsoft.AspNetCore.Identity.EntityFrameworkCore 패키지를 추가해준다.
   기존에 회원관리를 위해 만들었던 모델. 나같은 경우엔 Account 였다. Account 에 IdentityUser를 상속해준다. IdentityUser에서 Id , UserName, Email등 필수 field들이 이미 선언되어있기 때문에 따로 Account에서 선언해줄 필요는 없다.
-  startup.cs에 위와 같이 등록해준다. {% highlight csharp %} //add identity module services."/>
+  startup.cs에 위와 같이 등록해준다."/>
 
 
 
@@ -974,136 +974,142 @@
 <em>IdentityUser에서 Id , UserName, Email등 필수 field들이 이미 선언되어있기 때문에 따로 Account에서 선언해줄 필요는 없다.</em></p>
 </li>
 <li>
-<p>startup.cs에 위와 같이 등록해준다.
-{% highlight csharp %}
-//add identity module
-services.AddIdentity&lt;Account, IdentityRole&gt;()
-.AddEntityFrameworkStores<DatabaseContext>()
-.AddDefaultTokenProviders();</p>
+<p>startup.cs에 위와 같이 등록해준다.</p>
 </li>
 </ol>
-<p>services.Configure<IdentityOptions>(options =&gt;
-{
-options.Password.RequiredLength = 8;
-options.Password.RequireNonAlphanumeric = false;
-options.Password.RequireUppercase = false;
-var scheme = options.Cookies.ApplicationCookieAuthenticationScheme;
-});</p>
-<pre><code>물론 아래 configure는 option이기 때문에 원하는 대로 지정할 수 있다. 그리고 Account같은 경우에는 회원관리 모델을 의미하므로 적절히 사용하도록 하자.
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#8f5902;font-style:italic">//add identity module
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">services</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddIdentity</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">IdentityRole</span><span style="color:#000;font-weight:bold">&gt;()</span>
+    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddEntityFrameworkStores</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">DatabaseContext</span><span style="color:#000;font-weight:bold">&gt;()</span>
+    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddDefaultTokenProviders</span><span style="color:#000;font-weight:bold">();</span>
 
-마지막으로 configure 함수에
-{% highlight csharp %}
-app.UseIdentity();
-</code></pre><p>를 추가해준다.
+<span style="color:#000">services</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Configure</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">IdentityOptions</span><span style="color:#000;font-weight:bold">&gt;(</span><span style="color:#000">options</span> <span style="color:#000;font-weight:bold">=&gt;</span>
+<span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">options</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Password</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RequiredLength</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0000cf;font-weight:bold">8</span><span style="color:#000;font-weight:bold">;</span>
+    <span style="color:#000">options</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Password</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RequireNonAlphanumeric</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">;</span>
+    <span style="color:#000">options</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Password</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RequireUppercase</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">;</span>
+    <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">scheme</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">options</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Cookies</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ApplicationCookieAuthenticationScheme</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#000;font-weight:bold">});</span>
+</code></pre></div><p>물론 아래 configure는 option이기 때문에 원하는 대로 지정할 수 있다. 그리고 Account같은 경우에는 회원관리 모델을 의미하므로 적절히 사용하도록 하자.</p>
+<p>마지막으로 configure 함수에</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#000">app</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UseIdentity</span><span style="color:#000;font-weight:bold">();</span>
+</code></pre></div><p>를 추가해준다.
 4. DatabaseContext도 dbcontext를 상속하는 것이 아닌,</p>
-<p>{% highlight csharp %}
-public class DatabaseContext : IdentityDbContext<Account></p>
-<pre><code>위와 같이 IdentityDbContext&lt;Account&gt;를 상속해주도록 하자.
-
-위와 같이 되면 일단
-{% highlight csharp %}
-public DbSet&lt;Account&gt; Accounts { get; set; }
-</code></pre><p>와 같은 건 필요없다. 해당 IdentityDbContext에서 <em>Users<Account> AspNetUsers 라고 따로 테이블이 형성되기 때문.</em></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">DatabaseContext</span> <span style="color:#000;font-weight:bold">:</span> <span style="color:#000">IdentityDbContext</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span>
+</code></pre></div><p>위와 같이 IdentityDbContext<Account>를 상속해주도록 하자.</p>
+<p>위와 같이 되면 일단</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">DbSet</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">Accounts</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">get</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">set</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>와 같은 건 필요없다. 해당 IdentityDbContext에서 <em>Users<Account> AspNetUsers 라고 따로 테이블이 형성되기 때문.</em></p>
 <p>이제 설정은 끝났고, Identity Module의 기능을 이용하기만 하면 된다.</p>
-<p>{% highlight csharp %}
-private readonly UserManager<Account> _userManager;</p>
-<p>private readonly SignInManager<Account> _signInManager;</p>
-<p>public AuthController(UserManager<Account> userManager, SignInManager<Account> signInManager)
-{
-_userManager = userManager;
-_signInManager = signInManager;
-}</p>
-<p>// GET: /Auth/Register
-[HttpGet]
-[AllowAnonymous]
-public IActionResult Join(string returnUrl = null)
-{
-ViewData[&ldquo;ReturnUrl&rdquo;] = returnUrl;
-return View();
-}</p>
-<p>[HttpPost]
-[AllowAnonymous]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Join(JoinViewModel model){
-if (ModelState.IsValid)
-{
-var user = new Account { UserName = model.Email, Name= &ldquo;연습중&rdquo; , Email = model.Email, Phone= &ldquo;010-010-010&rdquo;};
-var result = await _userManager.CreateAsync(user, model.Password);
-if (result.Succeeded)
-{
-await _signInManager.SignInAsync(user, isPersistent: false);
-return RedirectToAction(nameof(HomeController.Index), &ldquo;Home&rdquo;);
-}
-AddErrors(result);
-}
-// If we got this far, something failed, redisplay form
-return View(model);</p>
-<p>}</p>
-<pre><code>// GET: /Auth/Login
-</code></pre>
-<p>[HttpGet]
-[AllowAnonymous]
-public IActionResult Login(string returnUrl = null)
-{
-ViewData[&ldquo;ReturnUrl&rdquo;] = returnUrl;
-return View();
-}</p>
-<pre><code>[HttpPost]
-[AllowAnonymous]
-[ValidateAntiForgeryToken]
-public async Task&lt;IActionResult&gt; Login(LoginViewModel model, string returnUrl = null){
-    ViewData[&quot;ReturnUrl&quot;] = returnUrl;
-    if(ModelState.IsValid){
-        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
-        if(result.Succeeded)
-        {
-            return RedirectToLocal(returnUrl);   
-        }
-        else
-        {
-            ModelState.AddModelError(string.Empty, &quot;invalid attempt&quot;);
-            return View(model);
-        }
-    }
-    return View(model);
-}
-</code></pre>
-<p>[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> LogOut()
-{
-await _signInManager.SignOutAsync();</p>
-<pre><code>return RedirectToAction(nameof(HomeController.Index), &quot;Home&quot;);
-</code></pre>
-<p>}</p>
-<p>#region Helpers</p>
-<p>private void AddErrors(IdentityResult result)
-{
-foreach (var error in result.Errors)
-{
-ModelState.AddModelError(string.Empty, error.Description);
-}
-}</p>
-<pre><code>private Task&lt;Account&gt; GetCurrentUserAsync()
-</code></pre>
-<p>{
-return _userManager.GetUserAsync(HttpContext.User);
-}</p>
-<p>private IActionResult RedirectToLocal(string returnUrl)
-{
-if (Url.IsLocalUrl(returnUrl))
-{
-return Redirect(returnUrl);
-}
-else
-{
-return RedirectToAction(nameof(HomeController.Index), &ldquo;Home&rdquo;);
-}
-}</p>
-<p>#endregion</p>
-<p>{% endhighlight%}</p>
-<p>예제코드를 참고해본 회원관리 컨트롤러이다.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#204a87;font-weight:bold">private</span> <span style="color:#204a87;font-weight:bold">readonly</span> <span style="color:#000">UserManager</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">_userManager</span><span style="color:#000;font-weight:bold">;</span>
 
+<span style="color:#204a87;font-weight:bold">private</span> <span style="color:#204a87;font-weight:bold">readonly</span> <span style="color:#000">SignInManager</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">_signInManager</span><span style="color:#000;font-weight:bold">;</span>
+
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">AuthController</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">UserManager</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">userManager</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">SignInManager</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">signInManager</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">_userManager</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">userManager</span><span style="color:#000;font-weight:bold">;</span>
+    <span style="color:#000">_signInManager</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">signInManager</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#8f5902;font-style:italic">// GET: /Auth/Register
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#c4a000">[HttpGet]</span>
+<span style="color:#c4a000">[AllowAnonymous]</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">IActionResult</span> <span style="color:#000">Join</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">returnUrl</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">null</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">ViewData</span><span style="color:#000;font-weight:bold">[</span><span style="color:#4e9a06">&#34;ReturnUrl&#34;</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">;</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">();</span>
+<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#c4a000">
+</span><span style="color:#c4a000">[HttpPost]</span>
+<span style="color:#c4a000">[AllowAnonymous]</span>
+<span style="color:#c4a000">[ValidateAntiForgeryToken]</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">async</span> <span style="color:#000">Task</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">IActionResult</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">Join</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">JoinViewModel</span> <span style="color:#000">model</span><span style="color:#000;font-weight:bold">){</span>
+  <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">ModelState</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IsValid</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">user</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">Account</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#000">UserName</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">model</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Email</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Name</span><span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;연습중&#34;</span> <span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Email</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">model</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Email</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Phone</span><span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;010-010-010&#34;</span><span style="color:#000;font-weight:bold">};</span>
+		<span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">result</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">await</span> <span style="color:#000">_userManager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">CreateAsync</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">user</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">model</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Password</span><span style="color:#000;font-weight:bold">);</span>
+		<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">result</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Succeeded</span><span style="color:#000;font-weight:bold">)</span>
+		<span style="color:#000;font-weight:bold">{</span>
+			<span style="color:#204a87;font-weight:bold">await</span> <span style="color:#000">_signInManager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SignInAsync</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">user</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">isPersistent</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">);</span>
+			<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToAction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">nameof</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">HomeController</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Index</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#4e9a06">&#34;Home&#34;</span><span style="color:#000;font-weight:bold">);</span>
+		<span style="color:#000;font-weight:bold">}</span>
+		<span style="color:#000">AddErrors</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">result</span><span style="color:#000;font-weight:bold">);</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#8f5902;font-style:italic">// If we got this far, something failed, redisplay form
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">model</span><span style="color:#000;font-weight:bold">);</span>
+
+<span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#8f5902;font-style:italic">// GET: /Auth/Login
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#c4a000">[HttpGet]</span>
+<span style="color:#c4a000">[AllowAnonymous]</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#000">IActionResult</span> <span style="color:#000">Login</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">returnUrl</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">null</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">ViewData</span><span style="color:#000;font-weight:bold">[</span><span style="color:#4e9a06">&#34;ReturnUrl&#34;</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">;</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">();</span>
+<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#c4a000">
+</span><span style="color:#c4a000">    [HttpPost]</span>
+<span style="color:#c4a000">    [AllowAnonymous]</span>
+<span style="color:#c4a000">    [ValidateAntiForgeryToken]</span>
+    <span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">async</span> <span style="color:#000">Task</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">IActionResult</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">Login</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">LoginViewModel</span> <span style="color:#000">model</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">returnUrl</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">null</span><span style="color:#000;font-weight:bold">){</span>
+        <span style="color:#000">ViewData</span><span style="color:#000;font-weight:bold">[</span><span style="color:#4e9a06">&#34;ReturnUrl&#34;</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">;</span>
+        <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ModelState</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IsValid</span><span style="color:#000;font-weight:bold">){</span>
+            <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">result</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">await</span> <span style="color:#000">_signInManager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">PasswordSignInAsync</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">model</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Email</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">model</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Password</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">lockoutOnFailure</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">);</span>
+            <span style="color:#204a87;font-weight:bold">if</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">result</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Succeeded</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#000;font-weight:bold">{</span>
+                <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToLocal</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">);</span>   
+            <span style="color:#000;font-weight:bold">}</span>
+            <span style="color:#204a87;font-weight:bold">else</span>
+            <span style="color:#000;font-weight:bold">{</span>
+                <span style="color:#000">ModelState</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddModelError</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Empty</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;invalid attempt&#34;</span><span style="color:#000;font-weight:bold">);</span>
+                <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">model</span><span style="color:#000;font-weight:bold">);</span>
+            <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">View</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">model</span><span style="color:#000;font-weight:bold">);</span>
+    <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#c4a000">
+</span><span style="color:#c4a000">[HttpPost]</span>
+<span style="color:#c4a000">[ValidateAntiForgeryToken]</span>
+<span style="color:#204a87;font-weight:bold">public</span> <span style="color:#204a87;font-weight:bold">async</span> <span style="color:#000">Task</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">IActionResult</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">LogOut</span><span style="color:#000;font-weight:bold">()</span>
+<span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">await</span> <span style="color:#000">_signInManager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SignOutAsync</span><span style="color:#000;font-weight:bold">();</span>
+
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToAction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">nameof</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">HomeController</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Index</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#4e9a06">&#34;Home&#34;</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#8f5902;font-style:italic">#region Helpers
+</span><span style="color:#8f5902;font-style:italic"></span>
+<span style="color:#204a87;font-weight:bold">private</span> <span style="color:#204a87;font-weight:bold">void</span> <span style="color:#000">AddErrors</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">IdentityResult</span> <span style="color:#000">result</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">foreach</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">error</span> <span style="color:#204a87;font-weight:bold">in</span> <span style="color:#000">result</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Errors</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">ModelState</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddModelError</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Empty</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">error</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Description</span><span style="color:#000;font-weight:bold">);</span>
+	<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#204a87;font-weight:bold">private</span> <span style="color:#000">Task</span><span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000">Account</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">GetCurrentUserAsync</span><span style="color:#000;font-weight:bold">()</span>
+<span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">_userManager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetUserAsync</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">HttpContext</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">User</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#204a87;font-weight:bold">private</span> <span style="color:#000">IActionResult</span> <span style="color:#000">RedirectToLocal</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span> <span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">Url</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IsLocalUrl</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">))</span>
+	<span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">Redirect</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">returnUrl</span><span style="color:#000;font-weight:bold">);</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#204a87;font-weight:bold">else</span>
+	<span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">RedirectToAction</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">nameof</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">HomeController</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Index</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#4e9a06">&#34;Home&#34;</span><span style="color:#000;font-weight:bold">);</span>
+	<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#8f5902;font-style:italic">#endregion
+</span><span style="color:#8f5902;font-style:italic"></span>
+<span style="color:#000;font-weight:bold">{%</span> <span style="color:#000">endhighlight</span><span style="color:#000;font-weight:bold">%}</span>
+
+<span style="color:#a40000">예제코드를</span> <span style="color:#a40000">참고해본</span> <span style="color:#a40000">회원관리</span> <span style="color:#a40000">컨트롤러이다</span><span style="color:#000;font-weight:bold">.</span>
+</code></pre></div>
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">

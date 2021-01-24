@@ -2379,25 +2379,23 @@ docker start -I centos7_project
 &lt;p&gt;뭐였나면,,,&lt;/p&gt;
 &lt;h3 id=&#34;heading&#34;&gt;&lt;/h3&gt;
 &lt;p&gt;각 html이나 markdown파일마다 layout을 정의하는게 규칙인데, 일반적인 글을 올릴때는 post로 지정해둔다. layout 폴더로 들어가보면, post, default, page, category_index가 있는데, 이것들이 site.pages, site.posts들을 의미하는 거였다. site는 이 블로그 자체를 의미하고 layout이 page냐 post냐 에 따라 각각 site.pages site.posts들에 저장되고 있었다(Jekyll 엔진 자체적으로 처리). 내가 원했던 건 메뉴에 search를 추가하는 것이었다.&lt;/p&gt;
-&lt;p&gt;{% highlight ruby%}
-assign pages_list = site.pages | sort:&amp;ldquo;url&amp;rdquo;
-for node in pages_list
-if node.title != null
-if node.layout == &amp;ldquo;page&amp;rdquo;
-&lt;li class=&#34;sb-close { if page.url == node.url }active{ endif }&#34;&gt;
-&lt;a href=&#34;{{ node.url | prepend: site.baseurl }}&#34;&gt;{{ node.title }}&lt;/a&gt;
-&lt;/li&gt;
-endif
-endif
-endfor
-{% endhighlight%}&lt;/p&gt;
-&lt;p&gt;메뉴가 있는 includes/sidebar.html에는 이런식으로 코드가 작성되어있었기 때문에, pages_list = site.pages는 layout이 page인 파일들을 의미하는 것이었다. 따라서 page_list에 search를 추가하여 메뉴를 추가해야했다. 이는 search.html에&lt;/p&gt;
-&lt;h2 id=&#34;-highlight-ruby&#34;&gt;{% highlight ruby%}&lt;/h2&gt;
-&lt;h2 id=&#34;permalink-search&#34;&gt;layout: page
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt; &lt;span style=&#34;color:#000&#34;&gt;assign&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;pages_list&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;site&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;pages&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;sort&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;url&amp;#34;&lt;/span&gt;
+ &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;node&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;pages_list&lt;/span&gt;
+     &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;node&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;title&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;null&lt;/span&gt;
+         &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;node&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;layout&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;page&amp;#34;&lt;/span&gt;
+        &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;li&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;sb-close { if page.url == node.url }active{ endif }&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;href&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;{{ node.url | prepend: site.baseurl }}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{{&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;node&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;title&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}}&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;/a&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;        &amp;lt;/&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;li&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+         &lt;span style=&#34;color:#000&#34;&gt;endif&lt;/span&gt;
+     &lt;span style=&#34;color:#000&#34;&gt;endif&lt;/span&gt;
+ &lt;span style=&#34;color:#000&#34;&gt;endfor&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;메뉴가 있는 includes/sidebar.html에는 이런식으로 코드가 작성되어있었기 때문에, pages_list = site.pages는 layout이 page인 파일들을 의미하는 것이었다. 따라서 page_list에 search를 추가하여 메뉴를 추가해야했다. 이는 search.html에&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;---
+layout: page
 title: Search
-permalink: /search/&lt;/h2&gt;
-&lt;p&gt;{% endhighlight%}&lt;/p&gt;
-&lt;p&gt;이런식으로 추가해주면 jekyll에 의해 자동으로 search가 page로 인식되고 pages_list에 search도 들어간다.&lt;/p&gt;
+permalink: /search/
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;이런식으로 추가해주면 jekyll에 의해 자동으로 search가 page로 인식되고 pages_list에 search도 들어간다.&lt;/p&gt;
 &lt;p&gt;아무튼 이제 메뉴에 search를 추가했으니, 실제로 검색을 위한 로직이 필요하다. 이는
 &lt;a href=&#34;https://github.com/christian-fei/Simple-Jekyll-Search&#34;&gt;Simple-Jekyll-Search&lt;/a&gt;라는 JS 라이브러리를 사용했다. JS 라이브러리이기 때문에 NPM을 사용하여 설치할 수 있는데,&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;npm으로 설치하면 ~.min.js만 설치되서 이것만 로드하면 될 줄 알았더니 안되더라&amp;hellip;.물론 내가 잘 못 설치한 걸수도 있음.&lt;/em&gt;&lt;/p&gt;
@@ -2419,44 +2417,42 @@ permalink: /search/&lt;/h2&gt;
 &lt;p&gt;ruby 자체를 Programming에 쓸 일은 별로 없지만, (요즘엔 Rails도 안쓰고 스크립트는 거의 Python으로 처리하므로,) 맥에 ruby를 깔아둬야 할 일은 꽤 자주 발생했다. 일단, Mac에서 많이 쓰는 Package Manager인 Homebrew도 ruby 기반이라 ruby가 설치 되어있어야하고, 지금 이 정적 블로그 엔진도 Jekyll이라는 ruby 기반 엔진이라, ruby가 없으면 로컬에서 돌려볼 수가 없었다. 컴퓨터를 바꾸기도 했었고 초기화로 메모리를 모두 날려먹은 적이 있어 기존에 설치해둔 ruby가 없어 설치하는 김에 이번 기회에 아예 게시글로 정리해두려고 한다.&lt;/p&gt;
 &lt;p&gt;알다시피 맥에는 기본 Ruby가 깔려있다. 초반에는 이 기본 Ruby로 어찌저찌 해결했는데, Gem을 깔아야되는 상황이 되니 기본 ruby를 건드렸다간 큰일이날 듯했다. 물론 권한도 없었다. 하지만 강제로 권한을 풀었다간 뭔가 큰 일이 날것같은 느낌. 어디인지는 모르겠지만 Mac에서 기본적으로 ruby를 가지고 있는 이유는 어딘가에서 ruby를 시스템용으로 사용하기 때문이다. 결국 이 기본 ruby는 사용하지 않고 막 쓸 별개 ruby를 깔기로 했다. 정확히 기억은 안나지만, python도 비슷한 이슈를 가지고 있어서 virtualenv라는 가상환경을 사용했던듯하다. ruby에도 이런 환경(?) 매니저를 가지고 있다. 프로젝트마다 필요한 루비 버전이 다를 수 있기 때문에 해당 프로젝트에서 사용할 루비를 지정할 수도 있고 시스템 전반에서 주로 사용할 ruby를 지정할 수도 있다.&lt;/p&gt;
 &lt;p&gt;Environment Manager for Ruby로 RVM과 rbenv 두 개가 있는데, 예전에 Rails를 2015년 하반기 처음 입문했을 때만해도 rvm을 많이 썼었다. 그때는 그냥 rbenv가 이름이 더 이뻐서 그걸 썼는데, 지금 다시 관련내용을 찾아보니, 거의 rbenv로 대세가 넘어왔다. 많은 게시물들이 rbenv를 다루고 있었다.&lt;/p&gt;
-&lt;p&gt;{% highlight bash%}
-brew update
-brew install ruby&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Homebrew를 이용해서 Ruby를 설치하는것이 훨씬 편하다. 공식 페이지에서도 권장하고 있다. Homebrew가 없다면 밑에 링크에서 다운받도록 한다. Homebrew를 설치하는 데 필요한 루비는 맥 기본 루비이기때문에 루비를 따로 설치하지 않아도 그냥 Homebrew부터 깔면된다. Node, MySql등 여러 툴들을 사용할 때도 굉장히 유용하게 쓸 수 있기 때문에 맥 사용자라면, 깔아두는 것을 추천한다.
-[Homebrew 설치하기](https://brew.sh/index_ko.html)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;brew update
+brew install ruby
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Homebrew를 이용해서 Ruby를 설치하는것이 훨씬 편하다. 공식 페이지에서도 권장하고 있다. Homebrew가 없다면 밑에 링크에서 다운받도록 한다. Homebrew를 설치하는 데 필요한 루비는 맥 기본 루비이기때문에 루비를 따로 설치하지 않아도 그냥 Homebrew부터 깔면된다. Node, MySql등 여러 툴들을 사용할 때도 굉장히 유용하게 쓸 수 있기 때문에 맥 사용자라면, 깔아두는 것을 추천한다.
+&lt;a href=&#34;https://brew.sh/index_ko.html&#34;&gt;Homebrew 설치하기&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# If you use bash&lt;/span&gt;
+&lt;span style=&#34;color:#204a87&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;export PATH=/usr/local/Cellar/ruby/2.4.1_1/bin:$PATH&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bash_profile
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# If you use ZSH:&lt;/span&gt;
+&lt;span style=&#34;color:#204a87&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;export PATH=/usr/local/Cellar/ruby/2.4.1_1/bin:$PATH&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.zprofile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;나는 Oh-my-zsh라는 zsh 쉘을 쓰고 있기 때문에 아랫줄을 실행해주었다. 쉘에 PATH를 설정해주는 작업이다. 2.4.1_1 이는 버전명으로 설치한 버전명을 넣도록 한다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;brew install rbenv ruby-build
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# zsh&lt;/span&gt;
+&lt;span style=&#34;color:#204a87&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;export PATH=&amp;#34;$HOME/.rbenv/bin:$PATH&amp;#34;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.zprofile
+&lt;span style=&#34;color:#204a87&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;eval &amp;#34;$(rbenv init -)&amp;#34;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.zprofile  
 
-{% highlight bash%}
-# If you use bash
-echo &#39;export PATH=/usr/local/Cellar/ruby/2.4.1_1/bin:$PATH&#39; &amp;gt;&amp;gt; ~/.bash_profile
-# If you use ZSH:
-echo &#39;export PATH=/usr/local/Cellar/ruby/2.4.1_1/bin:$PATH&#39; &amp;gt;&amp;gt; ~/.zprofile
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;나는 Oh-my-zsh라는 zsh 쉘을 쓰고 있기 때문에 아랫줄을 실행해주었다. 쉘에 PATH를 설정해주는 작업이다. 2.4.1_1 이는 버전명으로 설치한 버전명을 넣도록 한다.&lt;/p&gt;
-&lt;p&gt;{% highlight bash%}
-brew install rbenv ruby-build&lt;/p&gt;
-&lt;h1 id=&#34;zsh&#34;&gt;zsh&lt;/h1&gt;
-&lt;p&gt;echo &amp;lsquo;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&amp;rsquo; &amp;raquo; ~/.zprofile
-echo &amp;lsquo;eval &amp;ldquo;$(rbenv init -)&amp;quot;&amp;rsquo; &amp;raquo; ~/.zprofile&lt;/p&gt;
-&lt;h1 id=&#34;list-all-available-versions&#34;&gt;list all available versions:&lt;/h1&gt;
-&lt;p&gt;rbenv install -l&lt;/p&gt;
-&lt;h1 id=&#34;install-a-ruby-version&#34;&gt;install a Ruby version:&lt;/h1&gt;
-&lt;p&gt;rbenv install 2.4.1&lt;/p&gt;
-&lt;h1 id=&#34;set-ruby-version-for-a-specific-dir&#34;&gt;set ruby version for a specific dir&lt;/h1&gt;
-&lt;p&gt;rbenv local 2.4.1&lt;/p&gt;
-&lt;h1 id=&#34;set-ruby-version-globally&#34;&gt;set ruby version globally&lt;/h1&gt;
-&lt;p&gt;rbenv global 2.4.1&lt;/p&gt;
-&lt;p&gt;rbenv rehash
-gem update &amp;ndash;system&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;ruby를 깔았으니, 버전 관리 툴인 rbenv와 빌드 툴인 ruby-build를 brew를 통해 설치하도록 한다. 아까와 마찬가지로 .rbenv도 쉘 path에 등록해주고 쉘이 시작될때마다, rbenv가 init되도록 해준다.
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# list all available versions:&lt;/span&gt;
+rbenv install -l
 
-설치가능한 버전들을 list해보고 원하는 버전을 설치한다. 설치후엔 **source ~./zprofile** 이 명령어를 한번 쳐주는 것도 좋다. 아까 환경변수 설정한것을 반영하도록 하는 명령어인데, 나의 경우엔 설치 후에 **rbenv global 2.4.1** 이 명령어가 먹히지않아서 **ruby -v** 했을 때 계속 옛날 루비 버전만 나왔었다. source 명령어 이후엔 잘 반영되었다. 어쩌면 터미널 껏다 켰음 그냥 됬을 수도 ㅋㅋ
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# install a Ruby version:&lt;/span&gt;
+rbenv install 2.4.1
 
-rbenv rehash 이걸로 뭐였더라 무슨 변수 정리해주고, gem update를 해주면 &amp;lt;span style=&amp;quot;color:#003366&amp;quot;&amp;gt;ruby 설정완료.&amp;lt;/span&amp;gt;
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# set ruby version for a specific dir&lt;/span&gt;
+rbenv &lt;span style=&#34;color:#204a87&#34;&gt;local&lt;/span&gt; 2.4.1
 
-이제 2.4.1 버전 루비로 블로그에 Gem도 설치하고 jekyll serve도 해야겠다.
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# set ruby version globally&lt;/span&gt;
+rbenv global 2.4.1
 
-[참고](https://stackoverflow.com/questions/14607193/installing-gem-or-updating-rubygems-fails-with-permissions-error)
-*echo $PATH* 로 환경변수를 볼때, 환경변수에 등록된 순서가 *~/.rbenv/shims* 가 ruby보다 늦게 나오면, 에러가 날 수 있다고 한다. 즉, rbenv가 먼저 load되어야한다는 말, 그때는 bash에 *export PATH=$HOME/.rbenv/shims:$PATH* 를 가장 마지막 줄에 넣으면 된다고 한다. 아마도 가장 마지막 줄의 path가 가장 먼저 load되기 때문인듯하다.
-&lt;/code&gt;&lt;/pre&gt;
+rbenv rehash
+gem update --system
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ruby를 깔았으니, 버전 관리 툴인 rbenv와 빌드 툴인 ruby-build를 brew를 통해 설치하도록 한다. 아까와 마찬가지로 .rbenv도 쉘 path에 등록해주고 쉘이 시작될때마다, rbenv가 init되도록 해준다.&lt;/p&gt;
+&lt;p&gt;설치가능한 버전들을 list해보고 원하는 버전을 설치한다. 설치후엔 &lt;strong&gt;source ~./zprofile&lt;/strong&gt; 이 명령어를 한번 쳐주는 것도 좋다. 아까 환경변수 설정한것을 반영하도록 하는 명령어인데, 나의 경우엔 설치 후에 &lt;strong&gt;rbenv global 2.4.1&lt;/strong&gt; 이 명령어가 먹히지않아서 &lt;strong&gt;ruby -v&lt;/strong&gt; 했을 때 계속 옛날 루비 버전만 나왔었다. source 명령어 이후엔 잘 반영되었다. 어쩌면 터미널 껏다 켰음 그냥 됬을 수도 ㅋㅋ&lt;/p&gt;
+&lt;p&gt;rbenv rehash 이걸로 뭐였더라 무슨 변수 정리해주고, gem update를 해주면 &lt;span style=&#34;color:#003366&#34;&gt;ruby 설정완료.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;이제 2.4.1 버전 루비로 블로그에 Gem도 설치하고 jekyll serve도 해야겠다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/14607193/installing-gem-or-updating-rubygems-fails-with-permissions-error&#34;&gt;참고&lt;/a&gt;
+&lt;em&gt;echo $PATH&lt;/em&gt; 로 환경변수를 볼때, 환경변수에 등록된 순서가 &lt;em&gt;~/.rbenv/shims&lt;/em&gt; 가 ruby보다 늦게 나오면, 에러가 날 수 있다고 한다. 즉, rbenv가 먼저 load되어야한다는 말, 그때는 bash에 &lt;em&gt;export PATH=$HOME/.rbenv/shims:$PATH&lt;/em&gt; 를 가장 마지막 줄에 넣으면 된다고 한다. 아마도 가장 마지막 줄의 path가 가장 먼저 load되기 때문인듯하다.&lt;/p&gt;
+
       </description>
     </item>
     
@@ -2550,15 +2546,13 @@ fmt.Printf(&amp;quot;%v&amp;quot;, s+str)
 
 &lt;span style=&#34;color:#000&#34;&gt;fmt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Println&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;a&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;//string 타입 a
 &lt;/span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;fmt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Println&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;c&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;//int 타입인 c
-&lt;/span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;endhighlight&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;%&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
-
-&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;go&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;run&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;practice&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;go&lt;/span&gt;
-&lt;span style=&#34;color:#000&#34;&gt;hello&lt;/span&gt;
-&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;5&lt;/span&gt;
-
-&lt;span style=&#34;color:#000&#34;&gt;run&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;하면&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;위와&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;같이&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;string&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;값을&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;Println에&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;넣었을&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;때&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;알아서&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;적합한&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;형태로&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;출력해준다&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;함수내에서&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;interface&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{}&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;파라미터로&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;들어온&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;값의&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;타입과&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;값을&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;판단하여&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;출력해주기&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;때문&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;interface에&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;관한&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;예제를&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;몇&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;개&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;더&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;해보자&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;
-&lt;span style=&#34;color:#4e9a06&#34;&gt;``&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;`&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;go&lt;/span&gt;
-&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;$go run practice.go
+hello
+5&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;run 하면 위와 같이 string, int 값을 Println에 넣었을 때 알아서 적합한 형태로 출력해준다. 함수내에서 interface{}파라미터로 들어온 값의 타입과 값을 판단하여 출력해주기 때문. interface에 관한 예제를 몇 개 더 해보자.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;main&lt;/span&gt;
 
 &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;
 	&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
@@ -2569,96 +2563,79 @@ fmt.Printf(&amp;quot;%v&amp;quot;, s+str)
 	&lt;span style=&#34;color:#000&#34;&gt;When&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Time&lt;/span&gt;
 	&lt;span style=&#34;color:#000&#34;&gt;What&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;string&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;func (e *MyError) Error() string {
-return fmt.Sprintf(&amp;ldquo;at %v, %s&amp;rdquo;,
-e.When, e.What)
-}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;func run() error {
-	return &amp;amp;MyError{
-		time.Now(),
-		&amp;quot;it didn&#39;t work&amp;quot;,
-	}
-}
 
-func main() {
-	if err := run(); err != nil {
-		fmt.Println(err)
-	}
-}
-{% endhighlight%}
-위 예제는 error에 관한 건데, 일반적으로 go programming에서는 error를 리턴하는 경우가 흔하다.
-fmt 패키지가 Println을 통해 err 객체를 출력할때, Error 인터페이스를 구현하고 있는 지 찾는다고 한다.
+&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;e&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MyError&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;Error&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;string&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+	&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;fmt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Sprintf&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;at %v, %s&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+		&lt;span style=&#34;color:#000&#34;&gt;e&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;When&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;e&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;What&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;run&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;error&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+	&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MyError&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+		&lt;span style=&#34;color:#000&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Now&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(),&lt;/span&gt;
+		&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;it didn&amp;#39;t work&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+	&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
 
-&amp;gt; type error interface {
-    Error() string
-}
+&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+	&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;err&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;run&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;();&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;err&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+		&lt;span style=&#34;color:#000&#34;&gt;fmt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Println&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;err&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+	&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;위 예제는 error에 관한 건데, 일반적으로 go programming에서는 error를 리턴하는 경우가 흔하다.
+fmt 패키지가 Println을 통해 err 객체를 출력할때, Error 인터페이스를 구현하고 있는 지 찾는다고 한다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;error&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;interface&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color:#000&#34;&gt;Error&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;string&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;여기서도 마찬가지로 err 객체가 Error 인터페이스를 구현하고 있는지, Error 메소드를 가지는 지 찾아보면,&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;e&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MyError&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;Error&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;string&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;MyError 구조체는 이 메소드를 가진다.(composition) 따라서, 위 메소드가 호출된다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;main&lt;/span&gt;
 
-여기서도 마찬가지로 err 객체가 Error 인터페이스를 구현하고 있는지, Error 메소드를 가지는 지 찾아보면,
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;func (e *MyError) Error() string {}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;MyError 구조체는 이 메소드를 가진다.(composition) 따라서, 위 메소드가 호출된다.
-```go
-package main
+&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;
+	&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ErrNegativeSqrt&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;float64&lt;/span&gt;
 
-import (
-	&amp;quot;fmt&amp;quot;
-)
-type ErrNegativeSqrt float64
+&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;e&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ErrNegativeSqrt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;Error&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;string&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+	&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;fmt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Sprintf&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;cannot Sqrt negative number : %g&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;e&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
 
-func (e ErrNegativeSqrt) Error() string{
-	return fmt.Sprintf(&amp;quot;cannot Sqrt negative number : %g&amp;quot;, e)
-}
+&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;Sqrt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;x&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;float64&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;float64&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;error&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+	&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;x&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+	  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ErrNegativeSqrt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+	&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+	&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;nil&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
 
-func Sqrt(x float64) (float64, error) {
-	if x &amp;lt; 0{
-	  return 0, ErrNegativeSqrt(x)
-	}
-	return 0, nil
-}
+&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+	&lt;span style=&#34;color:#000&#34;&gt;fmt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Println&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Sqrt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;))&lt;/span&gt;
+	&lt;span style=&#34;color:#000&#34;&gt;fmt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Println&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Sqrt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;))&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Exercise 예제를 하나 더 보면, ErrNegativeSqrt 라는 이름의 타입을 하나 정의한다. 그럼, sqrt(-2)를 호출했을때, if문에 의해 ErrNegativeSqrt 타입의 객체를 반환하게 된다. fmt가 Println을 수행할 때, 위 객체의 Error 인터페이스를 찾고, Error 메소드를 구현하고 있으므로, 해당 메소드를 출력해주면 된다.&lt;/p&gt;
+&lt;h2 id=&#34;json-marshall-and-unmarshall&#34;&gt;Json Marshall and UnMarshall&lt;/h2&gt;
+&lt;p&gt;참고) &lt;a href=&#34;https://gobyexample.com/json&#34;&gt;json by example&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;인터페이스를 공부하게 된 계기가 되어준게 JSON string으로의 인코딩이었다. Go data structure 타입의 객체를 Json으로 인코딩하여 API Response를 날려줘야하므로, standard library인 encoding/json을 이용해야했다.
+json.Marshal(var interface{}) 함수는 interface{}형태의 파라미터를 받아 해당 변수의 type, value값을 판단하여 json 형태로 encode해준다.&lt;/p&gt;
+&lt;p&gt;json.Unmarshal은 당연히 그 반대과정인 decoding을 수행하는데, 예제에도 나와있듯 decode된 데이터를 담을 dat이라는 변수를 선언해준다. 이 변수는 string key에 interface{} value값을 가지는데, byt로 들어온 json string 값을 decode하여 dat의 자료구조에 적합하게 집어넣어준다. interface{}로 선언한 까닭에 여러가지 값이 value로 들어갈 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;dat&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;map&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;string&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;interface&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{}&lt;/span&gt;
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;//Here’s the actual decoding, and a check for associated errors.
+&lt;/span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;//go 에서는 이런식으로 error를 체크해주는것이 좋다.
+&lt;/span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;err&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;json&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Unmarshal&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;byt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;dat&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;);&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;err&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color:#204a87&#34;&gt;panic&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;err&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+    &lt;span style=&#34;color:#000&#34;&gt;fmt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Println&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;dat&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;참고 예제에 나와있듯, decode된 객체의 값들을 사용하기 위해서 적합한 값으로 cast해줘야한다. (interface{}로 value를 받았으므로)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#000&#34;&gt;num&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ok&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;dat&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;num&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;].(&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;float64&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ok&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color:#000&#34;&gt;fmt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Println&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;num&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;nested data 구조에 접근하기 위해서는 연속적인 cast를 필요로 할 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#000&#34;&gt;strs&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;dat&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;strs&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;].([]&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;interface&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{})&lt;/span&gt;
+&lt;span style=&#34;color:#000&#34;&gt;str1&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;strs&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;].(&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;string&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#000&#34;&gt;fmt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Println&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;str1&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;예상되는 타입으로 cast하고 해당값을 자유롭게 go 에서 사용할 수 있다.&lt;/p&gt;
+&lt;p&gt;참고) go tour
+요약) ok 없이 interface의 type assertion을 수행하면, 실제로 변환이 불가능할땐 panic이 발생한다. ok가 있으면 interface가 해당 타입을 가지면, true 아니면 false가 되고 t는 해당 타입 T의 zero value가 되고 panic이 발생하지 않는다.&lt;/p&gt;
 
-func main() {
-	fmt.Println(Sqrt(2))
-	fmt.Println(Sqrt(-2))
-}
-{% endhighlight%}
-Exercise 예제를 하나 더 보면, ErrNegativeSqrt 라는 이름의 타입을 하나 정의한다. 그럼, sqrt(-2)를 호출했을때, if문에 의해 ErrNegativeSqrt 타입의 객체를 반환하게 된다. fmt가 Println을 수행할 때, 위 객체의 Error 인터페이스를 찾고, Error 메소드를 구현하고 있으므로, 해당 메소드를 출력해주면 된다.
-
-## Json Marshall and UnMarshall
-참고) [json by example](https://gobyexample.com/json)
-
-인터페이스를 공부하게 된 계기가 되어준게 JSON string으로의 인코딩이었다. Go data structure 타입의 객체를 Json으로 인코딩하여 API Response를 날려줘야하므로, standard library인 encoding/json을 이용해야했다.
-json.Marshal(var interface{}) 함수는 interface{}형태의 파라미터를 받아 해당 변수의 type, value값을 판단하여 json 형태로 encode해준다.
-
-json.Unmarshal은 당연히 그 반대과정인 decoding을 수행하는데, 예제에도 나와있듯 decode된 데이터를 담을 dat이라는 변수를 선언해준다. 이 변수는 string key에 interface{} value값을 가지는데, byt로 들어온 json string 값을 decode하여 dat의 자료구조에 적합하게 집어넣어준다. interface{}로 선언한 까닭에 여러가지 값이 value로 들어갈 수 있다.
-
-```go
-var dat map[string]interface{}
-//Here’s the actual decoding, and a check for associated errors.
-//go 에서는 이런식으로 error를 체크해주는것이 좋다.
-    if err := json.Unmarshal(byt, &amp;amp;dat); err != nil {
-        panic(err)
-    }
-    fmt.Println(dat)
-{% endhighlight%}
-
-참고 예제에 나와있듯, decode된 객체의 값들을 사용하기 위해서 적합한 값으로 cast해줘야한다. (interface{}로 value를 받았으므로)     
-```go
-num, ok := dat[&amp;quot;num&amp;quot;].(float64)
-if ok{
-    fmt.Println(num)
-}
-{% endhighlight%}
-nested data 구조에 접근하기 위해서는 연속적인 cast를 필요로 할 수 있다.
-
-```go
-  strs := dat[&amp;quot;strs&amp;quot;].([]interface{})
-  str1 := strs[0].(string)
-  fmt.Println(str1)
-{% endhighlight%}
-예상되는 타입으로 cast하고 해당값을 자유롭게 go 에서 사용할 수 있다.
-
-참고) go tour
-요약) ok 없이 interface의 type assertion을 수행하면, 실제로 변환이 불가능할땐 panic이 발생한다. ok가 있으면 interface가 해당 타입을 가지면, true 아니면 false가 되고 t는 해당 타입 T의 zero value가 되고 panic이 발생하지 않는다.
-&lt;/code&gt;&lt;/pre&gt;
       </description>
     </item>
     
