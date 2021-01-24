@@ -1,12 +1,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>한국어 버전 타이틀 – 한국어 버전 타이틀</title>
-    <link>matilda38.github.io/</link>
+    <link>/</link>
     <description>Recent content on 한국어 버전 타이틀</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 30 Dec 2019 10:22:22 +0900</lastBuildDate>
     
-	  <atom:link href="matilda38.github.io/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -15,10 +15,10 @@
     
     <item>
       <title>Blog: Wine list for beginners</title>
-      <link>matilda38.github.io/blog/2019/12/30/wine-list-for-beginners/</link>
+      <link>/blog/2019/12/30/wine-list-for-beginners/</link>
       <pubDate>Mon, 30 Dec 2019 10:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/12/30/wine-list-for-beginners/</guid>
+      <guid>/blog/2019/12/30/wine-list-for-beginners/</guid>
       <description>
         
         
@@ -32,10 +32,10 @@
     
     <item>
       <title>Blog: Passing Slice to a function</title>
-      <link>matilda38.github.io/blog/2019/12/26/passing-slice-to-a-function/</link>
+      <link>/blog/2019/12/26/passing-slice-to-a-function/</link>
       <pubDate>Thu, 26 Dec 2019 10:45:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/12/26/passing-slice-to-a-function/</guid>
+      <guid>/blog/2019/12/26/passing-slice-to-a-function/</guid>
       <description>
         
         
@@ -128,10 +128,10 @@
     
     <item>
       <title>Blog: gorm-postgresql 사용 주의</title>
-      <link>matilda38.github.io/blog/2019/12/20/gorm-postgresql-%EC%82%AC%EC%9A%A9-%EC%A3%BC%EC%9D%98/</link>
+      <link>/blog/2019/12/20/gorm-postgresql-%EC%82%AC%EC%9A%A9-%EC%A3%BC%EC%9D%98/</link>
       <pubDate>Fri, 20 Dec 2019 10:45:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/12/20/gorm-postgresql-%EC%82%AC%EC%9A%A9-%EC%A3%BC%EC%9D%98/</guid>
+      <guid>/blog/2019/12/20/gorm-postgresql-%EC%82%AC%EC%9A%A9-%EC%A3%BC%EC%9D%98/</guid>
       <description>
         
         
@@ -174,10 +174,10 @@ UPDATE &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;testcases&amp;#34;&lt;
     
     <item>
       <title>Blog: string split</title>
-      <link>matilda38.github.io/blog/2019/12/10/string-split/</link>
+      <link>/blog/2019/12/10/string-split/</link>
       <pubDate>Tue, 10 Dec 2019 08:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/12/10/string-split/</guid>
+      <guid>/blog/2019/12/10/string-split/</guid>
       <description>
         
         
@@ -205,10 +205,10 @@ golang은 모두 utf8 인코딩 기반이기 때문에, 한글이나 특수문�
     
     <item>
       <title>Blog: goland tips</title>
-      <link>matilda38.github.io/blog/2019/12/05/goland-tips/</link>
+      <link>/blog/2019/12/05/goland-tips/</link>
       <pubDate>Thu, 05 Dec 2019 08:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/12/05/goland-tips/</guid>
+      <guid>/blog/2019/12/05/goland-tips/</guid>
       <description>
         
         
@@ -221,10 +221,10 @@ golang은 모두 utf8 인코딩 기반이기 때문에, 한글이나 특수문�
     
     <item>
       <title>Blog: DDA 스터디</title>
-      <link>matilda38.github.io/blog/2019/11/30/dda-%EC%8A%A4%ED%84%B0%EB%94%94/</link>
+      <link>/blog/2019/11/30/dda-%EC%8A%A4%ED%84%B0%EB%94%94/</link>
       <pubDate>Sat, 30 Nov 2019 10:45:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/11/30/dda-%EC%8A%A4%ED%84%B0%EB%94%94/</guid>
+      <guid>/blog/2019/11/30/dda-%EC%8A%A4%ED%84%B0%EB%94%94/</guid>
       <description>
         
         
@@ -291,10 +291,10 @@ Trasaction 이 완료되기전까지는 Previous만 보여주고 Transaction이 
     
     <item>
       <title>Blog: 클로저를 고루틴으로 실행할때 주의할점.</title>
-      <link>matilda38.github.io/blog/2019/11/30/%ED%81%B4%EB%A1%9C%EC%A0%80%EB%A5%BC-%EA%B3%A0%EB%A3%A8%ED%8B%B4%EC%9C%BC%EB%A1%9C-%EC%8B%A4%ED%96%89%ED%95%A0%EB%95%8C-%EC%A3%BC%EC%9D%98%ED%95%A0%EC%A0%90./</link>
+      <link>/blog/2019/11/30/%ED%81%B4%EB%A1%9C%EC%A0%80%EB%A5%BC-%EA%B3%A0%EB%A3%A8%ED%8B%B4%EC%9C%BC%EB%A1%9C-%EC%8B%A4%ED%96%89%ED%95%A0%EB%95%8C-%EC%A3%BC%EC%9D%98%ED%95%A0%EC%A0%90./</link>
       <pubDate>Sat, 30 Nov 2019 10:45:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/11/30/%ED%81%B4%EB%A1%9C%EC%A0%80%EB%A5%BC-%EA%B3%A0%EB%A3%A8%ED%8B%B4%EC%9C%BC%EB%A1%9C-%EC%8B%A4%ED%96%89%ED%95%A0%EB%95%8C-%EC%A3%BC%EC%9D%98%ED%95%A0%EC%A0%90./</guid>
+      <guid>/blog/2019/11/30/%ED%81%B4%EB%A1%9C%EC%A0%80%EB%A5%BC-%EA%B3%A0%EB%A3%A8%ED%8B%B4%EC%9C%BC%EB%A1%9C-%EC%8B%A4%ED%96%89%ED%95%A0%EB%95%8C-%EC%A3%BC%EC%9D%98%ED%95%A0%EC%A0%90./</guid>
       <description>
         
         
@@ -358,10 +358,10 @@ Trasaction 이 완료되기전까지는 Previous만 보여주고 Transaction이 
     
     <item>
       <title>Blog: concurrency is not parallelism</title>
-      <link>matilda38.github.io/blog/2019/11/28/concurrency-is-not-parallelism/</link>
+      <link>/blog/2019/11/28/concurrency-is-not-parallelism/</link>
       <pubDate>Thu, 28 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/11/28/concurrency-is-not-parallelism/</guid>
+      <guid>/blog/2019/11/28/concurrency-is-not-parallelism/</guid>
       <description>
         
         
@@ -373,10 +373,10 @@ Trasaction 이 완료되기전까지는 Previous만 보여주고 Transaction이 
     
     <item>
       <title>Blog: aws-lambda-in-go</title>
-      <link>matilda38.github.io/blog/2019/11/25/aws-lambda-in-go/</link>
+      <link>/blog/2019/11/25/aws-lambda-in-go/</link>
       <pubDate>Mon, 25 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/11/25/aws-lambda-in-go/</guid>
+      <guid>/blog/2019/11/25/aws-lambda-in-go/</guid>
       <description>
         
         
@@ -486,10 +486,10 @@ new(Buffer) (or just declaring a Buffer variable) is sufficient to initialize a 
     
     <item>
       <title>Blog: scripting in github action</title>
-      <link>matilda38.github.io/blog/2019/11/22/scripting-in-github-action/</link>
+      <link>/blog/2019/11/22/scripting-in-github-action/</link>
       <pubDate>Fri, 22 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/11/22/scripting-in-github-action/</guid>
+      <guid>/blog/2019/11/22/scripting-in-github-action/</guid>
       <description>
         
         
@@ -505,10 +505,10 @@ bash script를 짤때, 명령줄 한줄 한줄 넘어갈때 에러가 발생하�
     
     <item>
       <title>Blog: ssh tunneling</title>
-      <link>matilda38.github.io/blog/2019/11/22/ssh-tunneling/</link>
+      <link>/blog/2019/11/22/ssh-tunneling/</link>
       <pubDate>Fri, 22 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/11/22/ssh-tunneling/</guid>
+      <guid>/blog/2019/11/22/ssh-tunneling/</guid>
       <description>
         
         
@@ -526,10 +526,10 @@ bash script를 짤때, 명령줄 한줄 한줄 넘어갈때 에러가 발생하�
     
     <item>
       <title>Blog: aws-lambda</title>
-      <link>matilda38.github.io/blog/2019/11/19/aws-lambda/</link>
+      <link>/blog/2019/11/19/aws-lambda/</link>
       <pubDate>Tue, 19 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/11/19/aws-lambda/</guid>
+      <guid>/blog/2019/11/19/aws-lambda/</guid>
       <description>
         
         
@@ -614,10 +614,10 @@ Lambda Runtime에 해당 라이브러리를 따로 첨부해주어야했다.&lt;
     
     <item>
       <title>Blog: docker-compose up</title>
-      <link>matilda38.github.io/blog/2019/11/14/docker-compose-up/</link>
+      <link>/blog/2019/11/14/docker-compose-up/</link>
       <pubDate>Thu, 14 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/11/14/docker-compose-up/</guid>
+      <guid>/blog/2019/11/14/docker-compose-up/</guid>
       <description>
         
         
@@ -727,10 +727,10 @@ docker-compose down
     
     <item>
       <title>Blog: rune ?</title>
-      <link>matilda38.github.io/blog/2019/11/13/rune/</link>
+      <link>/blog/2019/11/13/rune/</link>
       <pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/11/13/rune/</guid>
+      <guid>/blog/2019/11/13/rune/</guid>
       <description>
         
         
@@ -783,10 +783,10 @@ docker-compose down
     
     <item>
       <title>Blog: Django tutorial</title>
-      <link>matilda38.github.io/blog/2019/11/11/django-tutorial/</link>
+      <link>/blog/2019/11/11/django-tutorial/</link>
       <pubDate>Mon, 11 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/11/11/django-tutorial/</guid>
+      <guid>/blog/2019/11/11/django-tutorial/</guid>
       <description>
         
         
@@ -1104,10 +1104,10 @@ wrapper ? ReactDOM.render(&lt;App /&gt;, wrapper) : null;
     
     <item>
       <title>Blog: 언니가 사준 맥 립스틱 색깔</title>
-      <link>matilda38.github.io/blog/2019/10/19/%EC%96%B8%EB%8B%88%EA%B0%80-%EC%82%AC%EC%A4%80-%EB%A7%A5-%EB%A6%BD%EC%8A%A4%ED%8B%B1-%EC%83%89%EA%B9%94/</link>
+      <link>/blog/2019/10/19/%EC%96%B8%EB%8B%88%EA%B0%80-%EC%82%AC%EC%A4%80-%EB%A7%A5-%EB%A6%BD%EC%8A%A4%ED%8B%B1-%EC%83%89%EA%B9%94/</link>
       <pubDate>Sat, 19 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/10/19/%EC%96%B8%EB%8B%88%EA%B0%80-%EC%82%AC%EC%A4%80-%EB%A7%A5-%EB%A6%BD%EC%8A%A4%ED%8B%B1-%EC%83%89%EA%B9%94/</guid>
+      <guid>/blog/2019/10/19/%EC%96%B8%EB%8B%88%EA%B0%80-%EC%82%AC%EC%A4%80-%EB%A7%A5-%EB%A6%BD%EC%8A%A4%ED%8B%B1-%EC%83%89%EA%B9%94/</guid>
       <description>
         
         
@@ -1119,10 +1119,10 @@ wrapper ? ReactDOM.render(&lt;App /&gt;, wrapper) : null;
     
     <item>
       <title>Blog: How to study GOlang</title>
-      <link>matilda38.github.io/blog/2019/10/16/how-to-study-golang/</link>
+      <link>/blog/2019/10/16/how-to-study-golang/</link>
       <pubDate>Wed, 16 Oct 2019 12:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/10/16/how-to-study-golang/</guid>
+      <guid>/blog/2019/10/16/how-to-study-golang/</guid>
       <description>
         
         
@@ -1134,10 +1134,10 @@ wrapper ? ReactDOM.render(&lt;App /&gt;, wrapper) : null;
     
     <item>
       <title>Blog: 리뷰해보고 싶은 Gin Boilerplate</title>
-      <link>matilda38.github.io/blog/2019/10/16/%EB%A6%AC%EB%B7%B0%ED%95%B4%EB%B3%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-gin-boilerplate/</link>
+      <link>/blog/2019/10/16/%EB%A6%AC%EB%B7%B0%ED%95%B4%EB%B3%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-gin-boilerplate/</link>
       <pubDate>Wed, 16 Oct 2019 11:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/10/16/%EB%A6%AC%EB%B7%B0%ED%95%B4%EB%B3%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-gin-boilerplate/</guid>
+      <guid>/blog/2019/10/16/%EB%A6%AC%EB%B7%B0%ED%95%B4%EB%B3%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-gin-boilerplate/</guid>
       <description>
         
         
@@ -1148,10 +1148,10 @@ wrapper ? ReactDOM.render(&lt;App /&gt;, wrapper) : null;
     
     <item>
       <title>Blog: Dataproc</title>
-      <link>matilda38.github.io/blog/2019/10/15/dataproc/</link>
+      <link>/blog/2019/10/15/dataproc/</link>
       <pubDate>Tue, 15 Oct 2019 11:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/10/15/dataproc/</guid>
+      <guid>/blog/2019/10/15/dataproc/</guid>
       <description>
         
         
@@ -1165,10 +1165,10 @@ wrapper ? ReactDOM.render(&lt;App /&gt;, wrapper) : null;
     
     <item>
       <title>Blog: Dataproc</title>
-      <link>matilda38.github.io/blog/2019/10/15/dataproc/</link>
+      <link>/blog/2019/10/15/dataproc/</link>
       <pubDate>Tue, 15 Oct 2019 11:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/10/15/dataproc/</guid>
+      <guid>/blog/2019/10/15/dataproc/</guid>
       <description>
         
         
@@ -1236,10 +1236,10 @@ Continue your Quest with Distributed Computation of NDVI from Landsat Images usi
     
     <item>
       <title>Blog: VPC and NAT</title>
-      <link>matilda38.github.io/blog/2019/10/15/vpc-and-nat/</link>
+      <link>/blog/2019/10/15/vpc-and-nat/</link>
       <pubDate>Tue, 15 Oct 2019 11:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/10/15/vpc-and-nat/</guid>
+      <guid>/blog/2019/10/15/vpc-and-nat/</guid>
       <description>
         
         
@@ -1377,10 +1377,10 @@ Google Cloud Training &amp;amp; Certification
     
     <item>
       <title>Blog: golang slice</title>
-      <link>matilda38.github.io/blog/2019/10/10/golang-slice/</link>
+      <link>/blog/2019/10/10/golang-slice/</link>
       <pubDate>Thu, 10 Oct 2019 14:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/10/10/golang-slice/</guid>
+      <guid>/blog/2019/10/10/golang-slice/</guid>
       <description>
         
         
@@ -1470,10 +1470,10 @@ Google Cloud Training &amp;amp; Certification
     
     <item>
       <title>Blog: VPC and NAT</title>
-      <link>matilda38.github.io/blog/2019/10/07/vpc-and-nat/</link>
+      <link>/blog/2019/10/07/vpc-and-nat/</link>
       <pubDate>Mon, 07 Oct 2019 11:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/10/07/vpc-and-nat/</guid>
+      <guid>/blog/2019/10/07/vpc-and-nat/</guid>
       <description>
         
         
@@ -1485,10 +1485,10 @@ Google Cloud Training &amp;amp; Certification
     
     <item>
       <title>Blog: Http connection reusing in Go</title>
-      <link>matilda38.github.io/blog/2019/09/30/http-connection-reusing-in-go/</link>
+      <link>/blog/2019/09/30/http-connection-reusing-in-go/</link>
       <pubDate>Mon, 30 Sep 2019 11:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/09/30/http-connection-reusing-in-go/</guid>
+      <guid>/blog/2019/09/30/http-connection-reusing-in-go/</guid>
       <description>
         
         
@@ -1499,10 +1499,10 @@ Google Cloud Training &amp;amp; Certification
     
     <item>
       <title>Blog: VPC and NAT</title>
-      <link>matilda38.github.io/blog/2019/09/30/vpc-and-nat/</link>
+      <link>/blog/2019/09/30/vpc-and-nat/</link>
       <pubDate>Mon, 30 Sep 2019 11:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/09/30/vpc-and-nat/</guid>
+      <guid>/blog/2019/09/30/vpc-and-nat/</guid>
       <description>
         
         
@@ -1563,10 +1563,10 @@ Google Cloud Training &amp;amp; Certification
     
     <item>
       <title>Blog: Data consistency</title>
-      <link>matilda38.github.io/blog/2019/09/27/data-consistency/</link>
+      <link>/blog/2019/09/27/data-consistency/</link>
       <pubDate>Fri, 27 Sep 2019 08:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/09/27/data-consistency/</guid>
+      <guid>/blog/2019/09/27/data-consistency/</guid>
       <description>
         
         
@@ -1581,10 +1581,10 @@ Google Cloud Training &amp;amp; Certification
     
     <item>
       <title>Blog: AWS Sessions</title>
-      <link>matilda38.github.io/blog/2019/09/26/aws-sessions/</link>
+      <link>/blog/2019/09/26/aws-sessions/</link>
       <pubDate>Thu, 26 Sep 2019 08:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/09/26/aws-sessions/</guid>
+      <guid>/blog/2019/09/26/aws-sessions/</guid>
       <description>
         
         
@@ -1602,10 +1602,10 @@ Data Flow&lt;/p&gt;
     
     <item>
       <title>Blog: Web Developer 101</title>
-      <link>matilda38.github.io/blog/2019/09/24/web-developer-101/</link>
+      <link>/blog/2019/09/24/web-developer-101/</link>
       <pubDate>Tue, 24 Sep 2019 08:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/09/24/web-developer-101/</guid>
+      <guid>/blog/2019/09/24/web-developer-101/</guid>
       <description>
         
         
@@ -1618,10 +1618,10 @@ Data Flow&lt;/p&gt;
     
     <item>
       <title>Blog: Go JSON</title>
-      <link>matilda38.github.io/blog/2019/09/23/go-json/</link>
+      <link>/blog/2019/09/23/go-json/</link>
       <pubDate>Mon, 23 Sep 2019 14:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/09/23/go-json/</guid>
+      <guid>/blog/2019/09/23/go-json/</guid>
       <description>
         
         
@@ -1636,10 +1636,10 @@ Data Flow&lt;/p&gt;
     
     <item>
       <title>Blog: Panic Recover</title>
-      <link>matilda38.github.io/blog/2019/09/23/panic-recover/</link>
+      <link>/blog/2019/09/23/panic-recover/</link>
       <pubDate>Mon, 23 Sep 2019 14:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/09/23/panic-recover/</guid>
+      <guid>/blog/2019/09/23/panic-recover/</guid>
       <description>
         
         
@@ -1666,10 +1666,10 @@ Data Flow&lt;/p&gt;
     
     <item>
       <title>Blog: mac local kubernetes setup</title>
-      <link>matilda38.github.io/blog/2019/09/19/mac-local-kubernetes-setup/</link>
+      <link>/blog/2019/09/19/mac-local-kubernetes-setup/</link>
       <pubDate>Thu, 19 Sep 2019 16:00:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/09/19/mac-local-kubernetes-setup/</guid>
+      <guid>/blog/2019/09/19/mac-local-kubernetes-setup/</guid>
       <description>
         
         
@@ -1776,10 +1776,10 @@ kubectl logs pod/exercise-b97678cfd-mpppx &lt;span style=&#34;color:#8f5902;font
     
     <item>
       <title>Blog: golang nil check</title>
-      <link>matilda38.github.io/blog/2019/09/19/golang-nil-check/</link>
+      <link>/blog/2019/09/19/golang-nil-check/</link>
       <pubDate>Thu, 19 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/09/19/golang-nil-check/</guid>
+      <guid>/blog/2019/09/19/golang-nil-check/</guid>
       <description>
         
         
@@ -1839,10 +1839,10 @@ kubectl logs pod/exercise-b97678cfd-mpppx &lt;span style=&#34;color:#8f5902;font
     
     <item>
       <title>Blog: Kubernetes Deployment(삽질)</title>
-      <link>matilda38.github.io/blog/2019/09/18/kubernetes-deployment%EC%82%BD%EC%A7%88/</link>
+      <link>/blog/2019/09/18/kubernetes-deployment%EC%82%BD%EC%A7%88/</link>
       <pubDate>Wed, 18 Sep 2019 16:22:22 +0900</pubDate>
       
-      <guid>matilda38.github.io/blog/2019/09/18/kubernetes-deployment%EC%82%BD%EC%A7%88/</guid>
+      <guid>/blog/2019/09/18/kubernetes-deployment%EC%82%BD%EC%A7%88/</guid>
       <description>
         
         
@@ -1945,10 +1945,10 @@ kubectl set image deployments/exercise exercise=docker.io/{username}/exercise
     
     <item>
       <title>Blog: !!</title>
-      <link>matilda38.github.io/blog/2018/02/02/</link>
+      <link>/blog/2018/02/02/</link>
       <pubDate>Fri, 02 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2018/02/02/</guid>
+      <guid>/blog/2018/02/02/</guid>
       <description>
         
         
@@ -1966,10 +1966,10 @@ kubectl set image deployments/exercise exercise=docker.io/{username}/exercise
     
     <item>
       <title>Blog: wine</title>
-      <link>matilda38.github.io/blog/2018/01/30/wine/</link>
+      <link>/blog/2018/01/30/wine/</link>
       <pubDate>Tue, 30 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2018/01/30/wine/</guid>
+      <guid>/blog/2018/01/30/wine/</guid>
       <description>
         
         
@@ -2004,10 +2004,10 @@ RED:
     
     <item>
       <title>Blog: 캐나다를 다녀왔다</title>
-      <link>matilda38.github.io/blog/2017/11/08/%EC%BA%90%EB%82%98%EB%8B%A4%EB%A5%BC-%EB%8B%A4%EB%85%80%EC%99%94%EB%8B%A4/</link>
+      <link>/blog/2017/11/08/%EC%BA%90%EB%82%98%EB%8B%A4%EB%A5%BC-%EB%8B%A4%EB%85%80%EC%99%94%EB%8B%A4/</link>
       <pubDate>Wed, 08 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/11/08/%EC%BA%90%EB%82%98%EB%8B%A4%EB%A5%BC-%EB%8B%A4%EB%85%80%EC%99%94%EB%8B%A4/</guid>
+      <guid>/blog/2017/11/08/%EC%BA%90%EB%82%98%EB%8B%A4%EB%A5%BC-%EB%8B%A4%EB%85%80%EC%99%94%EB%8B%A4/</guid>
       <description>
         
         
@@ -2038,10 +2038,10 @@ RED:
     
     <item>
       <title>Blog: 샌프란시스코</title>
-      <link>matilda38.github.io/blog/2017/09/09/%EC%83%8C%ED%94%84%EB%9E%80%EC%8B%9C%EC%8A%A4%EC%BD%94/</link>
+      <link>/blog/2017/09/09/%EC%83%8C%ED%94%84%EB%9E%80%EC%8B%9C%EC%8A%A4%EC%BD%94/</link>
       <pubDate>Sat, 09 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/09/09/%EC%83%8C%ED%94%84%EB%9E%80%EC%8B%9C%EC%8A%A4%EC%BD%94/</guid>
+      <guid>/blog/2017/09/09/%EC%83%8C%ED%94%84%EB%9E%80%EC%8B%9C%EC%8A%A4%EC%BD%94/</guid>
       <description>
         
         
@@ -2060,10 +2060,10 @@ RED:
     
     <item>
       <title>Blog: 토요일</title>
-      <link>matilda38.github.io/blog/2017/09/09/%ED%86%A0%EC%9A%94%EC%9D%BC/</link>
+      <link>/blog/2017/09/09/%ED%86%A0%EC%9A%94%EC%9D%BC/</link>
       <pubDate>Sat, 09 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/09/09/%ED%86%A0%EC%9A%94%EC%9D%BC/</guid>
+      <guid>/blog/2017/09/09/%ED%86%A0%EC%9A%94%EC%9D%BC/</guid>
       <description>
         
         
@@ -2090,10 +2090,10 @@ minimum값이 여러 개(local minimum, gloal minimum)가 되지 않고 최적�
     
     <item>
       <title>Blog: </title>
-      <link>matilda38.github.io/blog/2017/08/28/</link>
+      <link>/blog/2017/08/28/</link>
       <pubDate>Mon, 28 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/08/28/</guid>
+      <guid>/blog/2017/08/28/</guid>
       <description>
         
         
@@ -2106,10 +2106,10 @@ minimum값이 여러 개(local minimum, gloal minimum)가 되지 않고 최적�
     
     <item>
       <title>Blog: Docker로 서버 배포 도전</title>
-      <link>matilda38.github.io/blog/2017/08/28/docker%EB%A1%9C-%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC-%EB%8F%84%EC%A0%84/</link>
+      <link>/blog/2017/08/28/docker%EB%A1%9C-%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC-%EB%8F%84%EC%A0%84/</link>
       <pubDate>Mon, 28 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/08/28/docker%EB%A1%9C-%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC-%EB%8F%84%EC%A0%84/</guid>
+      <guid>/blog/2017/08/28/docker%EB%A1%9C-%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC-%EB%8F%84%EC%A0%84/</guid>
       <description>
         
         
@@ -2196,10 +2196,10 @@ docker start -I centos7_project
     
     <item>
       <title>Blog: Blog에 검색기능추가하기</title>
-      <link>matilda38.github.io/blog/2017/08/13/blog%EC%97%90-%EA%B2%80%EC%83%89%EA%B8%B0%EB%8A%A5%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0/</link>
+      <link>/blog/2017/08/13/blog%EC%97%90-%EA%B2%80%EC%83%89%EA%B8%B0%EB%8A%A5%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0/</link>
       <pubDate>Sun, 13 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/08/13/blog%EC%97%90-%EA%B2%80%EC%83%89%EA%B8%B0%EB%8A%A5%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0/</guid>
+      <guid>/blog/2017/08/13/blog%EC%97%90-%EA%B2%80%EC%83%89%EA%B8%B0%EB%8A%A5%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0/</guid>
       <description>
         
         
@@ -2239,10 +2239,10 @@ permalink: /search/&lt;/h2&gt;
     
     <item>
       <title>Blog: ruby setting 정리하기</title>
-      <link>matilda38.github.io/blog/2017/08/13/ruby-setting-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0/</link>
+      <link>/blog/2017/08/13/ruby-setting-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0/</link>
       <pubDate>Sun, 13 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/08/13/ruby-setting-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0/</guid>
+      <guid>/blog/2017/08/13/ruby-setting-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0/</guid>
       <description>
         
         
@@ -2293,10 +2293,10 @@ rbenv rehash 이걸로 뭐였더라 무슨 변수 정리해주고, gem update를
     
     <item>
       <title>Blog: GO data type</title>
-      <link>matilda38.github.io/blog/2017/07/22/go-data-type/</link>
+      <link>/blog/2017/07/22/go-data-type/</link>
       <pubDate>Sat, 22 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/07/22/go-data-type/</guid>
+      <guid>/blog/2017/07/22/go-data-type/</guid>
       <description>
         
         
@@ -2364,10 +2364,10 @@ fmt.Printf(&amp;quot;%v&amp;quot;, s+str)
     
     <item>
       <title>Blog: GO interface와 JSON</title>
-      <link>matilda38.github.io/blog/2017/07/22/go-interface%EC%99%80-json/</link>
+      <link>/blog/2017/07/22/go-interface%EC%99%80-json/</link>
       <pubDate>Sat, 22 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/07/22/go-interface%EC%99%80-json/</guid>
+      <guid>/blog/2017/07/22/go-interface%EC%99%80-json/</guid>
       <description>
         
         
@@ -2495,10 +2495,10 @@ nested data 구조에 접근하기 위해서는 연속적인 cast를 필요로 �
     
     <item>
       <title>Blog: docker 이미지로 centos pull</title>
-      <link>matilda38.github.io/blog/2017/07/18/docker-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A1%9C-centos-pull/</link>
+      <link>/blog/2017/07/18/docker-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A1%9C-centos-pull/</link>
       <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/07/18/docker-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A1%9C-centos-pull/</guid>
+      <guid>/blog/2017/07/18/docker-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A1%9C-centos-pull/</guid>
       <description>
         
         
@@ -2543,10 +2543,10 @@ docker pull nayoonhwang/centos_with_go
     
     <item>
       <title>Blog: git rebase</title>
-      <link>matilda38.github.io/blog/2017/07/18/git-rebase/</link>
+      <link>/blog/2017/07/18/git-rebase/</link>
       <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/07/18/git-rebase/</guid>
+      <guid>/blog/2017/07/18/git-rebase/</guid>
       <description>
         
         
@@ -2614,10 +2614,10 @@ git에서 추적&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;
     
     <item>
       <title>Blog: studying IOT</title>
-      <link>matilda38.github.io/blog/2017/06/20/studying-iot/</link>
+      <link>/blog/2017/06/20/studying-iot/</link>
       <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/06/20/studying-iot/</guid>
+      <guid>/blog/2017/06/20/studying-iot/</guid>
       <description>
         
         
@@ -2791,10 +2791,10 @@ DNS&lt;/li&gt;
     
     <item>
       <title>Blog: MYSQL</title>
-      <link>matilda38.github.io/blog/2017/06/06/mysql/</link>
+      <link>/blog/2017/06/06/mysql/</link>
       <pubDate>Tue, 06 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/06/06/mysql/</guid>
+      <guid>/blog/2017/06/06/mysql/</guid>
       <description>
         
         
@@ -2833,10 +2833,10 @@ DNS&lt;/li&gt;
     
     <item>
       <title>Blog: 퇴사.</title>
-      <link>matilda38.github.io/blog/2017/06/01/%ED%87%B4%EC%82%AC./</link>
+      <link>/blog/2017/06/01/%ED%87%B4%EC%82%AC./</link>
       <pubDate>Thu, 01 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/06/01/%ED%87%B4%EC%82%AC./</guid>
+      <guid>/blog/2017/06/01/%ED%87%B4%EC%82%AC./</guid>
       <description>
         
         
@@ -2874,10 +2874,10 @@ You can configure ASP.NET Core Identity to use a SQL Server database to store us
     
     <item>
       <title>Blog: 아이디어들.</title>
-      <link>matilda38.github.io/blog/2017/05/22/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4%EB%93%A4./</link>
+      <link>/blog/2017/05/22/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4%EB%93%A4./</link>
       <pubDate>Mon, 22 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>matilda38.github.io/blog/2017/05/22/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4%EB%93%A4./</guid>
+      <guid>/blog/2017/05/22/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4%EB%93%A4./</guid>
       <description>
         
         

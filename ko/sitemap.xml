@@ -3,567 +3,567 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>matilda38.github.io/blog/~2018/</loc>
+    <loc>/blog/~2018/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/</loc>
+    <loc>/blog/2019/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/12/30/wine-list-for-beginners/</loc>
+    <loc>/blog/2019/12/30/wine-list-for-beginners/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/</loc>
+    <loc>/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="matilda38.github.io/en/"
+                href="/en/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ko"
-                href="matilda38.github.io/"
+                href="/"
                 />
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/12/26/passing-slice-to-a-function/</loc>
+    <loc>/blog/2019/12/26/passing-slice-to-a-function/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/12/20/gorm-postgresql-%EC%82%AC%EC%9A%A9-%EC%A3%BC%EC%9D%98/</loc>
+    <loc>/blog/2019/12/20/gorm-postgresql-%EC%82%AC%EC%9A%A9-%EC%A3%BC%EC%9D%98/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/12/10/string-split/</loc>
+    <loc>/blog/2019/12/10/string-split/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/12/05/goland-tips/</loc>
+    <loc>/blog/2019/12/05/goland-tips/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/11/30/dda-%EC%8A%A4%ED%84%B0%EB%94%94/</loc>
+    <loc>/blog/2019/11/30/dda-%EC%8A%A4%ED%84%B0%EB%94%94/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/11/30/%ED%81%B4%EB%A1%9C%EC%A0%80%EB%A5%BC-%EA%B3%A0%EB%A3%A8%ED%8B%B4%EC%9C%BC%EB%A1%9C-%EC%8B%A4%ED%96%89%ED%95%A0%EB%95%8C-%EC%A3%BC%EC%9D%98%ED%95%A0%EC%A0%90./</loc>
+    <loc>/blog/2019/11/30/%ED%81%B4%EB%A1%9C%EC%A0%80%EB%A5%BC-%EA%B3%A0%EB%A3%A8%ED%8B%B4%EC%9C%BC%EB%A1%9C-%EC%8B%A4%ED%96%89%ED%95%A0%EB%95%8C-%EC%A3%BC%EC%9D%98%ED%95%A0%EC%A0%90./</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/11/28/concurrency-is-not-parallelism/</loc>
+    <loc>/blog/2019/11/28/concurrency-is-not-parallelism/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/11/25/aws-lambda-in-go/</loc>
+    <loc>/blog/2019/11/25/aws-lambda-in-go/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/11/22/scripting-in-github-action/</loc>
+    <loc>/blog/2019/11/22/scripting-in-github-action/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/11/22/ssh-tunneling/</loc>
+    <loc>/blog/2019/11/22/ssh-tunneling/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/11/19/aws-lambda/</loc>
+    <loc>/blog/2019/11/19/aws-lambda/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/11/14/docker-compose-up/</loc>
+    <loc>/blog/2019/11/14/docker-compose-up/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/11/13/rune/</loc>
+    <loc>/blog/2019/11/13/rune/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/11/11/django-tutorial/</loc>
+    <loc>/blog/2019/11/11/django-tutorial/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/10/19/%EC%96%B8%EB%8B%88%EA%B0%80-%EC%82%AC%EC%A4%80-%EB%A7%A5-%EB%A6%BD%EC%8A%A4%ED%8B%B1-%EC%83%89%EA%B9%94/</loc>
+    <loc>/blog/2019/10/19/%EC%96%B8%EB%8B%88%EA%B0%80-%EC%82%AC%EC%A4%80-%EB%A7%A5-%EB%A6%BD%EC%8A%A4%ED%8B%B1-%EC%83%89%EA%B9%94/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/10/16/how-to-study-golang/</loc>
+    <loc>/blog/2019/10/16/how-to-study-golang/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/10/16/%EB%A6%AC%EB%B7%B0%ED%95%B4%EB%B3%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-gin-boilerplate/</loc>
+    <loc>/blog/2019/10/16/%EB%A6%AC%EB%B7%B0%ED%95%B4%EB%B3%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-gin-boilerplate/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/10/15/dataproc/</loc>
+    <loc>/blog/2019/10/15/dataproc/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/10/15/dataproc/</loc>
+    <loc>/blog/2019/10/15/dataproc/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/10/15/vpc-and-nat/</loc>
+    <loc>/blog/2019/10/15/vpc-and-nat/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/10/10/golang-slice/</loc>
+    <loc>/blog/2019/10/10/golang-slice/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/10/07/vpc-and-nat/</loc>
+    <loc>/blog/2019/10/07/vpc-and-nat/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/09/30/http-connection-reusing-in-go/</loc>
+    <loc>/blog/2019/09/30/http-connection-reusing-in-go/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/09/30/vpc-and-nat/</loc>
+    <loc>/blog/2019/09/30/vpc-and-nat/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/09/27/data-consistency/</loc>
+    <loc>/blog/2019/09/27/data-consistency/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/09/26/aws-sessions/</loc>
+    <loc>/blog/2019/09/26/aws-sessions/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/09/24/web-developer-101/</loc>
+    <loc>/blog/2019/09/24/web-developer-101/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/09/23/go-json/</loc>
+    <loc>/blog/2019/09/23/go-json/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/09/23/panic-recover/</loc>
+    <loc>/blog/2019/09/23/panic-recover/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/09/19/mac-local-kubernetes-setup/</loc>
+    <loc>/blog/2019/09/19/mac-local-kubernetes-setup/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/09/19/golang-nil-check/</loc>
+    <loc>/blog/2019/09/19/golang-nil-check/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2019/09/18/kubernetes-deployment%EC%82%BD%EC%A7%88/</loc>
+    <loc>/blog/2019/09/18/kubernetes-deployment%EC%82%BD%EC%A7%88/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2018/02/02/</loc>
+    <loc>/blog/2018/02/02/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2018/01/30/wine/</loc>
+    <loc>/blog/2018/01/30/wine/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/11/08/%EC%BA%90%EB%82%98%EB%8B%A4%EB%A5%BC-%EB%8B%A4%EB%85%80%EC%99%94%EB%8B%A4/</loc>
+    <loc>/blog/2017/11/08/%EC%BA%90%EB%82%98%EB%8B%A4%EB%A5%BC-%EB%8B%A4%EB%85%80%EC%99%94%EB%8B%A4/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/09/09/%EC%83%8C%ED%94%84%EB%9E%80%EC%8B%9C%EC%8A%A4%EC%BD%94/</loc>
+    <loc>/blog/2017/09/09/%EC%83%8C%ED%94%84%EB%9E%80%EC%8B%9C%EC%8A%A4%EC%BD%94/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/09/09/%ED%86%A0%EC%9A%94%EC%9D%BC/</loc>
+    <loc>/blog/2017/09/09/%ED%86%A0%EC%9A%94%EC%9D%BC/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/08/28/</loc>
+    <loc>/blog/2017/08/28/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/08/28/docker%EB%A1%9C-%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC-%EB%8F%84%EC%A0%84/</loc>
+    <loc>/blog/2017/08/28/docker%EB%A1%9C-%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC-%EB%8F%84%EC%A0%84/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/08/13/blog%EC%97%90-%EA%B2%80%EC%83%89%EA%B8%B0%EB%8A%A5%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0/</loc>
+    <loc>/blog/2017/08/13/blog%EC%97%90-%EA%B2%80%EC%83%89%EA%B8%B0%EB%8A%A5%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/08/13/ruby-setting-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0/</loc>
+    <loc>/blog/2017/08/13/ruby-setting-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/07/22/go-data-type/</loc>
+    <loc>/blog/2017/07/22/go-data-type/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/07/22/go-interface%EC%99%80-json/</loc>
+    <loc>/blog/2017/07/22/go-interface%EC%99%80-json/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/07/18/docker-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A1%9C-centos-pull/</loc>
+    <loc>/blog/2017/07/18/docker-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A1%9C-centos-pull/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/07/18/git-rebase/</loc>
+    <loc>/blog/2017/07/18/git-rebase/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/06/20/studying-iot/</loc>
+    <loc>/blog/2017/06/20/studying-iot/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/06/06/mysql/</loc>
+    <loc>/blog/2017/06/06/mysql/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/06/01/%ED%87%B4%EC%82%AC./</loc>
+    <loc>/blog/2017/06/01/%ED%87%B4%EC%82%AC./</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/05/22/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4%EB%93%A4./</loc>
+    <loc>/blog/2017/05/22/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4%EB%93%A4./</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/05/21/%EB%94%94%EB%B2%84%EA%B9%85-%E3%85%A0%E3%85%A0/</loc>
+    <loc>/blog/2017/05/21/%EB%94%94%EB%B2%84%EA%B9%85-%E3%85%A0%E3%85%A0/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/05/18/class-c/</loc>
+    <loc>/blog/2017/05/18/class-c/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/05/17/datagrip%EC%9C%BC%EB%A1%9C-%EC%9B%90%EA%B2%A9-azure-sql-server%EC%99%80-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0/</loc>
+    <loc>/blog/2017/05/17/datagrip%EC%9C%BC%EB%A1%9C-%EC%9B%90%EA%B2%A9-azure-sql-server%EC%99%80-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/05/15/identity-%EB%AA%A8%EB%93%88%EC%9D%84-aspnetcore%EC%97%90-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0./</loc>
+    <loc>/blog/2017/05/15/identity-%EB%AA%A8%EB%93%88%EC%9D%84-aspnetcore%EC%97%90-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0./</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/05/15/%ED%95%AD%EC%83%81-%EA%B9%8C%EB%A8%B9%EB%8A%94-linux-%EC%B4%88%EA%B8%B0%EC%84%A4%EC%A0%95./</loc>
+    <loc>/blog/2017/05/15/%ED%95%AD%EC%83%81-%EA%B9%8C%EB%A8%B9%EB%8A%94-linux-%EC%B4%88%EA%B8%B0%EC%84%A4%EC%A0%95./</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/05/14/iamport/</loc>
+    <loc>/blog/2017/05/14/iamport/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/05/02/getch-getchar-getche-c-%EC%96%B8%EC%96%B4-%EC%9E%85%EB%A0%A5%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C./</loc>
+    <loc>/blog/2017/05/02/getch-getchar-getche-c-%EC%96%B8%EC%96%B4-%EC%9E%85%EB%A0%A5%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C./</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/04/23/db-%EA%B2%80%EC%83%89-%EB%AC%B8%EC%A0%9C/</loc>
+    <loc>/blog/2017/04/23/db-%EA%B2%80%EC%83%89-%EB%AC%B8%EC%A0%9C/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/04/23/efcore%EB%A1%9C-%EA%B4%80%EA%B3%84%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%84%A4%EA%B3%84%ED%95%98%EA%B8%B0/</loc>
+    <loc>/blog/2017/04/23/efcore%EB%A1%9C-%EA%B4%80%EA%B3%84%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%84%A4%EA%B3%84%ED%95%98%EA%B8%B0/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/04/04/c-%EB%A1%9C-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%A7%9C%EA%B8%B0/</loc>
+    <loc>/blog/2017/04/04/c-%EB%A1%9C-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%A7%9C%EA%B8%B0/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/04/03/c#-getter-setter-%EC%86%8D%EC%84%B1/</loc>
+    <loc>/blog/2017/04/03/c#-getter-setter-%EC%86%8D%EC%84%B1/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/03/31/vscode-update-%EB%AC%B8%EC%A0%9C.-coreclr/</loc>
+    <loc>/blog/2017/03/31/vscode-update-%EB%AC%B8%EC%A0%9C.-coreclr/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/03/27/python-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0./</loc>
+    <loc>/blog/2017/03/27/python-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0./</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/03/23/c-/</loc>
+    <loc>/blog/2017/03/23/c-/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/03/22/asp.net-core%EC%97%90%EC%84%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/</loc>
+    <loc>/blog/2017/03/22/asp.net-core%EC%97%90%EC%84%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/03/21/asp.net-repository-pattern/</loc>
+    <loc>/blog/2017/03/21/asp.net-repository-pattern/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/03/20/operating-system-%EC%9A%94%EC%95%BD/</loc>
+    <loc>/blog/2017/03/20/operating-system-%EC%9A%94%EC%95%BD/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/03/20/%EB%85%BC%EB%AC%B8-%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4/</loc>
+    <loc>/blog/2017/03/20/%EB%85%BC%EB%AC%B8-%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/03/13/asp.net-study/</loc>
+    <loc>/blog/2017/03/13/asp.net-study/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/03/11/%EA%B0%80%EC%83%81%ED%99%94-%EA%B8%B0%EC%88%A0/</loc>
+    <loc>/blog/2017/03/11/%EA%B0%80%EC%83%81%ED%99%94-%EA%B8%B0%EC%88%A0/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/03/07/%EB%9E%8D%EC%8A%A4%ED%83%80-%EB%A7%9B%EC%9E%88%EB%8B%A4/</loc>
+    <loc>/blog/2017/03/07/%EB%9E%8D%EC%8A%A4%ED%83%80-%EB%A7%9B%EC%9E%88%EB%8B%A4/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/03/06/asp.net-study/</loc>
+    <loc>/blog/2017/03/06/asp.net-study/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/02/27/%EA%B0%80%EC%83%81%ED%99%94/</loc>
+    <loc>/blog/2017/02/27/%EA%B0%80%EC%83%81%ED%99%94/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/02/22/%EA%B3%B5%EB%B6%80%EC%A4%91/</loc>
+    <loc>/blog/2017/02/22/%EA%B3%B5%EB%B6%80%EC%A4%91/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/02/16/%EC%8B%A4%EB%A6%AC%EC%BD%98-%EB%B0%B8%EB%A6%AC/</loc>
+    <loc>/blog/2017/02/16/%EC%8B%A4%EB%A6%AC%EC%BD%98-%EB%B0%B8%EB%A6%AC/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/01/22/java/</loc>
+    <loc>/blog/2017/01/22/java/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2017/01/16/scheduling-%EC%9D%98-%EA%B4%80%EC%A0%90%EC%97%90%EC%84%9C-%EB%B3%B8-thread/</loc>
+    <loc>/blog/2017/01/16/scheduling-%EC%9D%98-%EA%B4%80%EC%A0%90%EC%97%90%EC%84%9C-%EB%B3%B8-thread/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/12/16/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EA%B8%B0%EB%A7%90%EC%A0%95%EB%A6%AC/</loc>
+    <loc>/blog/2016/12/16/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EA%B8%B0%EB%A7%90%EC%A0%95%EB%A6%AC/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/11/19/%EC%97%AC%ED%96%89-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98/</loc>
+    <loc>/blog/2016/11/19/%EC%97%AC%ED%96%89-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/11/18/operating-system-%EC%9A%94%EC%95%BD/</loc>
+    <loc>/blog/2016/11/18/operating-system-%EC%9A%94%EC%95%BD/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/11/06/bot-framework-seminar-%EC%A4%80%EB%B9%84/</loc>
+    <loc>/blog/2016/11/06/bot-framework-seminar-%EC%A4%80%EB%B9%84/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/10/21/cryptography-%EC%A4%91%EA%B0%84%EA%B3%A0%EC%82%AC/</loc>
+    <loc>/blog/2016/10/21/cryptography-%EC%A4%91%EA%B0%84%EA%B3%A0%EC%82%AC/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/10/09/%EB%B0%B0%EC%97%B4-%EA%B8%B0%EC%B4%88./</loc>
+    <loc>/blog/2016/10/09/%EB%B0%B0%EC%97%B4-%EA%B8%B0%EC%B4%88./</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/09/26/malloc-pointer./</loc>
+    <loc>/blog/2016/09/26/malloc-pointer./</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/09/22/network./</loc>
+    <loc>/blog/2016/09/22/network./</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/09/15/%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%A7%88%EC%9D%B4%EB%8B%9D./</loc>
+    <loc>/blog/2016/09/15/%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%A7%88%EC%9D%B4%EB%8B%9D./</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/09/05/2016-2/</loc>
+    <loc>/blog/2016/09/05/2016-2/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/08/26/about-docker/</loc>
+    <loc>/blog/2016/08/26/about-docker/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/08/25/about-web-server/</loc>
+    <loc>/blog/2016/08/25/about-web-server/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/08/23/azure-deploynginx-passenger/</loc>
+    <loc>/blog/2016/08/23/azure-deploynginx-passenger/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/08/18/python/</loc>
+    <loc>/blog/2016/08/18/python/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/08/15/%EC%BB%A4%EB%A6%AC%EC%96%B4..%EC%BB%A4%EB%A6%AC%EC%96%B4/</loc>
+    <loc>/blog/2016/08/15/%EC%BB%A4%EB%A6%AC%EC%96%B4..%EC%BB%A4%EB%A6%AC%EC%96%B4/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/08/12/git/</loc>
+    <loc>/blog/2016/08/12/git/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/08/01/mentoring-%EC%9E%90%EB%A3%8C/</loc>
+    <loc>/blog/2016/08/01/mentoring-%EC%9E%90%EB%A3%8C/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/07/31/%EB%93%9C%EB%94%94%EC%96%B4-3%EC%9D%BC%EA%B0%84%EC%9D%98-%EA%B0%9C%EA%B3%A0%EC%83%9D%EC%9D%B4-%EB%81%9D%EB%82%AC%EB%8B%A4./</loc>
+    <loc>/blog/2016/07/31/%EB%93%9C%EB%94%94%EC%96%B4-3%EC%9D%BC%EA%B0%84%EC%9D%98-%EA%B0%9C%EA%B3%A0%EC%83%9D%EC%9D%B4-%EB%81%9D%EB%82%AC%EB%8B%A4./</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/07/23/ihanxing-application-%EA%B5%AC%ED%98%84/</loc>
+    <loc>/blog/2016/07/23/ihanxing-application-%EA%B5%AC%ED%98%84/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/07/21/rails-5-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8/</loc>
+    <loc>/blog/2016/07/21/rails-5-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/07/21/%EB%B0%A4%EC%83%98-%EC%BD%94%EB%94%A9-%EB%93%9C%EB%94%94%EC%96%B4-%EC%99%84%EC%84%B1.0802-%EC%88%98%EC%A0%95/</loc>
+    <loc>/blog/2016/07/21/%EB%B0%A4%EC%83%98-%EC%BD%94%EB%94%A9-%EB%93%9C%EB%94%94%EC%96%B4-%EC%99%84%EC%84%B1.0802-%EC%88%98%EC%A0%95/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/07/19/jekyll-blog%EB%A5%BC-%EC%B2%98%EC%9D%8C-%EC%8B%9C%EC%9E%91%ED%95%98%EB%A9%B0/</loc>
+    <loc>/blog/2016/07/19/jekyll-blog%EB%A5%BC-%EC%B2%98%EC%9D%8C-%EC%8B%9C%EC%9E%91%ED%95%98%EB%A9%B0/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/2016/07/19/scaffold%EB%A1%9C-rails-application-%EB%88%84%EC%9B%8C%EC%84%9C-%EB%A7%8C%EB%93%A4%EA%B8%B0/</loc>
+    <loc>/blog/2016/07/19/scaffold%EB%A1%9C-rails-application-%EB%88%84%EC%9B%8C%EC%84%9C-%EB%A7%8C%EB%93%A4%EA%B8%B0/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/</loc>
+    <loc>/blog/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="matilda38.github.io/en/blog/"
+                href="/en/blog/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ko"
-                href="matilda38.github.io/blog/"
+                href="/blog/"
                 />
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/1/01/01/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-1/</loc>
+    <loc>/blog/1/01/01/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-1/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/blog/1/01/01/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-2/</loc>
+    <loc>/blog/1/01/01/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-2/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>matilda38.github.io/search/</loc>
+    <loc>/search/</loc>
     <lastmod>2021-01-24T19:50:38+09:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="matilda38.github.io/en/search/"
+                href="/en/search/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ko"
-                href="matilda38.github.io/search/"
+                href="/search/"
                 />
   </url>
   
