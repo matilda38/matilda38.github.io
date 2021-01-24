@@ -1,0 +1,1119 @@
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.75.1" /><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="shortcut icon" href="/matilda38.github.io/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/matilda38.github.io/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/matilda38.github.io/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/matilda38.github.io/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/matilda38.github.io/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/matilda38.github.io/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/matilda38.github.io/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/matilda38.github.io/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/matilda38.github.io/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/matilda38.github.io/favicons/android-192x192.png" sizes="192x192">
+
+<title>VPC and NAT | 한국어 버전 타이틀</title><meta property="og:title" content="VPC and NAT" />
+<meta property="og:description" content="VPC: https://medium.com/harrythegreat/aws-%EA%B0%80%EC%9E%A5%EC%89%BD%EA%B2%8C-vpc-%EA%B0%9C%EB%85%90%EC%9E%A1%EA%B8%B0-71eef95a7098
+VPC의 기본 컴포넌트들 VPC VPC는 Virtual Private Cloud의 줄임말로 &ldquo;가상 IP 네트워크&rdquo; 로 이해할 수 있다. 이는 클라우드 내에 가상 데이터 센터라고 할 수 있다. VPC내에 있는 서버들끼리는 연결되어있으며, 사설 IP(Private IP)를 통해 서로 통신할 수 있다.
+ Note: 사설 IP란? 예를 들어 &lsquo;우리집 주소는 &ldquo;서울시 성동구 마장로 ~&rdquo; 이다&rsquo; 했을때 &ldquo;서울시~&ldquo;는 공인 IP라 할 수 있다. 반면 집 안에서 &ldquo;안방에 있는 손톱깎기 가져와&rdquo; 했을 때 &ldquo;안방&rdquo; 은 사설 IP라고 할 수 있다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="matilda38.github.io/blog/2019/09/30/vpc-and-nat/" />
+<meta property="article:published_time" content="2019-09-30T11:22:22+09:00" />
+<meta property="article:modified_time" content="2021-01-24T19:50:38+09:00" /><meta property="og:site_name" content="한국어 버전 타이틀" />
+<meta itemprop="name" content="VPC and NAT">
+<meta itemprop="description" content="VPC: https://medium.com/harrythegreat/aws-%EA%B0%80%EC%9E%A5%EC%89%BD%EA%B2%8C-vpc-%EA%B0%9C%EB%85%90%EC%9E%A1%EA%B8%B0-71eef95a7098
+VPC의 기본 컴포넌트들 VPC VPC는 Virtual Private Cloud의 줄임말로 &ldquo;가상 IP 네트워크&rdquo; 로 이해할 수 있다. 이는 클라우드 내에 가상 데이터 센터라고 할 수 있다. VPC내에 있는 서버들끼리는 연결되어있으며, 사설 IP(Private IP)를 통해 서로 통신할 수 있다.
+ Note: 사설 IP란? 예를 들어 &lsquo;우리집 주소는 &ldquo;서울시 성동구 마장로 ~&rdquo; 이다&rsquo; 했을때 &ldquo;서울시~&ldquo;는 공인 IP라 할 수 있다. 반면 집 안에서 &ldquo;안방에 있는 손톱깎기 가져와&rdquo; 했을 때 &ldquo;안방&rdquo; 은 사설 IP라고 할 수 있다.">
+<meta itemprop="datePublished" content="2019-09-30T11:22:22+09:00" />
+<meta itemprop="dateModified" content="2021-01-24T19:50:38+09:00" />
+<meta itemprop="wordCount" content="486">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="VPC and NAT"/>
+<meta name="twitter:description" content="VPC: https://medium.com/harrythegreat/aws-%EA%B0%80%EC%9E%A5%EC%89%BD%EA%B2%8C-vpc-%EA%B0%9C%EB%85%90%EC%9E%A1%EA%B8%B0-71eef95a7098
+VPC의 기본 컴포넌트들 VPC VPC는 Virtual Private Cloud의 줄임말로 &ldquo;가상 IP 네트워크&rdquo; 로 이해할 수 있다. 이는 클라우드 내에 가상 데이터 센터라고 할 수 있다. VPC내에 있는 서버들끼리는 연결되어있으며, 사설 IP(Private IP)를 통해 서로 통신할 수 있다.
+ Note: 사설 IP란? 예를 들어 &lsquo;우리집 주소는 &ldquo;서울시 성동구 마장로 ~&rdquo; 이다&rsquo; 했을때 &ldquo;서울시~&ldquo;는 공인 IP라 할 수 있다. 반면 집 안에서 &ldquo;안방에 있는 손톱깎기 가져와&rdquo; 했을 때 &ldquo;안방&rdquo; 은 사설 IP라고 할 수 있다."/>
+
+
+
+
+
+<link rel="preload" href="/matilda38.github.io/scss/main.min.4aec00cbc82dae02258a2ba135990358146339f666dc47346f0f1e49d7a6fa42.css" as="style">
+<link href="/matilda38.github.io/scss/main.min.4aec00cbc82dae02258a2ba135990358146339f666dc47346f0f1e49d7a6fa42.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+
+
+
+  </head>
+  <body class="td-page td-blog">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="matilda38.github.io/">
+		<span class="navbar-logo"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500"><g><path style="fill:#fff" d="M116.8525 421.9722c-5.7041.0-10.3442-4.3127-10.3442-9.6129V88.183c0-5.3002 4.6401-9.6117 10.3442-9.6117H320.858c3.0347.0 9.3959.5498 11.7506 2.6302l.3545.3442 58.905 63.2912c2.3101 2.491 2.9202 8.4928 2.9202 11.3184v256.2039c0 5.3002-4.6407 9.6129-10.3436 9.6129H116.8525z"/><g><g><g><path style="fill:#767676" d="M384.4445 423.2066H116.852c-6.3839.0-11.5786-4.8658-11.5786-10.8474V88.1831c0-5.9804 5.1947-10.8461 11.5786-10.8461h204.0062c.377.0 9.2786.0329 12.568 2.9389l.3947.3833 58.9508 63.337c3.2135 3.4652 3.2514 11.7924 3.2514 12.1593v256.2036C396.0231 418.3408 390.8284 423.2066 384.4445 423.2066zM116.5079 411.9189c.0848.0278.1999.0531.3441.0531h267.5925c.1442.0.2581-.0253.3441-.0531V156.1556c-.0076-.9033-.3593-3.7347-.7034-5.0037l-57.6527-61.9416c-1.4651-.3176-4.4533-.6389-5.5742-.6389H116.852c-.143.0-.2594.024-.3441.0531V411.9189zm267.4533-261.149zM327.0321 89.371v.0013V89.371z"/></g></g></g><g><g><path style="fill:#5b7fc0" d="M189.0874 210.1754l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4473C177.5953 212.627 183.0601 210.1742 189.0874 210.1754zM197.0804 232.033c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 234.1722 197.0804 232.033z"/><path style="opacity:.3;fill:#fff" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zM197.0839 232.0372c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/><g><defs><path id="SVGID_1_" d="M194.7376 237.6875c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 234.2399 196.1861 236.239 194.7376 237.6875z"/></defs><clipPath id="SVGID_2_"><use xlink:href="#SVGID_1_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_2_);fill:#fff" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/><path style="opacity:.13;clip-path:url(#SVGID_2_);fill:#020202" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/></g><g><defs><path id="SVGID_3_" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zM197.0839 232.0372c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/></defs><clipPath id="SVGID_4_"><use xlink:href="#SVGID_3_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_4_);fill:#5b7fc0" d="M172.6595 215.6045c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8475-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 209.1953 176.6171 211.647 172.6595 215.6045z"/></g></g><rect x="198.8952" y="225.1043" style="fill:#5b7fc0" width="122.6266" height="13.8671"/></g><g><path style="fill:#d95140" d="M189.0874 155.7611l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.0249 2.454-11.4897 6.4116-15.4473C177.5953 158.2128 183.0601 155.7599 189.0874 155.7611zM197.0804 177.6188c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.2508 181.7667 197.0816 179.758 197.0804 177.6188z"/><path style="opacity:.3;fill:#fff" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zM197.0839 177.623c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/><g><defs><path id="SVGID_5_" d="M194.7376 183.2733c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 179.8256 196.1861 181.8248 194.7376 183.2733z"/></defs><clipPath id="SVGID_6_"><use xlink:href="#SVGID_5_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_6_);fill:#fff" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/><path style="opacity:.13;clip-path:url(#SVGID_6_);fill:#020202" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/></g><g><defs><path id="SVGID_7_" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zM197.0839 177.623c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/></defs><clipPath id="SVGID_8_"><use xlink:href="#SVGID_7_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_8_);fill:#d95140" d="M172.6595 161.1903c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 154.7811 176.6171 157.2327 172.6595 161.1903z"/></g><rect x="198.8952" y="170.69" style="fill:#d95140" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#56a55c" d="M189.5379 264.6147l.0012-.0012c7.7751.0012 15.0294 4.1862 18.932 10.9235 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032-5.8394.0-11.3281-2.2733-15.458-6.4032-4.13-4.13-6.4032-9.6186-6.4056-15.4628.0012-6.0249 2.454-11.4897 6.4116-15.4472C178.0458 267.0663 183.5105 264.6135 189.5379 264.6147zM197.5309 286.4723c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6538 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.7013 290.6202 197.5321 288.6115 197.5309 286.4723z"/><path style="opacity:.3;fill:#fff" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zM197.5344 286.4765c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/><g><defs><path id="SVGID_9_" d="M195.1881 292.1268c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9941 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.5344 288.6792 196.6366 290.6783 195.1881 292.1268z"/></defs><clipPath id="SVGID_10_"><use xlink:href="#SVGID_9_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_10_);fill:#fff" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/><path style="opacity:.13;clip-path:url(#SVGID_10_);fill:#020202" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/></g><g><defs><path id="SVGID_11_" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zM197.5344 286.4765c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/></defs><clipPath id="SVGID_12_"><use xlink:href="#SVGID_11_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_12_);fill:#56a55c" d="M173.11 270.0439c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7325-11.1497-10.9151-18.926-10.9151C182.5311 263.6346 177.0676 266.0863 173.11 270.0439z"/></g></g><rect x="199.3456" y="279.5436" style="fill:#56a55c" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#f1bc42" d="M189.0874 318.7208l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3305-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4472C177.5953 321.1724 183.0601 318.7196 189.0874 318.7208zM197.0804 340.5784c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 342.7176 197.0804 340.5784z"/><path style="opacity:.3;fill:#fff" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zM197.0839 340.5826c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/><g><defs><path id="SVGID_13_" d="M194.7376 346.2329c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 342.7853 196.1861 344.7844 194.7376 346.2329z"/></defs><clipPath id="SVGID_14_"><use xlink:href="#SVGID_13_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_14_);fill:#fff" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/><path style="opacity:.13;clip-path:url(#SVGID_14_);fill:#020202" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/></g><g><defs><path id="SVGID_15_" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zM197.0839 340.5826c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/></defs><clipPath id="SVGID_16_"><use xlink:href="#SVGID_15_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_16_);fill:#f1bc42" d="M172.6595 324.15c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8474-1.0151-7.6327-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 317.7407 176.6171 320.1924 172.6595 324.15z"/></g></g><rect x="198.8952" y="333.6497" style="fill:#f1bc42" width="122.6266" height="13.8671"/></g></g></svg></span><span class="text-uppercase font-weight-bold">한국어 버전 타이틀</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a  class="nav-link active" href="matilda38.github.io/blog/" ><span class="active">Blog</span></a>
+			</li>
+			
+			
+			
+			<li class="nav-item dropdown d-none d-lg-block">
+				
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Korean
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="matilda38.github.io/en/">English</a>
+	
+</div>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 사이트에서 검색…" aria-label="사이트에서 검색…" autocomplete="off">
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 사이트에서 검색…" aria-label="사이트에서 검색…" autocomplete="off">
+
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    
+    <div class="nav-item dropdown d-block d-lg-none">
+      
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Korean
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="matilda38.github.io/en/">English</a>
+	
+</div>
+    </div>
+    
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="matilda38.github.io/blog/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Blog</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="matilda38githubioblog">
+      
+      
+      
+      
+        
+          
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="matilda38.github.io/blog/~2018/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">2018 이전 글</a>
+  </li>
+  <ul>
+    <li class="collapse " id="matilda38githubioblog2018">
+      
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20180202" href="matilda38.github.io/blog/2018/02/02/">!!</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20180130wine" href="matilda38.github.io/blog/2018/01/30/wine/">wine</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20171108ecba90eb8298eb8ba4eba5bc-eb8ba4eb8580ec9994eb8ba4" href="matilda38.github.io/blog/2017/11/08/%EC%BA%90%EB%82%98%EB%8B%A4%EB%A5%BC-%EB%8B%A4%EB%85%80%EC%99%94%EB%8B%A4/">캐나다를 다녀왔다</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170909ec838ced9484eb9e80ec8b9cec8aa4ecbd94" href="matilda38.github.io/blog/2017/09/09/%EC%83%8C%ED%94%84%EB%9E%80%EC%8B%9C%EC%8A%A4%EC%BD%94/">샌프란시스코</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170909ed86a0ec9a94ec9dbc" href="matilda38.github.io/blog/2017/09/09/%ED%86%A0%EC%9A%94%EC%9D%BC/">토요일</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170828" href="matilda38.github.io/blog/2017/08/28/"></a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170828dockereba19c-ec849cebb284-ebb0b0ed8fac-eb8f84eca084" href="matilda38.github.io/blog/2017/08/28/docker%EB%A1%9C-%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC-%EB%8F%84%EC%A0%84/">Docker로 서버 배포 도전</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170813blogec9790-eab280ec8389eab8b0eb8aa5ecb694eab080ed9598eab8b0" href="matilda38.github.io/blog/2017/08/13/blog%EC%97%90-%EA%B2%80%EC%83%89%EA%B8%B0%EB%8A%A5%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0/">Blog에 검색기능추가하기</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170813ruby-setting-eca095eba6aced9598eab8b0" href="matilda38.github.io/blog/2017/08/13/ruby-setting-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0/">ruby setting 정리하기</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170722go-data-type" href="matilda38.github.io/blog/2017/07/22/go-data-type/">GO data type</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170722go-interfaceec9980-json" href="matilda38.github.io/blog/2017/07/22/go-interface%EC%99%80-json/">GO interface와 JSON</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170718docker-ec9db4ebafb8eca780eba19c-centos-pull" href="matilda38.github.io/blog/2017/07/18/docker-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A1%9C-centos-pull/">docker 이미지로 centos pull</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170718git-rebase" href="matilda38.github.io/blog/2017/07/18/git-rebase/">git rebase</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170620studying-iot" href="matilda38.github.io/blog/2017/06/20/studying-iot/">studying IOT</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170606mysql" href="matilda38.github.io/blog/2017/06/06/mysql/">MYSQL</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170601ed87b4ec82ac" href="matilda38.github.io/blog/2017/06/01/%ED%87%B4%EC%82%AC./">퇴사.</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170522ec9584ec9db4eb9494ec96b4eb93a4" href="matilda38.github.io/blog/2017/05/22/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4%EB%93%A4./">아이디어들.</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170521eb9494ebb284eab985-e385a0e385a0" href="matilda38.github.io/blog/2017/05/21/%EB%94%94%EB%B2%84%EA%B9%85-%E3%85%A0%E3%85%A0/">디버깅 ㅠㅠ</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170518class-c" href="matilda38.github.io/blog/2017/05/18/class-c/">Class c#</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170517datagripec9cbceba19c-ec9b90eab2a9-azure-sql-serverec9980-ec97b0eab2b0ed9598eab8b0" href="matilda38.github.io/blog/2017/05/17/datagrip%EC%9C%BC%EB%A1%9C-%EC%9B%90%EA%B2%A9-azure-sql-server%EC%99%80-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0/">Datagrip으로 원격 Azure sql server와 연결하기</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170515identity-ebaaa8eb9388ec9d84-aspnetcoreec9790-eca081ec9aa9ed9598eab8b0" href="matilda38.github.io/blog/2017/05/15/identity-%EB%AA%A8%EB%93%88%EC%9D%84-aspnetcore%EC%97%90-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0./">identity 모듈을 aspnetcore에 적용하기.!</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170515ed95adec8381-eab98ceba8b9eb8a94-linux-ecb488eab8b0ec84a4eca095" href="matilda38.github.io/blog/2017/05/15/%ED%95%AD%EC%83%81-%EA%B9%8C%EB%A8%B9%EB%8A%94-linux-%EC%B4%88%EA%B8%B0%EC%84%A4%EC%A0%95./">항상 까먹는 linux 초기설정.</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170514iamport" href="matilda38.github.io/blog/2017/05/14/iamport/">iamport!</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170502getch-getchar-getche-c-ec96b8ec96b4-ec9e85eba0a5ec9790-eb8c80ed95b4ec849c" href="matilda38.github.io/blog/2017/05/02/getch-getchar-getche-c-%EC%96%B8%EC%96%B4-%EC%9E%85%EB%A0%A5%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C./">getch, getchar, getche c 언어 입력에 대해서.</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170423db-eab280ec8389-ebacb8eca09c" href="matilda38.github.io/blog/2017/04/23/db-%EA%B2%80%EC%83%89-%EB%AC%B8%EC%A0%9C/">DB 검색 문제</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170423efcoreeba19c-eab480eab384ed9895-eb8db0ec9db4ed84b0ebb2a0ec9db4ec8aa4-ec84a4eab384ed9598eab8b0" href="matilda38.github.io/blog/2017/04/23/efcore%EB%A1%9C-%EA%B4%80%EA%B3%84%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%84%A4%EA%B3%84%ED%95%98%EA%B8%B0/">efcore로 관계형 데이터베이스 설계하기</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170404c-eba19c-ed94bcebb3b4eb8298ecb998-eca79ceab8b0" href="matilda38.github.io/blog/2017/04/04/c-%EB%A1%9C-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%A7%9C%EA%B8%B0/">c&#43;&#43;로 피보나치 짜기</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170403c-getter-setter-ec868dec84b1" href="matilda38.github.io/blog/2017/04/03/c#-getter-setter-%EC%86%8D%EC%84%B1/">c# getter setter 속성</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170331vscode-update-ebacb8eca09c-coreclr" href="matilda38.github.io/blog/2017/03/31/vscode-update-%EB%AC%B8%EC%A0%9C.-coreclr/">vscode update 문제. coreCLR</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170327python-eab080ec8381ed9998eab2bdec9790ec849c-ec82acec9aa9ed95b4ebb3b4eab8b0" href="matilda38.github.io/blog/2017/03/27/python-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0./">python 가상환경에서 사용해보기.</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170323c-" href="matilda38.github.io/blog/2017/03/23/c-/">c&#43;&#43;</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170322aspnet-coreec9790ec849c-eba19ceab7b8ec9db8-eab8b0eb8aa5-eab5aced9884ed9598eab8b0" href="matilda38.github.io/blog/2017/03/22/asp.net-core%EC%97%90%EC%84%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/">Asp.net Core에서 로그인 기능 구현하기</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170321aspnet-repository-pattern" href="matilda38.github.io/blog/2017/03/21/asp.net-repository-pattern/">Asp.net repository pattern</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170320operating-system-ec9a94ec95bd" href="matilda38.github.io/blog/2017/03/20/operating-system-%EC%9A%94%EC%95%BD/">operating system 요약</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170320eb85bcebacb8-ec9584ec9db4eb9494ec96b4" href="matilda38.github.io/blog/2017/03/20/%EB%85%BC%EB%AC%B8-%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4/">논문 아이디어</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170313aspnet-study" href="matilda38.github.io/blog/2017/03/13/asp.net-study/">Asp.net study</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170311eab080ec8381ed9994-eab8b0ec88a0" href="matilda38.github.io/blog/2017/03/11/%EA%B0%80%EC%83%81%ED%99%94-%EA%B8%B0%EC%88%A0/">가상화 기술</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170307eb9e8dec8aa4ed8380-eba79bec9e88eb8ba4" href="matilda38.github.io/blog/2017/03/07/%EB%9E%8D%EC%8A%A4%ED%83%80-%EB%A7%9B%EC%9E%88%EB%8B%A4/">랍스타 맛있다</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170306aspnet-study" href="matilda38.github.io/blog/2017/03/06/asp.net-study/">asp.net study</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170227eab080ec8381ed9994" href="matilda38.github.io/blog/2017/02/27/%EA%B0%80%EC%83%81%ED%99%94/">가상화</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170222eab3b5ebb680eca491" href="matilda38.github.io/blog/2017/02/22/%EA%B3%B5%EB%B6%80%EC%A4%91/">공부중</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170216ec8ba4eba6acecbd98-ebb0b8eba6ac" href="matilda38.github.io/blog/2017/02/16/%EC%8B%A4%EB%A6%AC%EC%BD%98-%EB%B0%B8%EB%A6%AC/">실리콘 밸리</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170122java" href="matilda38.github.io/blog/2017/01/22/java/">JAVA</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20170116scheduling-ec9d98-eab480eca090ec9790ec849c-ebb3b8-thread" href="matilda38.github.io/blog/2017/01/16/scheduling-%EC%9D%98-%EA%B4%80%EC%A0%90%EC%97%90%EC%84%9C-%EB%B3%B8-thread/">Scheduling 의 관점에서 본 Thread</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20161216eb84a4ed8ab8ec9b8ced81ac-eab8b0eba790eca095eba6ac" href="matilda38.github.io/blog/2016/12/16/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EA%B8%B0%EB%A7%90%EC%A0%95%EB%A6%AC/">네트워크 기말정리</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20161119ec97aced9689-ec96b4ed948ceba6acecbc80ec9db4ec8598" href="matilda38.github.io/blog/2016/11/19/%EC%97%AC%ED%96%89-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98/">여행 어플리케이션</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20161118operating-system-ec9a94ec95bd" href="matilda38.github.io/blog/2016/11/18/operating-system-%EC%9A%94%EC%95%BD/">operating system 요약</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20161106bot-framework-seminar-eca480ebb984" href="matilda38.github.io/blog/2016/11/06/bot-framework-seminar-%EC%A4%80%EB%B9%84/">Bot framework seminar 준비</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20161021cryptography-eca491eab084eab3a0ec82ac" href="matilda38.github.io/blog/2016/10/21/cryptography-%EC%A4%91%EA%B0%84%EA%B3%A0%EC%82%AC/">Cryptography 중간고사</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20161009ebb0b0ec97b4-eab8b0ecb488" href="matilda38.github.io/blog/2016/10/09/%EB%B0%B0%EC%97%B4-%EA%B8%B0%EC%B4%88./">배열 기초.</a>
+        
+      
+      
+    </li>
+  </ul>
+</ul>
+
+        
+      
+      
+      
+        
+          
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="matilda38.github.io/blog/2019/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">2019</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="matilda38githubioblog2019">
+      
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191230wine-list-for-beginners" href="matilda38.github.io/blog/2019/12/30/wine-list-for-beginners/">Wine list for beginners</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191226passing-slice-to-a-function" href="matilda38.github.io/blog/2019/12/26/passing-slice-to-a-function/">Passing Slice to a function</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191220gorm-postgresql-ec82acec9aa9-eca3bcec9d98" href="matilda38.github.io/blog/2019/12/20/gorm-postgresql-%EC%82%AC%EC%9A%A9-%EC%A3%BC%EC%9D%98/">gorm-postgresql 사용 주의</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191210string-split" href="matilda38.github.io/blog/2019/12/10/string-split/">string split</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191205goland-tips" href="matilda38.github.io/blog/2019/12/05/goland-tips/">goland tips</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191130dda-ec8aa4ed84b0eb9494" href="matilda38.github.io/blog/2019/11/30/dda-%EC%8A%A4%ED%84%B0%EB%94%94/">DDA 스터디</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191130ed81b4eba19ceca080eba5bc-eab3a0eba3a8ed8bb4ec9cbceba19c-ec8ba4ed9689ed95a0eb958c-eca3bcec9d98ed95a0eca090" href="matilda38.github.io/blog/2019/11/30/%ED%81%B4%EB%A1%9C%EC%A0%80%EB%A5%BC-%EA%B3%A0%EB%A3%A8%ED%8B%B4%EC%9C%BC%EB%A1%9C-%EC%8B%A4%ED%96%89%ED%95%A0%EB%95%8C-%EC%A3%BC%EC%9D%98%ED%95%A0%EC%A0%90./">클로저를 고루틴으로 실행할때 주의할점.</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191128concurrency-is-not-parallelism" href="matilda38.github.io/blog/2019/11/28/concurrency-is-not-parallelism/">concurrency is not parallelism</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191125aws-lambda-in-go" href="matilda38.github.io/blog/2019/11/25/aws-lambda-in-go/">aws-lambda-in-go</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191122scripting-in-github-action" href="matilda38.github.io/blog/2019/11/22/scripting-in-github-action/">scripting in github action</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191122ssh-tunneling" href="matilda38.github.io/blog/2019/11/22/ssh-tunneling/">ssh tunneling</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191119aws-lambda" href="matilda38.github.io/blog/2019/11/19/aws-lambda/">aws-lambda</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191114docker-compose-up" href="matilda38.github.io/blog/2019/11/14/docker-compose-up/">docker-compose up</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191113rune" href="matilda38.github.io/blog/2019/11/13/rune/">rune ?</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191111django-tutorial" href="matilda38.github.io/blog/2019/11/11/django-tutorial/">Django tutorial</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191019ec96b8eb8b88eab080-ec82aceca480-eba7a5-eba6bdec8aa4ed8bb1-ec8389eab994" href="matilda38.github.io/blog/2019/10/19/%EC%96%B8%EB%8B%88%EA%B0%80-%EC%82%AC%EC%A4%80-%EB%A7%A5-%EB%A6%BD%EC%8A%A4%ED%8B%B1-%EC%83%89%EA%B9%94/">언니가 사준 맥 립스틱 색깔</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191016how-to-study-golang" href="matilda38.github.io/blog/2019/10/16/how-to-study-golang/">How to study GOlang</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191016eba6acebb7b0ed95b4ebb3b4eab3a0-ec8bb6ec9d80-gin-boilerplate" href="matilda38.github.io/blog/2019/10/16/%EB%A6%AC%EB%B7%B0%ED%95%B4%EB%B3%B4%EA%B3%A0-%EC%8B%B6%EC%9D%80-gin-boilerplate/">리뷰해보고 싶은 Gin Boilerplate</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191015dataproc" href="matilda38.github.io/blog/2019/10/15/dataproc/">Dataproc</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191015dataproc" href="matilda38.github.io/blog/2019/10/15/dataproc/">Dataproc</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191015vpc-and-nat" href="matilda38.github.io/blog/2019/10/15/vpc-and-nat/">VPC and NAT</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191010golang-slice" href="matilda38.github.io/blog/2019/10/10/golang-slice/">golang slice</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20191007vpc-and-nat" href="matilda38.github.io/blog/2019/10/07/vpc-and-nat/">VPC and NAT</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20190930http-connection-reusing-in-go" href="matilda38.github.io/blog/2019/09/30/http-connection-reusing-in-go/">Http connection reusing in Go</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page  active" id="m-matilda38githubioblog20190930vpc-and-nat" href="matilda38.github.io/blog/2019/09/30/vpc-and-nat/">VPC and NAT</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20190927data-consistency" href="matilda38.github.io/blog/2019/09/27/data-consistency/">Data consistency</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20190926aws-sessions" href="matilda38.github.io/blog/2019/09/26/aws-sessions/">AWS Sessions</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20190924web-developer-101" href="matilda38.github.io/blog/2019/09/24/web-developer-101/">Web Developer 101</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20190923go-json" href="matilda38.github.io/blog/2019/09/23/go-json/">Go JSON</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20190923panic-recover" href="matilda38.github.io/blog/2019/09/23/panic-recover/">Panic Recover</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20190919mac-local-kubernetes-setup" href="matilda38.github.io/blog/2019/09/19/mac-local-kubernetes-setup/">mac local kubernetes setup</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20190919golang-nil-check" href="matilda38.github.io/blog/2019/09/19/golang-nil-check/">golang nil check</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog20190918kubernetes-deploymentec82bdeca788" href="matilda38.github.io/blog/2019/09/18/kubernetes-deployment%EC%82%BD%EC%A7%88/">Kubernetes Deployment(삽질)</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog10101reflect-ec96b4eb96bbeab28c-ec93b0eca780-1" href="matilda38.github.io/blog/1/01/01/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-1/">reflect 어떻게 쓰지 - 1</a>
+        
+      
+      
+      
+        
+          
+          
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-matilda38githubioblog10101reflect-ec96b4eb96bbeab28c-ec93b0eca780-2" href="matilda38.github.io/blog/1/01/01/reflect-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EC%A7%80-2/">reflect 어떻게 쓰지 - 2</a>
+        
+      
+      
+    </li>
+  </ul>
+</ul>
+
+        
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+  
+  
+  
+  
+  
+  <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+  
+    
+    
+      
+    
+    
+    
+    
+    
+    
+    
+
+    <a href="https://github.com/matilda38/matilda38.github.io/edit/master/content/ko/blog/2019/2019-09-30-vpc-nat-cloud.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 페이지 편집</a>
+    <a href="https://github.com/matilda38/matilda38.github.io/new/master/content/ko/blog/2019/2019-09-30-vpc-nat-cloud.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
+    <a href="https://github.com/matilda38/matilda38.github.io/issues/new?title=VPC%20and%20NAT" target="_blank"><i class="fab fa-github fa-fw"></i> 문서에 이슈 생성</a>
+    
+      
+      <a href="https://github.com/matilda38/matilda38.github.io/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 프로젝트에 이슈 생성</a>
+    
+
+  
+  
+    <a id="print" href="matilda38.github.io/blog/2019/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+  
+  </div>
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#vpc">VPC</a></li>
+    <li><a href="#subnet">Subnet</a></li>
+    <li><a href="#route-table">Route Table</a></li>
+    <li><a href="#internet-gateway">Internet Gateway</a></li>
+    <li><a href="#network-acl-and-security-group">NETWORK ACL and Security Group</a></li>
+    <li><a href="#nat">NAT</a></li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
+            
+<div class="td-content">
+	<h1>VPC and NAT</h1>
+	
+	<div class="td-byline mb-4">
+		
+		<time datetime="2019-09-30" class="text-muted">2019.09.30</time>
+	</div>
+	
+	<p>VPC:
+<a href="https://medium.com/harrythegreat/aws-%EA%B0%80%EC%9E%A5%EC%89%BD%EA%B2%8C-vpc-%EA%B0%9C%EB%85%90%EC%9E%A1%EA%B8%B0-71eef95a7098">https://medium.com/harrythegreat/aws-%EA%B0%80%EC%9E%A5%EC%89%BD%EA%B2%8C-vpc-%EA%B0%9C%EB%85%90%EC%9E%A1%EA%B8%B0-71eef95a7098</a></p>
+<h1 id="vpc의-기본-컴포넌트들">VPC의 기본 컴포넌트들</h1>
+<h2 id="vpc">VPC</h2>
+<p>VPC는 Virtual Private Cloud의 줄임말로 &ldquo;가상 IP 네트워크&rdquo; 로 이해할 수 있다. 이는 클라우드 내에 가상 데이터 센터라고 할 수 있다. VPC내에 있는 서버들끼리는 연결되어있으며, 사설 IP(Private IP)를 통해 서로 통신할 수 있다.</p>
+<blockquote>
+<p>Note: 사설 IP란?
+예를 들어 &lsquo;우리집 주소는 &ldquo;서울시 성동구 마장로 ~&rdquo; 이다&rsquo; 했을때 &ldquo;서울시~&ldquo;는 공인 IP라 할 수 있다. 반면 집 안에서 &ldquo;안방에 있는 손톱깎기 가져와&rdquo; 했을 때 &ldquo;안방&rdquo; 은 사설 IP라고 할 수 있다. 즉 외부에서 어떤 위치를 칭하는 주소는 공인 IP이고 내부에서는 사설 IP로 위치를 찾는다.</p>
+</blockquote>
+<p>VPC에서 사용하는 사설 IP 주소 대역은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">주소</th>
+<th style="text-align:center">Prefix 비트 수</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">10.<em>.</em>.*</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:left">172.16.<em>.</em></td>
+<td style="text-align:center">12</td>
+</tr>
+<tr>
+<td style="text-align:left">192.168.<em>.</em></td>
+<td style="text-align:center">16</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://docs.aws.amazon.com/ko_kr/vpc/latest/userguide/images/nondefault-vpc-diagram.png" alt=""></p>
+<p>특정 VPC는 한 Region에 속해있고, 각각의 VPC는 완전히 독립적이다.</p>
+<p>사설 IP 주소를 선택하는거나, subnet을 만드는거, 라우트 테이블, 네트워크 게이트웨이 VPC는 클라우드 상의 다른 가상 네트워크와 논리적으로 분리되어있다. VPC 내에서 리소스를 띄울 수 있는데, 해당 VPC에 특정 IP 주소 범위를 할당하고, 서브넷을 추가하고, 보안 그룹을 연결하고 라우트 테이블을 설정할 수 있다. VPC의 장점은 프라이버시, 보안, 개인정보 데이터 유실같은 측면에서 장점을 가진다.</p>
+<h2 id="subnet">Subnet</h2>
+<p>서브넷은 대형 네트워크를 소형 네트워크들로 나눈 것이라고 생각하면 된다. 당연히 가용한 IP 주소 범위도 더 작아지게 되지만, 작은 네트워크의 유지관리가 좀 더 수월하고, 다른 네트워크로부터의 보안등을 제공하기 위해 사용한다. 정 서브넷 내부에서 리소스를 띄울 수 있는데, 인터넷에 반드시 연결되어야하는 리소스들을 위해서는 Public 서브넷을 사용하고, 인터넷에 연결될 필요없는 리소스들을 위해서는 Private subnet을 사용하면 된다. 각 서브넷의 리소스를 보호하기 위해서는, 보안 그룹이나 네트워크 접근 제어 리스트(ACL)등 여러가지를 적용할 수 있다.</p>
+<h2 id="route-table">Route Table</h2>
+<p>라우트 테이블은 트래픽의 방향을 정해주는 안내표이다. 즉, 발생한 네트워크 요청이 올바른 타겟으로 향할 수 있도록 한다. VPC내에 여러개의 라우트 테이블을 가질 수 있다.</p>
+<h2 id="internet-gateway">Internet Gateway</h2>
+<p>인터넷 게이트웨이는 구축한 가상 네트워크를 외부와 연결하기 위한 관문이다.
+<img src="https://docs.aws.amazon.com/ko_kr/vpc/latest/userguide/images/internet-gateway-overview-diagram.png" alt=""></p>
+<p>위 그림과 같이 Public subnet의 Route Table에 0.0.0.0/0 에서 온 요청을 igw-id로 Mapping한다. 즉, 내부(선택한 사설 IP대역)에서 온 요청이 아닌, 외부(0.0.0.0)에서 온 네트워크 트래픽은 인터넷 게이트웨이로 향하게 하도록 한다.</p>
+<h2 id="network-acl-and-security-group">NETWORK ACL and Security Group</h2>
+<p>&ldquo;접근 제어 목록&quot;인 ACL은 각 Subnet에 설정할 수 있는 접근 규칙이다. 일종의 방화벽과 비슷하다. 보안그룹은 인스턴스 수준에서 작동하는 반면 VPC는 서브넷 레벨에서 작동한다. 웹 서버냐, 데이터베이스 서버냐에 따라 이 보안 그룹의 Rule은 다를 수 있다. 예를 들어 웹서버에서는 외부의 HTTP/HTTPS 요청을 모두 허용하고 데이터베이스 서버는 HTTP대신 인바운드 MySQL 액세스를 허용하는 규칙을 사용할 수 있다.</p>
+<h2 id="nat">NAT</h2>
+<p>Private Subnet이 외부와 통신할 때, NAT는 사설IP 주소를 공인 IP와 map해주는 역할을 한다. Public Subnet상에서 Private Subnet 상의 인스턴스의 인바운드/아웃바운드 요청을 처리한다.</p>
+<p>Security groups: Security groups are a set of firewall rules that controls the traffic for your instance. In Amazon Firewall the only action that can be carried out is allow. You cannot create a rule to deny. The destination is always the instance on which the service security group is running. You can have a single security group associated with multiple instances.</p>
+<p>Customer Gateway — An Amazon VPC VPN connection links your data center (or network) to your Amazon VPC (virtual private cloud). A customer gateway is the anchor on your side of that connection. It can be a physical or software appliance</p>
+<p>NAT:</p>
+<p><a href="https://blog.lael.be/post/9534">https://blog.lael.be/post/9534</a></p>
+
+	
+
+	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li>
+    <a href="matilda38.github.io/blog/2019/09/27/data-consistency/" class="btn btn-primary "><span class="mr-1">←</span> 이전</a>
+  </li>
+    <a href="matilda38.github.io/blog/2019/09/30/http-connection-reusing-in-go/" class="btn btn-primary ">다음 <span class="ml-1">→</span></a>
+  </li>
+</ul>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="User mailing list" aria-label="User mailing list">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://example.org/mail">
+      <i class="fa fa-envelope"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://example.org/twitter">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Stack Overflow" aria-label="Stack Overflow">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://example.org/stack">
+      <i class="fab fa-stack-overflow"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="https://github.com/matilda38">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Developer mailing list" aria-label="Developer mailing list">
+    <a class="text-white" target="_blank" rel="noopener noreferrer" href="matilda38@naver.com">
+      <i class="fa fa-envelope"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2021 The Docsy Authors All Rights Reserved</small>
+        <small class="ml-1"><a href="https://policies.google.com/privacy" target="_blank">개인정보 보호 정책</a></small>
+	
+		
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script src="/matilda38.github.io/js/main.min.4a84aa6b3bb9821646e18d519b5195c2b767aaa205feeee46c7c4141e34d8f68.js" integrity="sha256-SoSqazu5ghZG4Y1Rm1GVwrdnqqIF/u7kbHxBQeNNj2g=" crossorigin="anonymous"></script>
+
+
+
+
+  </body>
+</html>
