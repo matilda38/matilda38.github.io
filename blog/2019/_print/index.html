@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.75.1" /><link rel="canonical" type="text/html" href="/blog/2019/">
+<meta name="generator" content="Hugo 0.79.1" /><link rel="canonical" type="text/html" href="/blog/2019/">
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
@@ -33,8 +33,8 @@
 
 
 
-<link rel="preload" href="/scss/main.min.4aec00cbc82dae02258a2ba135990358146339f666dc47346f0f1e49d7a6fa42.css" as="style">
-<link href="/scss/main.min.4aec00cbc82dae02258a2ba135990358146339f666dc47346f0f1e49d7a6fa42.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.scss" as="style">
+<link href="/scss/main.scss" rel="stylesheet" integrity="">
 
 
 <script
@@ -511,7 +511,7 @@ This the multi-page printable view of this section.
     <h1 id="pg-488f0ebb0a422b1ed493c128b199c91b">Wine list for beginners</h1>
 	
 	<div class="td-byline mb-4">
-		
+		By <b>loopy</b> |
         
 		<time datetime="2019-12-30" class="text-muted">2019.12.30</time>
         
@@ -520,6 +520,14 @@ This the multi-page printable view of this section.
 <p>d&rsquo;Arenberg, Footbolt Shiraz 2016
 다렌버그, 풋볼트 쉬라즈 2016</p>
 <p>와인 구매하는 법</p>
+<ul>
+<li>
+<p><a href="https://gall.dcinside.com/mgallery/board/view/?id=wine&amp;no=13996">디시 와인갤러리</a></p>
+</li>
+<li>
+<p><a href="https://cafe.naver.com/winerack24">다음 카페 와쌉</a></p>
+</li>
+</ul>
 
 </div>
 
@@ -792,8 +800,7 @@ golang은 모두 utf8 인코딩 기반이기 때문에, 한글이나 특수문�
 		<time datetime="2019-11-30" class="text-muted">2019.11.30</time>
         
 	</div>
-	<h1 id="dda-스터디">DDA 스터디</h1>
-<h2 id="transaction">Transaction</h2>
+	<h2 id="transaction">Transaction</h2>
 <p>트랜잭션은은 여러 개의 읽기와 쓰기를 하나의 논리적인 유닛으로 묶는다.
 -&gt; 그룹으로 묶은 오퍼레이션의 부분이 실패하면 전체가 실패한다.</p>
 <p>safety guarantee (안정성 보장) =&gt; application 입장에서는 좋다.</p>
@@ -1141,12 +1148,12 @@ bash script를 짤때, 명령줄 한줄 한줄 넘어갈때 에러가 발생하�
     <h1 id="pg-5b9d5d2318c342f6b5f9c03d26400563">ssh tunneling</h1>
 	
 	<div class="td-byline mb-4">
-		
+		By <b>nayoon</b> |
         
 		<time datetime="2019-11-22" class="text-muted">2019.11.22</time>
         
 	</div>
-	<h1 id="ssh-tunneling">ssh tunneling</h1>
+	<h2 id="ssh-tunneling">ssh tunneling</h2>
 <p>An SSH client connects to a Secure Shell server, which allows you to run terminal commands as if you were sitting in front of another computer. But an SSH client also allows you to “tunnel” a port between your local system and a remote SSH server.</p>
 <p>There are three different types of SSH tunneling, and they’re all used for different purposes. Each involves using an SSH server to redirect traffic from one network port to another. The traffic is sent over the encrypted SSH connection, so it can’t be monitored or modified in transit.</p>
 <p>You can do this with the ssh command included on Linux, macOS, and other UNIX-like operating systems. On Windows, which doesn’t include a built-in ssh command, we recommend the free tool PuTTY to connect to SSH servers. It supports SSH tunneling, too.</p>
@@ -2784,9 +2791,9 @@ Data Flow</p>
 		<time datetime="2019-09-19" class="text-muted">2019.09.19</time>
         
 	</div>
-	<h1 id="docker-for-mac">Docker for Mac</h1>
-<p>Kubernetes를 이용해서 배포해야할때,
-항상 Cloud위에서 수행하는 것보다는 로컬에 테스트 환경을 구축하고 테스트해보는 것이 생산성에 도움이 될 때가 많다. 그리고 그렇게 어렵지 않다.</p>
+	<h2 id="docker-for-mac">Docker for Mac</h2>
+<p>Kubernetes를 이용해서 배포해야할때,</p>
+<p>항상 Cloud위에서 수행하는 것보다는 로컬에 테스트 환경을 구축하고 테스트해보는 것이 생산성에 도움이 될 때가 많다. 그리고 그렇게 어렵지 않다.</p>
 <p><img src="http://collabnix.com/wp-content/uploads/2019/05/Screen-Shot-2019-05-11-at-6.17.51-PM.png" alt="docker desktop"></p>
 <p>docker desktop for mac을 설치하게 되면, Kubernetes가 활성화된 Docker를 사용할 수 있다. 활성화 되어있지 않다면 preference에 들어가서
 enable만 해주면 된다.</p>
@@ -2794,19 +2801,19 @@ enable만 해주면 된다.</p>
 <span style="color:#8f5902;font-style:italic"># NAME             STATUS   ROLES    AGE    VERSION</span>
 <span style="color:#8f5902;font-style:italic"># docker-desktop   Ready    master   114m   v1.14.6</span>
 </code></pre></div><p>잘 출력된다.</p>
-<h1 id="간단한-서버로-k8s-test해보기">간단한 서버로 k8s test해보기</h1>
+<h2 id="간단한-서버로-k8s-test해보기">간단한 서버로 k8s test해보기</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">package</span> <span style="color:#000">main</span>
 
 <span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000;font-weight:bold">(</span>
-	<span style="color:#4e9a06">&#34;net/http&#34;</span>
+  <span style="color:#4e9a06">&#34;net/http&#34;</span>
 <span style="color:#000;font-weight:bold">)</span>
 
 <span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">main</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">HandleFunc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;/hello&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">w</span> <span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ResponseWriter</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">req</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Request</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
-		<span style="color:#000">w</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Write</span><span style="color:#000;font-weight:bold">([]</span><span style="color:#204a87">byte</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Hello World&#34;</span><span style="color:#000;font-weight:bold">))</span>
-	<span style="color:#000;font-weight:bold">})</span>
+ <span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">HandleFunc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;/hello&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">w</span> <span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ResponseWriter</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">req</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Request</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">w</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Write</span><span style="color:#000;font-weight:bold">([]</span><span style="color:#204a87">byte</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Hello World&#34;</span><span style="color:#000;font-weight:bold">))</span>
+ <span style="color:#000;font-weight:bold">})</span>
 
-	<span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ListenAndServe</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;:5000&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+ <span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ListenAndServe</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;:5000&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
 <span style="color:#000;font-weight:bold">}</span>
 </code></pre></div><p>hello 엔드포인트로 get 을 날리면 response로 Hello World를 출력하는 간단한 서버이다.
 이 서버를 컨테이너화 시켜 배포하기 위해 dockerfile을 간단히 작성해본다.</p>
@@ -2908,7 +2915,7 @@ kubectl logs pod/exercise-b97678cfd-mpppx <span style="color:#8f5902;font-style:
 		<time datetime="2019-09-19" class="text-muted">2019.09.19</time>
         
 	</div>
-	<h1 id="golang-zero-value">golang zero value</h1>
+	<h2 id="golang-zero-value">golang zero value</h2>
 <p>초기화값이 없는 상태로 선언된 변수들은 각 타입의 zero value값으로 초기화된다.</p>
 <table>
 <thead>
@@ -2948,13 +2955,13 @@ kubectl logs pod/exercise-b97678cfd-mpppx <span style="color:#8f5902;font-style:
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#4e9a06">&#34;fmt&#34;</span>
 
 <span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">hello</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#000">s</span> <span style="color:#204a87;font-weight:bold">string</span>
-	<span style="color:#000">i</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">int</span>
-	<span style="color:#000">p</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">hello</span>
+ <span style="color:#000">s</span> <span style="color:#204a87;font-weight:bold">string</span>
+ <span style="color:#000">i</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">int</span>
+ <span style="color:#000">p</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">hello</span>
 <span style="color:#000;font-weight:bold">}</span>
 <span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">main</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">h</span> <span style="color:#000">hello</span>
-	<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Print</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">h</span><span style="color:#000;font-weight:bold">)</span>
+ <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">h</span> <span style="color:#000">hello</span>
+ <span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Print</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">h</span><span style="color:#000;font-weight:bold">)</span>
 <span style="color:#000;font-weight:bold">}</span>
 <span style="color:#8f5902;font-style:italic">// { [] &lt;nil&gt;}
 </span></code></pre></div><p>hello라는 구조체를 정의했을때, 특정값 없이 선언하면, 위와 같이 zero 값이 들어가는걸 알 수 있다.</p>
@@ -2989,7 +2996,7 @@ kubectl logs pod/exercise-b97678cfd-mpppx <span style="color:#8f5902;font-style:
 <p><a href="https://kubectl.docs.kubernetes.io/pages/kubectl_book/getting_started.html">Kubectl Tutorial</a> 위 링크에 친절하게 설명된 튜토리얼이 있어 따라해보면 좋다.</p>
 <p>쿠버네티스에는 Object라는 개념이 있는데, 예를 들어 Application 배포 시에도 이런 배포용 Object를 만들어 사용하는 것이다. 이 Object는 Yaml file 형식으로 표현할 수 있다.</p>
 <p>아래는 예시이다.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#204a87;font-weight:bold">apiVersion</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">apps/v1 # apps/v1beta2를 사용하는 1.9.0보다 더 이전의 버전용</span><span style="color:#f8f8f8;text-decoration:underline">
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#204a87;font-weight:bold">apiVersion</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">apps/v1</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#8f5902;font-style:italic"># apps/v1beta2를 사용하는 1.9.0보다 더 이전의 버전용</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">kind</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Deployment</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">metadata</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">nginx-deployment</span><span style="color:#f8f8f8;text-decoration:underline">
